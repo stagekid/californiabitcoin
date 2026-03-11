@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Articles • California Bitcoin Education Lab</title>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body data-source="/data/articles.json">
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="/">
+        <img src="/assets/logo-circle.png" alt="California Bitcoin Education Lab logo" />
+        <div class="name">California Bitcoin Education Lab</div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-pill" href="/about/">About</a>
+        <a class="nav-pill" href="/podcasts/">Podcasts</a>
+        <a class="nav-pill" href="/articles/">Articles</a>
+        <a class="nav-pill" href="/books/">Books</a>
+        <a class="nav-pill" href="/contact/">Contact</a>
+        <a class="tip-btn" href="/tip/" aria-label="Tip">₿ Tip</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="block pad">
+        <div class="section-title">
+          <h2>Articles</h2>
+          <div class="hint"><span id="resultCount">0</span> items</div>
+        </div>
+
+        <div id="controls" class="controls">
+          <div class="search" role="search">
+            <span style="opacity:.75;">Search</span>
+            <input id="searchInput" type="search" placeholder="Titles, topics, tags…" autocomplete="off" />
+          </div>
+          <button id="clearBtn" class="clear-btn" type="button">Clear</button>
+        </div>
+
+        <div id="tagBar" class="pills" style="margin: 6px 0 16px;"></div>
+
+        <div id="cards" class="grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <div>© <span id="year"></span> California Bitcoin Education Lab</div>
+        <div style="opacity:.8;">Deep black • Bitcoin orange</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+  <script src="/js/library.js"></script>
+</body>
+</html>
