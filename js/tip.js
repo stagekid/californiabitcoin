@@ -64,6 +64,12 @@
     // What the QR should encode:
     // - Most wallets accept "lightning:<address>" nicely.
     const qrValue = data.lightningUrl || ("lightning:" + data.lightningAddress);
+    // Show "Open Wallet" button if we have a lightning: link
+const openWalletBtn = document.querySelector("#openWalletBtn");
+if (openWalletBtn && qrValue) {
+  openWalletBtn.setAttribute("href", qrValue);
+  openWalletBtn.classList.remove("hidden");
+}
 
     // Render QR (requires QRCode library loaded in the page)
     const qrTarget = $("#qr");
