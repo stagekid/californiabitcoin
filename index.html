@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CA Bitcoin Lab — Launching April ’26</title>
   <meta name="description" content="Bitcoin-only education for the Golden State. Clear, calm, practical. Launching April 2026." />
 
   <meta property="og:title" content="CA Bitcoin Lab" />
@@ -12,150 +13,289 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="/assets/favicon.png" />
-  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <title>CA Bitcoin Lab — Launching April ’26</title>
+  <style>
+    /* Smooth “dashboard” background */
+    .grid-bg {
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(247,147,26,.25), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(247,147,26,.12), transparent 30%),
+        linear-gradient(180deg, rgba(2,6,23,1) 0%, rgba(3,10,36,1) 45%, rgba(2,6,23,1) 100%),
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: auto, auto, auto, 64px 64px, 64px 64px;
+      background-position: center, center, center, center, center;
+    }
+    .glass {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+    }
+    .mono { font-variant-numeric: tabular-nums; }
+  </style>
 </head>
 
-<body>
-  <div class="bg"></div>
-
-  <header class="topbar">
-    <a class="brand" href="/">
-      <img class="logo" src="/assets/logo-circle.png" alt="CA Bitcoin Lab logo" />
-      <div class="wordmarks">
-        <img class="wordmark wordmark-dark" src="/assets/wordmark-dark.png" alt="CA Bitcoin Lab" />
-        <img class="wordmark wordmark-light" src="/assets/wordmark-light.png" alt="CA Bitcoin Lab" />
+<body class="grid-bg text-slate-100">
+  <!-- Top bar -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/40 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="/assets/logo-circle.png" alt="CA Bitcoin Lab logo" class="h-10 w-10 rounded-full shadow" />
+        <div class="leading-tight">
+          <div class="font-semibold tracking-tight">CA Bitcoin Lab</div>
+          <div class="text-xs text-slate-300">Bitcoin-only education for the Golden State</div>
+        </div>
       </div>
-    </a>
 
-    <div class="topbar-actions">
-      <button class="mode" id="modeBtn" type="button" aria-label="Toggle theme">
-        <span class="mode-dot"></span>
-        <span class="mode-text">Theme</span>
-      </button>
-      <a class="cta" href="#signup">Get updates</a>
+      <nav class="hidden sm:flex items-center gap-6 text-sm text-slate-300">
+        <a href="#overview" class="hover:text-white">Overview</a>
+        <a href="#modules" class="hover:text-white">Modules</a>
+        <a href="#signup" class="hover:text-white">Updates</a>
+      </nav>
+
+      <a href="#signup" class="inline-flex items-center rounded-xl bg-[#f7931a] px-4 py-2 text-slate-950 font-semibold hover:brightness-105">
+        Get updates
+      </a>
     </div>
   </header>
 
-  <main class="shell">
-    <section class="hero">
-      <div class="hero-card">
-        <p class="kicker">Bitcoin-only education for the Golden State.</p>
+  <main class="mx-auto max-w-6xl px-4">
+    <!-- Hero -->
+    <section class="pt-10 pb-6" id="overview">
+      <div class="grid lg:grid-cols-12 gap-4">
+        <div class="lg:col-span-7 glass rounded-3xl p-6 md:p-8 shadow-2xl">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+            <span class="h-2 w-2 rounded-full bg-[#f7931a]"></span>
+            Launch timeline
+          </div>
 
-        <h1 class="headline">
-          Clear, calm, practical.
-          <span class="accent">No “crypto” confusion.</span>
-        </h1>
+          <h1 class="mt-4 text-4xl md:text-5xl font-semibold tracking-tight">
+            Clear Bitcoin education.
+            <span class="text-[#f7931a]">No “crypto” confusion.</span>
+          </h1>
 
-        <p class="subhead">
-          We’re building a high-quality learning hub for everyday Californians:
-          fundamentals, safety, self-custody concepts, and best-practice resources.
-        </p>
+          <p class="mt-4 text-slate-300 leading-relaxed">
+            We’re building a modern, safety-first learning hub for everyday Californians—focused on fundamentals,
+            scams to avoid, self-custody concepts, and best-practice resources.
+          </p>
 
-        <div class="pill-row">
-          <span class="pill">Launching <strong>April ’26</strong></span>
-          <span class="pill">Bitcoin-only</span>
-          <span class="pill">Safety-first</span>
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">Launching <strong>April ’26</strong></span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">Bitcoin-only</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">Safety-first</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">Calm + practical</span>
+          </div>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a href="#signup" class="rounded-2xl bg-[#f7931a] px-5 py-3 font-semibold text-slate-950 hover:brightness-105 text-center">
+              Join the list
+            </a>
+            <a href="#modules" class="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold hover:bg-white/10 text-center">
+              What you’ll learn
+            </a>
+          </div>
+
+          <p class="mt-4 text-xs text-slate-400">
+            Educational only — not financial, legal, or tax advice.
+          </p>
         </div>
 
-        <div class="hero-actions">
-          <a class="primary" href="#signup">Join the list</a>
-          <a class="secondary" href="#about">What this is</a>
+        <div class="lg:col-span-5 grid gap-4">
+          <!-- KPI cards (dashboard vibe) -->
+          <div class="glass rounded-3xl p-5">
+            <div class="text-xs text-slate-400">Status</div>
+            <div class="mt-1 text-lg font-semibold">Building the library</div>
+            <div class="mt-3 h-2 rounded-full bg-white/10 overflow-hidden">
+              <div class="h-full w-[22%] bg-[#f7931a]"></div>
+            </div>
+            <div class="mt-2 text-xs text-slate-400">Initial release target: April ’26</div>
+          </div>
+
+          <div class="glass rounded-3xl p-5">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-xs text-slate-400">Focus</div>
+                <div class="mt-1 text-lg font-semibold">Bitcoin ≠ Crypto</div>
+              </div>
+              <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300">
+                CA-first
+              </div>
+            </div>
+            <div class="mt-3 text-sm text-slate-300">
+              Definitions, misconceptions, scams, custody concepts, and decision frameworks.
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl overflow-hidden">
+            <!-- Uses your Golden Gate header image -->
+            <div class="h-40 bg-cover bg-center" style="background-image:url('/assets/header-bridge.png');"></div>
+            <div class="p-5">
+              <div class="text-xs text-slate-400">Brand</div>
+              <div class="mt-1 font-semibold">Golden Gate / sunset system</div>
+              <div class="mt-2 text-sm text-slate-300">A modern analytics-style interface for learning.</div>
+            </div>
+          </div>
         </div>
-
-        <p class="fineprint">
-          Educational only — not financial, legal, or tax advice.
-        </p>
-      </div>
-
-      <div class="hero-art" role="img" aria-label="Golden Gate Bridge at sunset"></div>
-    </section>
-
-    <section class="grid" id="about">
-      <div class="panel">
-        <h2>What this is</h2>
-        <ul>
-          <li>Plain-English Bitcoin fundamentals</li>
-          <li>Scam awareness + safety basics</li>
-          <li>Self-custody concepts (hot vs cold, backups, recovery)</li>
-          <li>Decision frameworks (how to choose tools responsibly)</li>
-        </ul>
-      </div>
-
-      <div class="panel">
-        <h2>What this isn’t</h2>
-        <ul>
-          <li>No meme coins, “Trump coins,” or token hype</li>
-          <li>No price predictions</li>
-          <li>No “you should buy” content</li>
-          <li>No paid shilling without clear disclosure</li>
-        </ul>
-      </div>
-
-      <div class="panel">
-        <h2>Who it’s for</h2>
-        <p>
-          Californians who want to understand Bitcoin without wading through
-          crypto noise, influencer hype, or confusing jargon.
-        </p>
       </div>
     </section>
 
-    <section class="signup" id="signup">
-      <div class="signup-card">
-        <h2>Get the launch guide</h2>
-        <p>
-          Join the list and we’ll send the first “Bitcoin ≠ Crypto” guide when we go live.
-        </p>
-
-        <!-- Replace action="" with your ConvertKit/Beehiiv form action later -->
-        <form class="form" action="" method="post" onsubmit="return window.CABTLab.handleSubmit(event)">
-          <label class="sr-only" for="email">Email address</label>
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
-          <button type="submit">Notify me</button>
-        </form>
-
-        <p class="tiny">
-          No spam. Unsubscribe anytime.
-        </p>
-      </div>
-
-      <aside class="preview">
-        <img src="/assets/launch-square.png" alt="Launching April ’26 preview graphic" />
-      </aside>
-    </section>
-
-    <section class="links">
-      <div class="links-card">
-        <h2>Follow</h2>
-        <p>@CABitcoinLab</p>
-        <div class="social">
-          <a href="https://x.com/CABitcoinLab" target="_blank" rel="noreferrer">X</a>
-          <a href="https://instagram.com/CABitcoinLab" target="_blank" rel="noreferrer">Instagram</a>
-          <a href="https://tiktok.com/@CABitcoinLab" target="_blank" rel="noreferrer">TikTok</a>
-          <a href="https://youtube.com/@CABitcoinLab" target="_blank" rel="noreferrer">YouTube</a>
+    <!-- Modules -->
+    <section class="py-6" id="modules">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight">Core modules</h2>
+          <p class="mt-1 text-slate-300">Structured like an “education dashboard” — simple, navigable, and calm.</p>
         </div>
       </div>
 
-      <div class="links-card">
-        <h2>Contact</h2>
-        <p>
-          Email: <span class="mono">hello@californiabitcoin.org</span>
-          <br />
-          (set this up when you’re ready)
-        </p>
+      <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- cards -->
+        <div class="glass rounded-3xl p-5">
+          <div class="text-xs text-slate-400">01</div>
+          <div class="mt-1 font-semibold">Start Here</div>
+          <div class="mt-2 text-sm text-slate-300">Bitcoin vs crypto vs meme coins — clean taxonomy.</div>
+        </div>
+        <div class="glass rounded-3xl p-5">
+          <div class="text-xs text-slate-400">02</div>
+          <div class="mt-1 font-semibold">Basics</div>
+          <div class="mt-2 text-sm text-slate-300">Origins, how it works (non-technical), why it matters.</div>
+        </div>
+        <div class="glass rounded-3xl p-5">
+          <div class="text-xs text-slate-400">03</div>
+          <div class="mt-1 font-semibold">Safety</div>
+          <div class="mt-2 text-sm text-slate-300">Scams, fake apps, phishing, SIM swap, recovery mistakes.</div>
+        </div>
+        <div class="glass rounded-3xl p-5">
+          <div class="text-xs text-slate-400">04</div>
+          <div class="mt-1 font-semibold">Custody Concepts</div>
+          <div class="mt-2 text-sm text-slate-300">Hot vs cold, backups, seed phrases, threat modeling.</div>
+        </div>
+        <div class="glass rounded-3xl p-5">
+          <div class="text-xs text-slate-400">05</div>
+          <div class="mt-1 font-semibold">Best Practices</div>
+          <div class="mt-2 text-sm text-slate-300">Frameworks for choosing tools responsibly (not endorsements).</div>
+        </div>
+        <div class="glass rounded-3xl p-5">
+          <div class="text-xs text-slate-400">06</div>
+          <div class="mt-1 font-semibold">FAQ</div>
+          <div class="mt-2 text-sm text-slate-300">Energy, volatility, crime myths, and common misconceptions.</div>
+        </div>
       </div>
     </section>
+
+    <!-- “Dashboard chart” section (placeholder) -->
+    <section class="py-6">
+      <div class="grid lg:grid-cols-12 gap-4">
+        <div class="lg:col-span-7 glass rounded-3xl p-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xs text-slate-400">Preview</div>
+              <div class="mt-1 font-semibold">Library build cadence (example chart)</div>
+            </div>
+            <div class="text-xs text-slate-400 mono">v0.1</div>
+          </div>
+          <div class="mt-4">
+            <canvas id="chart" height="140"></canvas>
+          </div>
+          <div class="mt-2 text-xs text-slate-400">
+            This is just a visual placeholder — we’ll swap it for real content metrics later.
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 glass rounded-3xl p-5 flex items-center gap-4">
+          <img src="/assets/launch-square.png" alt="Launching April ’26" class="w-28 h-28 rounded-2xl border border-white/10" />
+          <div>
+            <div class="text-xs text-slate-400">Launch</div>
+            <div class="mt-1 text-xl font-semibold">April ’26</div>
+            <div class="mt-2 text-sm text-slate-300">
+              Join the list to get the first “Bitcoin ≠ Crypto” guide and safety checklist.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Signup -->
+    <section class="py-10" id="signup">
+      <div class="glass rounded-3xl p-6 md:p-8">
+        <div class="grid lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-7">
+            <h2 class="text-2xl font-semibold tracking-tight">Get updates</h2>
+            <p class="mt-2 text-slate-300">
+              We’ll email you when the launch guide is ready. No spam.
+            </p>
+          </div>
+          <div class="lg:col-span-5">
+            <form onsubmit="return CABTLab.handleSubmit(event)" class="flex flex-col sm:flex-row gap-3">
+              <input id="email" type="email" required placeholder="you@example.com"
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-[#f7931a]/50" />
+              <button type="submit"
+                class="rounded-2xl bg-[#f7931a] px-5 py-3 font-semibold text-slate-950 hover:brightness-105">
+                Notify me
+              </button>
+            </form>
+            <p class="mt-2 text-xs text-slate-400">Educational only — not financial advice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-10 text-sm text-slate-400">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-white/10 pt-6">
+        <div>© <span id="year"></span> CA Bitcoin Lab • californiabitcoin.org</div>
+        <div class="flex gap-4">
+          <a class="hover:text-white" href="https://x.com/CABitcoinLab" target="_blank" rel="noreferrer">X</a>
+          <a class="hover:text-white" href="https://instagram.com/CABitcoinLab" target="_blank" rel="noreferrer">Instagram</a>
+          <a class="hover:text-white" href="https://tiktok.com/@CABitcoinLab" target="_blank" rel="noreferrer">TikTok</a>
+          <a class="hover:text-white" href="https://youtube.com/@CABitcoinLab" target="_blank" rel="noreferrer">YouTube</a>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <p>© <span id="year"></span> CA Bitcoin Lab • californiabitcoin.org</p>
-      <p class="footer-small">Educational only — not financial, legal, or tax advice.</p>
-    </div>
-  </footer>
+  <script>
+    const CABTLab = {
+      handleSubmit: (e) => {
+        e.preventDefault();
+        const email = document.querySelector('#email')?.value?.trim();
+        if (!email) return false;
+        alert("Thanks! We'll email you when we launch. ✅");
+        e.target.reset();
+        return false;
+      }
+    };
 
-  <script src="/script.js"></script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple chart placeholder
+    const ctx = document.getElementById('chart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Now','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr'],
+          datasets: [{
+            label: 'Pages published (example)',
+            data: [2,4,6,9,12,16,20,25,30,36,43,50,60],
+            borderWidth: 2,
+            pointRadius: 2,
+            tension: 0.35
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { labels: { color: 'rgba(226,232,240,.9)' } }
+          },
+          scales: {
+            x: { ticks: { color: 'rgba(148,163,184,.9)' }, grid: { color: 'rgba(255,255,255,.06)' } },
+            y: { ticks: { color: 'rgba(148,163,184,.9)' }, grid: { color: 'rgba(255,255,255,.06)' } }
+          }
+        }
+      });
+    }
+  </script>
 </body>
 </html>
