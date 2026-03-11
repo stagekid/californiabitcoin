@@ -17,6 +17,7 @@
 
   <link rel="icon" href="/assets/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/site.css" />
 
   <style>
     .grid-bg {
@@ -41,30 +42,69 @@
   </style>
 </head>
 
-<body class="min-h-screen text-white grid-bg">
+<body class="min-h-screen text-white">
   <!-- Nav (keep your existing nav if you already have one) -->
-  <header class="sticky top-0 z-50 backdrop-blur bg-black/60 border-b-2 border-[#f7931a]/20">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
-      <a href="/" class="flex items-center gap-3 rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5">
-        <img src="/assets/logo-circle.png" alt="Logo" class="w-8 h-8 rounded-full border-2 border-[#f7931a]/30" />
-        <span class="font-semibold tracking-tight">California Bitcoin Education Lab</span>
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="flex items-center justify-between gap-3 py-4">
+      <!-- Brand -->
+      <a href="/" class="flex items-center gap-3">
+        <img src="/assets/logo-circle.png" alt="CBEL logo" class="h-11 w-11 rounded-full shadow" />
+        <div class="leading-tight">
+          <div class="text-lg sm:text-xl font-semibold tracking-tight">
+            California Bitcoin Education Lab
+          </div>
+          <div class="text-xs sm:text-sm text-slate-300">
+            Bitcoin-only education for the Golden State
+          </div>
+        </div>
       </a>
 
-      <nav class="flex flex-wrap items-center justify-end gap-2">
-        <a href="/about" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">About</a>
-        <a href="/podcasts" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">Podcasts</a>
-        <a href="/articles" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">Articles</a>
-        <a href="/books" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">Books</a>
-        <a href="/contact" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">Contact</a>
+      <!-- Desktop pill nav -->
+      <nav class="hidden lg:flex items-center">
+        <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
+          <a href="/about" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">About</a>
+          <a href="/podcasts" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Podcasts</a>
+          <a href="/articles" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Articles</a>
+          <a href="/books" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Books</a>
+          <a href="/contact" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Contact</a>
 
-        <!-- Tip button with lighter ₿ -->
-        <a href="/tip" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
-          <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
-          <span class="font-semibold"> Tip</span>
-        </a>
+          <!-- Tip button (lighter B) -->
+          <a href="/tip"
+             class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-semibold hover:brightness-105"
+             aria-label="Tip">
+            ₿
+          </a>
+        </div>
       </nav>
+
+      <!-- Mobile menu button -->
+      <button id="menuBtn"
+              class="lg:hidden inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-3 hover:bg-white/10"
+              aria-label="Open menu"
+              aria-expanded="false">
+        <span class="text-sm font-semibold text-slate-200">Menu</span>
+      </button>
     </div>
-  </header>
+
+    <!-- Mobile nav (Tailwind-only; no .glass dependency) -->
+    <div id="mobileNav" class="lg:hidden hidden pb-4">
+      <div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
+        <div class="grid gap-2 text-base text-slate-200">
+          <a href="/about" class="rounded-2xl px-4 py-3 hover:bg-white/10">About</a>
+          <a href="/podcasts" class="rounded-2xl px-4 py-3 hover:bg-white/10">Podcasts</a>
+          <a href="/articles" class="rounded-2xl px-4 py-3 hover:bg-white/10">Articles</a>
+          <a href="/books" class="rounded-2xl px-4 py-3 hover:bg-white/10">Books</a>
+          <a href="/contact" class="rounded-2xl px-4 py-3 hover:bg-white/10">Contact</a>
+          <a href="/tip" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
+            <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
+            <span class="font-semibold"> Tip</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
   <main class="max-w-6xl mx-auto px-6 py-10">
     <div class="glass shadow-soft rounded-[28px] p-8 md:p-10 border-2 border-[#f7931a]/25">
@@ -145,5 +185,18 @@
   <!-- QR library (tiny + reliable) -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <script src="/js/tip.js"></script>
+<script>
+  (function () {
+    const btn = document.getElementById("menuBtn");
+    const nav = document.getElementById("mobileNav");
+    if (!btn || !nav) return;
+
+    btn.addEventListener("click", () => {
+      const willOpen = nav.classList.contains("hidden");
+      nav.classList.toggle("hidden");
+      btn.setAttribute("aria-expanded", String(willOpen));
+    });
+  })();
+</script>
 </body>
 </html>
