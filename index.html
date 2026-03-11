@@ -1,1 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Bitcoin-only education for the Golden State. Clear, calm, practical. Launching April 2026." />
 
+  <meta property="og:title" content="CA Bitcoin Lab" />
+  <meta property="og:description" content="Bitcoin-only education for the Golden State. Launching April ’26." />
+  <meta property="og:image" content="/assets/launch-square.png" />
+  <meta property="og:url" content="https://californiabitcoin.org" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <title>CA Bitcoin Lab — Launching April ’26</title>
+</head>
+
+<body>
+  <div class="bg"></div>
+
+  <header class="topbar">
+    <a class="brand" href="/">
+      <img class="logo" src="/assets/logo-circle.png" alt="CA Bitcoin Lab logo" />
+      <div class="wordmarks">
+        <img class="wordmark wordmark-dark" src="/assets/wordmark-dark.png" alt="CA Bitcoin Lab" />
+        <img class="wordmark wordmark-light" src="/assets/wordmark-light.png" alt="CA Bitcoin Lab" />
+      </div>
+    </a>
+
+    <div class="topbar-actions">
+      <button class="mode" id="modeBtn" type="button" aria-label="Toggle theme">
+        <span class="mode-dot"></span>
+        <span class="mode-text">Theme</span>
+      </button>
+      <a class="cta" href="#signup">Get updates</a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-card">
+        <p class="kicker">Bitcoin-only education for the Golden State.</p>
+
+        <h1 class="headline">
+          Clear, calm, practical.
+          <span class="accent">No “crypto” confusion.</span>
+        </h1>
+
+        <p class="subhead">
+          We’re building a high-quality learning hub for everyday Californians:
+          fundamentals, safety, self-custody concepts, and best-practice resources.
+        </p>
+
+        <div class="pill-row">
+          <span class="pill">Launching <strong>April ’26</strong></span>
+          <span class="pill">Bitcoin-only</span>
+          <span class="pill">Safety-first</span>
+        </div>
+
+        <div class="hero-actions">
+          <a class="primary" href="#signup">Join the list</a>
+          <a class="secondary" href="#about">What this is</a>
+        </div>
+
+        <p class="fineprint">
+          Educational only — not financial, legal, or tax advice.
+        </p>
+      </div>
+
+      <div class="hero-art" role="img" aria-label="Golden Gate Bridge at sunset"></div>
+    </section>
+
+    <section class="grid" id="about">
+      <div class="panel">
+        <h2>What this is</h2>
+        <ul>
+          <li>Plain-English Bitcoin fundamentals</li>
+          <li>Scam awareness + safety basics</li>
+          <li>Self-custody concepts (hot vs cold, backups, recovery)</li>
+          <li>Decision frameworks (how to choose tools responsibly)</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h2>What this isn’t</h2>
+        <ul>
+          <li>No meme coins, “Trump coins,” or token hype</li>
+          <li>No price predictions</li>
+          <li>No “you should buy” content</li>
+          <li>No paid shilling without clear disclosure</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h2>Who it’s for</h2>
+        <p>
+          Californians who want to understand Bitcoin without wading through
+          crypto noise, influencer hype, or confusing jargon.
+        </p>
+      </div>
+    </section>
+
+    <section class="signup" id="signup">
+      <div class="signup-card">
+        <h2>Get the launch guide</h2>
+        <p>
+          Join the list and we’ll send the first “Bitcoin ≠ Crypto” guide when we go live.
+        </p>
+
+        <!-- Replace action="" with your ConvertKit/Beehiiv form action later -->
+        <form class="form" action="" method="post" onsubmit="return window.CABTLab.handleSubmit(event)">
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+          <button type="submit">Notify me</button>
+        </form>
+
+        <p class="tiny">
+          No spam. Unsubscribe anytime.
+        </p>
+      </div>
+
+      <aside class="preview">
+        <img src="/assets/launch-square.png" alt="Launching April ’26 preview graphic" />
+      </aside>
+    </section>
+
+    <section class="links">
+      <div class="links-card">
+        <h2>Follow</h2>
+        <p>@CABitcoinLab</p>
+        <div class="social">
+          <a href="https://x.com/CABitcoinLab" target="_blank" rel="noreferrer">X</a>
+          <a href="https://instagram.com/CABitcoinLab" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://tiktok.com/@CABitcoinLab" target="_blank" rel="noreferrer">TikTok</a>
+          <a href="https://youtube.com/@CABitcoinLab" target="_blank" rel="noreferrer">YouTube</a>
+        </div>
+      </div>
+
+      <div class="links-card">
+        <h2>Contact</h2>
+        <p>
+          Email: <span class="mono">hello@californiabitcoin.org</span>
+          <br />
+          (set this up when you’re ready)
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>© <span id="year"></span> CA Bitcoin Lab • californiabitcoin.org</p>
+      <p class="footer-small">Educational only — not financial, legal, or tax advice.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>
