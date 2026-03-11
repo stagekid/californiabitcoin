@@ -182,7 +182,7 @@ body{
   border-radius: var(--radius);
   border:1px solid var(--border);
   box-shadow: var(--shadow);
-  background-image: url("/assets/header-bridge.jpg");
+  background-image: url("/assets/header-bridge.png");
   background-size: cover;
   background-position: center;
   min-height: 320px;
