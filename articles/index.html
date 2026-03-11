@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Articles • California Bitcoin Education Lab</title>
+  <title>Books • California Bitcoin Education Lab</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/site.css" />
 </head>
 <body data-source="/data/articles.json">
@@ -34,8 +36,10 @@
 
           <!-- Tip button -->
           <a href="/tip"
-             class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-black hover:brightness-105"
-             aria-label="Tip">
+   class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-semibold hover:brightness-105"
+   aria-label="Tip">
+  ₿
+</a>
             ₿
           </a>
         </div>
@@ -52,7 +56,7 @@
 
     <!-- Mobile nav -->
     <div id="mobileNav" class="lg:hidden hidden pb-4">
-      <div class="glass rounded-3xl p-4">
+      <div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
         <div class="grid gap-2 text-base text-slate-200">
           <a href="/about" class="rounded-2xl px-4 py-3 hover:bg-white/10">About</a>
           <a href="/podcasts" class="rounded-2xl px-4 py-3 hover:bg-white/10">Podcasts</a>
@@ -104,6 +108,22 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-  <script src="/js/library.js"></script>
+  <script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+<script src="/js/library.js"></script>
+<script>
+  (function () {
+    const btn = document.getElementById("menuBtn");
+    const nav = document.getElementById("mobileNav");
+    if (!btn || !nav) return;
+
+    btn.addEventListener("click", () => {
+      const willOpen = nav.classList.contains("hidden");
+      nav.classList.toggle("hidden");
+      btn.setAttribute("aria-expanded", String(willOpen));
+    });
+  })();
+</script>
 </body>
 </html>
