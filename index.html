@@ -3,10 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CA Bitcoin Lab — Launching April ’26</title>
+  <title>California Bitcoin Education Lab — Launching April ’26</title>
   <meta name="description" content="Bitcoin-only education for the Golden State. Clear, calm, practical. Launching April 2026." />
 
-  <meta property="og:title" content="CA Bitcoin Lab" />
+  <!-- Keep dev-only hidden from indexing until you're ready -->
+  <meta name="robots" content="noindex,nofollow" />
+
+  <meta property="og:title" content="California Bitcoin Education Lab" />
   <meta property="og:description" content="Bitcoin-only education for the Golden State. Launching April ’26." />
   <meta property="og:image" content="/assets/launch-square.png" />
   <meta property="og:url" content="https://californiabitcoin.org" />
@@ -14,238 +17,416 @@
 
   <link rel="icon" href="/assets/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <style>
-    /* Smooth “dashboard” background */
+    /* Metaplanet-esque dark analytics vibe: subtle grid + glow */
     .grid-bg {
       background-image:
-        radial-gradient(circle at 20% 10%, rgba(247,147,26,.25), transparent 35%),
-        radial-gradient(circle at 80% 0%, rgba(247,147,26,.12), transparent 30%),
+        radial-gradient(circle at 20% 10%, rgba(247,147,26,.22), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(247,147,26,.10), transparent 30%),
         linear-gradient(180deg, rgba(2,6,23,1) 0%, rgba(3,10,36,1) 45%, rgba(2,6,23,1) 100%),
         linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: auto, auto, auto, 64px 64px, 64px 64px;
+      background-size: auto, auto, auto, 72px 72px, 72px 72px;
       background-position: center, center, center, center, center;
     }
     .glass {
       background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.12);
       backdrop-filter: blur(10px);
     }
     .mono { font-variant-numeric: tabular-nums; }
+    .shadow-soft { box-shadow: 0 20px 70px rgba(0,0,0,.45); }
   </style>
 </head>
 
 <body class="grid-bg text-slate-100">
-  <!-- Top bar -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/40 backdrop-blur">
-    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <img src="/assets/logo-circle.png" alt="CA Bitcoin Lab logo" class="h-10 w-10 rounded-full shadow" />
-        <div class="leading-tight">
-          <div class="font-semibold tracking-tight">CA Bitcoin Lab</div>
-          <div class="text-xs text-slate-300">Bitcoin-only education for the Golden State</div>
+  <!-- Top Bar -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/50 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="flex items-center justify-between gap-3 py-4">
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-3">
+          <img src="/assets/logo-circle.png" alt="CBEL logo" class="h-11 w-11 rounded-full shadow" />
+          <div class="leading-tight">
+            <div class="text-lg sm:text-xl font-semibold tracking-tight">
+              California Bitcoin Education Lab
+            </div>
+            <div class="text-xs sm:text-sm text-slate-300">
+              Bitcoin-only education for the Golden State
+            </div>
+          </div>
+        </a>
+
+        <!-- Desktop Nav (larger) -->
+        <nav class="hidden lg:flex items-center gap-7 text-base text-slate-200">
+          <a href="#overview" class="hover:text-white">Overview</a>
+          <a href="#lessons" class="hover:text-white">Lessons</a>
+          <a href="/blog" class="hover:text-white">Blog</a>
+          <a href="#faq" class="hover:text-white">FAQ</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
+          <a href="#updates"
+             class="hidden sm:inline-flex items-center rounded-2xl bg-[#f7931a] px-5 py-3 text-slate-950 font-semibold hover:brightness-105">
+            Get Updates
+          </a>
+
+          <!-- Mobile menu button -->
+          <button id="menuBtn"
+                  class="lg:hidden inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
+                  aria-label="Open menu"
+                  aria-expanded="false">
+            <span class="text-sm font-semibold">Menu</span>
+          </button>
         </div>
       </div>
 
-      <nav class="hidden sm:flex items-center gap-6 text-sm text-slate-300">
-        <a href="#overview" class="hover:text-white">Overview</a>
-        <a href="#modules" class="hover:text-white">Modules</a>
-        <a href="#signup" class="hover:text-white">Updates</a>
-      </nav>
-
-      <a href="#signup" class="inline-flex items-center rounded-xl bg-[#f7931a] px-4 py-2 text-slate-950 font-semibold hover:brightness-105">
-        Get updates
-      </a>
+      <!-- Mobile Nav -->
+      <div id="mobileNav" class="lg:hidden hidden pb-4">
+        <div class="glass rounded-3xl p-4">
+          <div class="grid gap-2 text-base text-slate-200">
+            <a href="#overview" class="rounded-2xl px-4 py-3 hover:bg-white/10">Overview</a>
+            <a href="#lessons" class="rounded-2xl px-4 py-3 hover:bg-white/10">Lessons</a>
+            <a href="/blog" class="rounded-2xl px-4 py-3 hover:bg-white/10">Blog</a>
+            <a href="#faq" class="rounded-2xl px-4 py-3 hover:bg-white/10">FAQ</a>
+            <a href="#updates" class="rounded-2xl px-4 py-3 hover:bg-white/10">Get Updates</a>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
   <main class="mx-auto max-w-6xl px-4">
-    <!-- Hero -->
-    <section class="pt-10 pb-6" id="overview">
-      <div class="grid lg:grid-cols-12 gap-4">
-        <div class="lg:col-span-7 glass rounded-3xl p-6 md:p-8 shadow-2xl">
-          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
-            <span class="h-2 w-2 rounded-full bg-[#f7931a]"></span>
-            Launch timeline
+    <!-- HERO / OVERVIEW -->
+    <section id="overview" class="pt-10 pb-8">
+      <div class="grid lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-7 glass rounded-[28px] p-7 sm:p-9 shadow-soft">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
+              <span class="h-2 w-2 rounded-full bg-[#f7931a]"></span>
+              Launching <strong>April ’26</strong>
+            </span>
+            <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
+              Bitcoin-only
+            </span>
+            <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
+              Safety-first
+            </span>
+            <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
+              California focus
+            </span>
           </div>
 
-          <h1 class="mt-4 text-4xl md:text-5xl font-semibold tracking-tight">
+          <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05]">
             Clear Bitcoin education.
             <span class="text-[#f7931a]">No “crypto” confusion.</span>
           </h1>
 
-          <p class="mt-4 text-slate-300 leading-relaxed">
-            We’re building a modern, safety-first learning hub for everyday Californians—focused on fundamentals,
-            scams to avoid, self-custody concepts, and best-practice resources.
+          <p class="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed">
+            California Bitcoin Education Lab is a modern learning hub for everyday Californians.
+            We focus on fundamentals, common misconceptions, scams to avoid, self-custody concepts,
+            and best-practice resources — calm, practical, and Bitcoin-only.
           </p>
 
-          <div class="mt-6 flex flex-wrap gap-2">
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">Launching <strong>April ’26</strong></span>
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">Bitcoin-only</span>
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">Safety-first</span>
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">Calm + practical</span>
-          </div>
-
-          <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="#signup" class="rounded-2xl bg-[#f7931a] px-5 py-3 font-semibold text-slate-950 hover:brightness-105 text-center">
-              Join the list
+          <div class="mt-7 flex flex-col sm:flex-row gap-3">
+            <a href="#lessons"
+               class="rounded-2xl bg-[#f7931a] px-6 py-4 text-slate-950 font-semibold text-center hover:brightness-105">
+              Explore Lessons
             </a>
-            <a href="#modules" class="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold hover:bg-white/10 text-center">
-              What you’ll learn
+            <a href="#updates"
+               class="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-semibold text-center hover:bg-white/10">
+              Get Updates
             </a>
           </div>
 
-          <p class="mt-4 text-xs text-slate-400">
+          <p class="mt-4 text-xs sm:text-sm text-slate-400">
             Educational only — not financial, legal, or tax advice.
           </p>
         </div>
 
-        <div class="lg:col-span-5 grid gap-4">
-          <!-- KPI cards (dashboard vibe) -->
-          <div class="glass rounded-3xl p-5">
-            <div class="text-xs text-slate-400">Status</div>
-            <div class="mt-1 text-lg font-semibold">Building the library</div>
-            <div class="mt-3 h-2 rounded-full bg-white/10 overflow-hidden">
-              <div class="h-full w-[22%] bg-[#f7931a]"></div>
+        <div class="lg:col-span-5 grid gap-5">
+          <!-- KPI cards -->
+          <div class="grid sm:grid-cols-3 lg:grid-cols-1 gap-5">
+            <div class="glass rounded-[28px] p-6">
+              <div class="text-xs text-slate-400">Focus</div>
+              <div class="mt-1 text-xl font-semibold">Bitcoin-only</div>
+              <div class="mt-2 text-sm text-slate-300">No tokens, no hype, no noise.</div>
             </div>
-            <div class="mt-2 text-xs text-slate-400">Initial release target: April ’26</div>
-          </div>
-
-          <div class="glass rounded-3xl p-5">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs text-slate-400">Focus</div>
-                <div class="mt-1 text-lg font-semibold">Bitcoin ≠ Crypto</div>
-              </div>
-              <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300">
-                CA-first
-              </div>
+            <div class="glass rounded-[28px] p-6">
+              <div class="text-xs text-slate-400">Approach</div>
+              <div class="mt-1 text-xl font-semibold">Safety-first</div>
+              <div class="mt-2 text-sm text-slate-300">Scams, phishing, fake apps, recovery mistakes.</div>
             </div>
-            <div class="mt-3 text-sm text-slate-300">
-              Definitions, misconceptions, scams, custody concepts, and decision frameworks.
+            <div class="glass rounded-[28px] p-6">
+              <div class="text-xs text-slate-400">Audience</div>
+              <div class="mt-1 text-xl font-semibold">California</div>
+              <div class="mt-2 text-sm text-slate-300">Clear resources for the Golden State.</div>
             </div>
           </div>
 
-          <div class="glass rounded-3xl overflow-hidden">
-            <!-- Uses your Golden Gate header image -->
-            <div class="h-40 bg-cover bg-center" style="background-image:url('/assets/header-bridge.png');"></div>
-            <div class="p-5">
-              <div class="text-xs text-slate-400">Brand</div>
-              <div class="mt-1 font-semibold">Golden Gate / sunset system</div>
-              <div class="mt-2 text-sm text-slate-300">A modern analytics-style interface for learning.</div>
+          <!-- Hero image card -->
+          <div class="glass rounded-[28px] overflow-hidden shadow-soft">
+            <div class="h-44 sm:h-52 bg-cover bg-center" style="background-image:url('/assets/header-bridge.png');"></div>
+            <div class="p-6">
+              <div class="text-xs text-slate-400">Design system</div>
+              <div class="mt-1 font-semibold">Golden Gate + sunset</div>
+              <div class="mt-2 text-sm text-slate-300">
+                A modern “dashboard” feel — simple navigation, calm tone, high readability.
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Modules -->
-    <section class="py-6" id="modules">
+    <!-- LESSONS / MODULE GRID -->
+    <section id="lessons" class="py-8">
       <div class="flex items-end justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-semibold tracking-tight">Core modules</h2>
-          <p class="mt-1 text-slate-300">Structured like an “education dashboard” — simple, navigable, and calm.</p>
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Lessons</h2>
+          <p class="mt-2 text-slate-300 text-base sm:text-lg">
+            Click a lesson to visit a placeholder page (we’ll fill these in as we build).
+          </p>
         </div>
+        <a href="/blog" class="hidden sm:inline-flex rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold hover:bg-white/10">
+          View Blog
+        </a>
       </div>
 
-      <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- cards -->
-        <div class="glass rounded-3xl p-5">
+      <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Start -->
+        <a href="/start" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
           <div class="text-xs text-slate-400">01</div>
-          <div class="mt-1 font-semibold">Start Here</div>
-          <div class="mt-2 text-sm text-slate-300">Bitcoin vs crypto vs meme coins — clean taxonomy.</div>
-        </div>
-        <div class="glass rounded-3xl p-5">
+          <div class="mt-1 text-xl font-semibold">Start Here</div>
+          <div class="mt-2 text-sm text-slate-300">
+            Bitcoin vs crypto vs meme coins — a clean, plain-English taxonomy.
+          </div>
+          <div class="mt-4 text-sm text-[#f7931a] font-semibold">Open →</div>
+        </a>
+
+        <!-- Basics -->
+        <a href="/basics" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
           <div class="text-xs text-slate-400">02</div>
-          <div class="mt-1 font-semibold">Basics</div>
-          <div class="mt-2 text-sm text-slate-300">Origins, how it works (non-technical), why it matters.</div>
-        </div>
-        <div class="glass rounded-3xl p-5">
+          <div class="mt-1 text-xl font-semibold">Basics</div>
+          <div class="mt-2 text-sm text-slate-300">
+            Origins, how Bitcoin works (non-technical), and why it exists.
+          </div>
+          <div class="mt-4 text-sm text-[#f7931a] font-semibold">Open →</div>
+        </a>
+
+        <!-- Safety -->
+        <a href="/safety" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
           <div class="text-xs text-slate-400">03</div>
-          <div class="mt-1 font-semibold">Safety</div>
-          <div class="mt-2 text-sm text-slate-300">Scams, fake apps, phishing, SIM swap, recovery mistakes.</div>
-        </div>
-        <div class="glass rounded-3xl p-5">
+          <div class="mt-1 text-xl font-semibold">Safety</div>
+          <div class="mt-2 text-sm text-slate-300">
+            Scams, fake apps, phishing, SIM swap, and common traps.
+          </div>
+          <div class="mt-4 text-sm text-[#f7931a] font-semibold">Open →</div>
+        </a>
+
+        <!-- Custody -->
+        <a href="/custody" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
           <div class="text-xs text-slate-400">04</div>
-          <div class="mt-1 font-semibold">Custody Concepts</div>
-          <div class="mt-2 text-sm text-slate-300">Hot vs cold, backups, seed phrases, threat modeling.</div>
-        </div>
-        <div class="glass rounded-3xl p-5">
+          <div class="mt-1 text-xl font-semibold">Custody</div>
+          <div class="mt-2 text-sm text-slate-300">
+            Hot vs cold, backups, recovery, and threat-model thinking.
+          </div>
+          <div class="mt-4 text-sm text-[#f7931a] font-semibold">Open →</div>
+        </a>
+
+        <!-- FAQ -->
+        <a href="#faq" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
           <div class="text-xs text-slate-400">05</div>
-          <div class="mt-1 font-semibold">Best Practices</div>
-          <div class="mt-2 text-sm text-slate-300">Frameworks for choosing tools responsibly (not endorsements).</div>
-        </div>
-        <div class="glass rounded-3xl p-5">
+          <div class="mt-1 text-xl font-semibold">FAQ</div>
+          <div class="mt-2 text-sm text-slate-300">
+            Energy, volatility, crime myths, and common misconceptions.
+          </div>
+          <div class="mt-4 text-sm text-[#f7931a] font-semibold">Jump →</div>
+        </a>
+
+        <!-- Updates -->
+        <a href="#updates" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
           <div class="text-xs text-slate-400">06</div>
-          <div class="mt-1 font-semibold">FAQ</div>
-          <div class="mt-2 text-sm text-slate-300">Energy, volatility, crime myths, and common misconceptions.</div>
+          <div class="mt-1 text-xl font-semibold">Updates</div>
+          <div class="mt-2 text-sm text-slate-300">
+            Join the list for launch notes and the first guide.
+          </div>
+          <div class="mt-4 text-sm text-[#f7931a] font-semibold">Join →</div>
+        </a>
+      </div>
+
+      <p class="mt-4 text-xs sm:text-sm text-slate-400">
+        Note: these lesson links are placeholders right now. We’ll add real pages as we build.
+      </p>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section id="faq" class="py-8">
+      <div class="glass rounded-[28px] p-6 sm:p-8 shadow-soft">
+        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">FAQ</h2>
+        <p class="mt-2 text-slate-300 text-base sm:text-lg">
+          Calm answers to common questions — without hype.
+        </p>
+
+        <div class="mt-6 grid gap-3">
+          <!-- Use <details> for an accessible accordion with zero JS -->
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">What’s the difference between Bitcoin and “crypto”?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              “Crypto” is an umbrella term. Bitcoin is a decentralized monetary network; many “crypto” tokens are projects with issuers,
+              marketing, and different risk profiles. We focus on Bitcoin-only education to reduce confusion.
+            </p>
+          </details>
+
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">Is Bitcoin a scam?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              Bitcoin is open-source software used globally, but scams often use the word “Bitcoin.”
+              We’ll teach how to identify common scams and reduce risk.
+            </p>
+          </details>
+
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">Why does Bitcoin’s price swing so much?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              Bitcoin is still a relatively young global asset with changing supply/demand dynamics.
+              We’ll frame volatility as a risk factor to understand — not a marketing point.
+            </p>
+          </details>
+
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">Is Bitcoin anonymous / “for criminals”?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              Bitcoin transactions are publicly visible on a ledger; identities may not be directly listed, but activity can be analyzed.
+              Like cash or the internet, any tool can be misused — we’ll cover facts and common misconceptions.
+            </p>
+          </details>
+
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">What does “self-custody” mean?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              Self-custody means you control the private keys. It can reduce counterparty risk, but increases personal responsibility.
+              We’ll focus on concepts: backups, recovery, and avoiding common mistakes.
+            </p>
+          </details>
+
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">What’s hot vs cold storage?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              Hot wallets are connected to the internet (more convenient). Cold storage is kept offline (generally safer for long-term holdings).
+              We’ll teach tradeoffs and best practices, not “one-size-fits-all.”
+            </p>
+          </details>
+
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">Are exchanges safe?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              Exchanges can be convenient, but they introduce counterparty risk. We’ll cover evaluation frameworks,
+              security hygiene (2FA, phishing resistance), and custody concepts.
+            </p>
+          </details>
+
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">Is Bitcoin bad for the environment?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              Bitcoin mining uses energy. The real discussion is about energy sources, grid dynamics, and tradeoffs.
+              We’ll provide clear explanations and reputable references.
+            </p>
+          </details>
+
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">Do I need to understand the tech to learn Bitcoin?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              No. We’ll explain concepts in plain English first, then offer optional deeper dives for those who want them.
+            </p>
+          </details>
+
+          <details class="group glass rounded-2xl p-5">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
+              <span class="font-semibold text-lg">Will you tell me what to buy or how much to allocate?</span>
+              <span class="text-[#f7931a] group-open:rotate-45 transition text-2xl leading-none">+</span>
+            </summary>
+            <p class="mt-3 text-slate-300">
+              No. This site is educational only — not financial advice. We focus on understanding, safety, and best practices.
+            </p>
+          </details>
         </div>
       </div>
     </section>
 
-    <!-- “Dashboard chart” section (placeholder) -->
-    <section class="py-6">
-      <div class="grid lg:grid-cols-12 gap-4">
-        <div class="lg:col-span-7 glass rounded-3xl p-5">
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="text-xs text-slate-400">Preview</div>
-              <div class="mt-1 font-semibold">Library build cadence (example chart)</div>
-            </div>
-            <div class="text-xs text-slate-400 mono">v0.1</div>
-          </div>
-          <div class="mt-4">
-            <canvas id="chart" height="140"></canvas>
-          </div>
-          <div class="mt-2 text-xs text-slate-400">
-            This is just a visual placeholder — we’ll swap it for real content metrics later.
-          </div>
-        </div>
-
-        <div class="lg:col-span-5 glass rounded-3xl p-5 flex items-center gap-4">
-          <img src="/assets/launch-square.png" alt="Launching April ’26" class="w-28 h-28 rounded-2xl border border-white/10" />
-          <div>
-            <div class="text-xs text-slate-400">Launch</div>
-            <div class="mt-1 text-xl font-semibold">April ’26</div>
-            <div class="mt-2 text-sm text-slate-300">
-              Join the list to get the first “Bitcoin ≠ Crypto” guide and safety checklist.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Signup -->
-    <section class="py-10" id="signup">
-      <div class="glass rounded-3xl p-6 md:p-8">
+    <!-- UPDATES / EMAIL CAPTURE -->
+    <section id="updates" class="py-10">
+      <div class="glass rounded-[28px] p-6 sm:p-8 shadow-soft">
         <div class="grid lg:grid-cols-12 gap-6 items-center">
           <div class="lg:col-span-7">
-            <h2 class="text-2xl font-semibold tracking-tight">Get updates</h2>
-            <p class="mt-2 text-slate-300">
-              We’ll email you when the launch guide is ready. No spam.
+            <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Get updates</h2>
+            <p class="mt-2 text-slate-300 text-base sm:text-lg">
+              Join the list and we’ll send the first “Bitcoin ≠ Crypto” guide when we go live.
+            </p>
+            <p class="mt-3 text-sm text-slate-400">
+              Placeholder form for now — we can wire this to Beehiiv or ConvertKit when you’re ready.
             </p>
           </div>
+
           <div class="lg:col-span-5">
-            <form onsubmit="return CABTLab.handleSubmit(event)" class="flex flex-col sm:flex-row gap-3">
+            <form id="emailForm" class="flex flex-col sm:flex-row gap-3">
+              <!-- When ready, replace this form with your Beehiiv/ConvertKit embed or form action -->
               <input id="email" type="email" required placeholder="you@example.com"
-                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-[#f7931a]/50" />
+                     class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-slate-100 placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-[#f7931a]/50" />
               <button type="submit"
-                class="rounded-2xl bg-[#f7931a] px-5 py-3 font-semibold text-slate-950 hover:brightness-105">
+                      class="rounded-2xl bg-[#f7931a] px-6 py-4 font-semibold text-slate-950 hover:brightness-105">
                 Notify me
               </button>
             </form>
-            <p class="mt-2 text-xs text-slate-400">Educational only — not financial advice.</p>
+            <p class="mt-2 text-xs sm:text-sm text-slate-400">
+              Educational only — not financial, legal, or tax advice.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="py-10 text-sm text-slate-400">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-white/10 pt-6">
-        <div>© <span id="year"></span> CA Bitcoin Lab • californiabitcoin.org</div>
-        <div class="flex gap-4">
+      <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          © <span id="year"></span> California Bitcoin Education Lab •
+          <span class="mono">californiabitcoin.org</span>
+          <div class="mt-2 text-xs sm:text-sm">
+            Educational only — not financial, legal, or tax advice.
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-4">
           <a class="hover:text-white" href="https://x.com/CABitcoinLab" target="_blank" rel="noreferrer">X</a>
           <a class="hover:text-white" href="https://instagram.com/CABitcoinLab" target="_blank" rel="noreferrer">Instagram</a>
           <a class="hover:text-white" href="https://tiktok.com/@CABitcoinLab" target="_blank" rel="noreferrer">TikTok</a>
@@ -256,46 +437,31 @@
   </main>
 
   <script>
-    const CABTLab = {
-      handleSubmit: (e) => {
-        e.preventDefault();
-        const email = document.querySelector('#email')?.value?.trim();
-        if (!email) return false;
-        alert("Thanks! We'll email you when we launch. ✅");
-        e.target.reset();
-        return false;
-      }
-    };
-
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Simple chart placeholder
-    const ctx = document.getElementById('chart');
-    if (ctx) {
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['Now','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr'],
-          datasets: [{
-            label: 'Pages published (example)',
-            data: [2,4,6,9,12,16,20,25,30,36,43,50,60],
-            borderWidth: 2,
-            pointRadius: 2,
-            tension: 0.35
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { labels: { color: 'rgba(226,232,240,.9)' } }
-          },
-          scales: {
-            x: { ticks: { color: 'rgba(148,163,184,.9)' }, grid: { color: 'rgba(255,255,255,.06)' } },
-            y: { ticks: { color: 'rgba(148,163,184,.9)' }, grid: { color: 'rgba(255,255,255,.06)' } }
-          }
-        }
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    if (menuBtn && mobileNav) {
+      menuBtn.addEventListener('click', () => {
+        const isOpen = !mobileNav.classList.contains('hidden');
+        mobileNav.classList.toggle('hidden');
+        menuBtn.setAttribute('aria-expanded', String(!isOpen));
       });
     }
+
+    // Placeholder email capture (swap later)
+    const form = document.getElementById('emailForm');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email')?.value?.trim();
+        if (!email) return;
+        alert("Thanks! We'll email you when we launch. ✅");
+        form.reset();
+      });
+    }
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
