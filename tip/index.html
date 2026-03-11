@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>₿ Tip • California Bitcoin Education Lab</title>
+  <meta name="description" content="Value for value. Tip via Lightning to support Bitcoin education in California." />
+
+  <!-- Keep hidden from indexing until launch -->
+  <meta name="robots" content="noindex,nofollow" />
+
+  <meta property="og:title" content="₿ Tip • California Bitcoin Education Lab" />
+  <meta property="og:description" content="Value for value. Tip via Lightning." />
+  <meta property="og:image" content="/assets/launch-square.png" />
+  <meta property="og:url" content="https://californiabitcoin.org/tip/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/assets/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .grid-bg {
+      background:
+        radial-gradient(circle at 20% 10%, rgba(247,147,26,.14), transparent 40%),
+        radial-gradient(circle at 80% 0%, rgba(247,147,26,.08), transparent 35%),
+        linear-gradient(180deg, #000 0%, #000 100%),
+        linear-gradient(to right, rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: auto, auto, auto, 84px 84px, 84px 84px;
+      background-position: center, center, center, center, center;
+    }
+    .glass {
+      background: rgba(255,255,255,.04);
+      border: 2px solid rgba(247,147,26,.22);
+      backdrop-filter: blur(10px);
+    }
+    .shadow-soft { box-shadow: 0 20px 70px rgba(0,0,0,.65); }
+
+    /* Make QR look clean on dark */
+    #qr img, #qr canvas { border-radius: 20px; }
+  </style>
+</head>
+
+<body class="min-h-screen text-white grid-bg">
+  <!-- Nav (keep your existing nav if you already have one) -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-black/60 border-b-2 border-[#f7931a]/20">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
+      <a href="/" class="flex items-center gap-3 rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5">
+        <img src="/assets/logo-circle.png" alt="Logo" class="w-8 h-8 rounded-full border-2 border-[#f7931a]/30" />
+        <span class="font-semibold tracking-tight">California Bitcoin Education Lab</span>
+      </a>
+
+      <nav class="flex flex-wrap items-center justify-end gap-2">
+        <a href="/about" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">About</a>
+        <a href="/podcasts" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">Podcasts</a>
+        <a href="/articles" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">Articles</a>
+        <a href="/books" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">Books</a>
+        <a href="/contact" class="rounded-full px-4 py-2 border-2 border-[#f7931a]/20 bg-white/5 hover:border-[#f7931a]/40 transition">Contact</a>
+
+        <!-- Tip button with lighter ₿ -->
+        <a href="/tip" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
+          <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
+          <span class="font-semibold"> Tip</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-10">
+    <div class="glass shadow-soft rounded-[28px] p-8 md:p-10 border-2 border-[#f7931a]/25">
+      <h1 id="tipTitle" class="text-3xl md:text-5xl font-semibold tracking-tight">Value for Value</h1>
+      <p id="tipIntro" class="mt-4 text-white/80 text-base md:text-lg leading-relaxed">
+        If our work helped you learn, share it freely. If you'd like to give value for value, you can tip via Lightning.
+      </p>
+
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Left: Address + actions -->
+        <section class="glass rounded-3xl p-6 border-2 border-[#f7931a]/25">
+          <h2 class="text-xl font-semibold">Lightning Address</h2>
+
+          <div class="mt-4 flex flex-col gap-3">
+            <div class="rounded-2xl bg-black/40 border-2 border-[#f7931a]/25 px-4 py-4">
+              <div class="text-xs uppercase tracking-wider text-white/60">Send sats to</div>
+              <div id="lnAddress" class="mt-2 text-lg md:text-2xl font-mono text-white">
+                YOURNAME@YOURDOMAIN.COM
+              </div>
+            </div>
+
+            <div class="flex gap-3 flex-wrap">
+              <button id="copyBtn"
+                class="rounded-2xl px-4 py-3 bg-white/5 border-2 border-[#f7931a]/25 hover:border-[#f7931a]/45 transition font-semibold">
+                Copy
+              </button>
+
+              <a id="openWalletBtn"
+                 href="#"
+                 class="rounded-2xl px-4 py-3 bg-white/5 border-2 border-[#f7931a]/25 hover:border-[#f7931a]/45 transition font-semibold hidden">
+                Open Wallet
+              </a>
+            </div>
+
+            <p id="tipNote" class="text-white/70 leading-relaxed">
+              Tips are used to support Bitcoin education work in California.
+            </p>
+          </div>
+
+          <div class="mt-6">
+            <div class="text-sm text-white/70 mb-3">Don’t have a Lightning wallet?</div>
+            <div id="walletLinks" class="flex flex-wrap gap-3"></div>
+          </div>
+        </section>
+
+        <!-- Right: QR -->
+        <section class="glass rounded-3xl p-6 border-2 border-[#f7931a]/25">
+          <h2 class="text-xl font-semibold">Scan to tip</h2>
+          <p class="mt-2 text-white/70">Scan this QR code in your Lightning wallet.</p>
+
+          <div class="mt-5 flex justify-center">
+            <div id="qr" class="p-4 rounded-3xl bg-white/5 border-2 border-[#f7931a]/25"></div>
+          </div>
+
+          <div class="mt-6 rounded-2xl bg-black/35 border-2 border-[#f7931a]/20 p-4">
+            <div class="text-xs uppercase tracking-wider text-white/60">Safety</div>
+            <div id="safetyNote" class="mt-2 text-white/70 leading-relaxed">
+              Beware of impostors. Only use the address shown on californiabitcoin.org.
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="errorBox" class="hidden mt-8 rounded-2xl border-2 border-red-500/40 bg-red-500/10 p-4 text-white/80">
+        Couldn’t load tip settings. Check that <code>/data/tip.json</code> exists and is valid JSON.
+      </div>
+    </div>
+
+    <footer class="mt-10 text-white/60 text-sm">
+      © <span id="year"></span> California Bitcoin Education Lab
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <!-- QR library (tiny + reliable) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="/js/tip.js"></script>
+</body>
+</html>
