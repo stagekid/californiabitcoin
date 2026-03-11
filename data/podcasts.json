@@ -1,1 +1,20 @@
-
+[
+  {
+    "title": "Why Bitcoin Education Matters in California",
+    "description": "A short overview of the Lab’s mission and what we’re building.",
+    "date": "2026-03-01",
+    "source": "California Bitcoin Education Lab",
+    "duration": "18m",
+    "url": "https://example.com/podcast-episode-1",
+    "tags": ["Education", "California", "Basics"]
+  },
+  {
+    "title": "Proof of Work: Energy, Tradeoffs, and Truth",
+    "description": "How to think clearly about energy narratives and incentive design.",
+    "date": "2026-02-10",
+    "source": "Guest Conversation",
+    "duration": "52m",
+    "url": "https://example.com/podcast-episode-2",
+    "tags": ["Mining", "Energy", "Incentives"]
+  }
+]
