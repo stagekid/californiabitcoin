@@ -1,0 +1,18 @@
+[
+  {
+    "title": "The Price of Tomorrow",
+    "description": "Deflation, technology, and why monetary systems shape society.",
+    "date": "2026-01-15",
+    "source": "Book",
+    "url": "https://example.com/the-price-of-tomorrow",
+    "tags": ["Macro", "Technology", "Jeff Booth"]
+  },
+  {
+    "title": "The Bitcoin Standard",
+    "description": "A history of money and the economic case for Bitcoin.",
+    "date": "2026-01-10",
+    "source": "Book",
+    "url": "https://example.com/the-bitcoin-standard",
+    "tags": ["History", "Economics", "Basics"]
+  }
+]
