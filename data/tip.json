@@ -1,0 +1,13 @@
+{
+  "title": "Value for Value",
+  "intro": "If our work helped you learn, share it freely. If you'd like to give value for value, you can tip via Lightning.",
+  "lightningAddress": "cabitcoinlab@strike.me",
+  "lightningUrl": "lightning:cabitcoinlab@strike.me",
+  "note": "Tips support Bitcoin-only education work in California.",
+  "walletLinks": [
+    { "label": "Get Strike", "url": "https://strike.me/" },
+    { "label": "Try Breez", "url": "https://breez.technology/" },
+    { "label": "Try Alby", "url": "https://getalby.com/" }
+  ],
+  "safetyNote": "Beware of impostors. Only use cabitcoinlab@strike.me shown on californiabitcoin.org."
+}
