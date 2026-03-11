@@ -7,23 +7,67 @@
   <link rel="stylesheet" href="/css/site.css" />
 </head>
 <body data-source="/data/books.json">
-  <header class="navbar">
-    <div class="container nav-inner">
-      <a class="brand" href="/">
-        <img src="/assets/logo-circle.png" alt="California Bitcoin Education Lab logo" />
-        <div class="name">California Bitcoin Education Lab</div>
+   <header class="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="flex items-center justify-between gap-3 py-4">
+      <!-- Brand -->
+      <a href="/" class="flex items-center gap-3">
+        <img src="/assets/logo-circle.png" alt="CBEL logo" class="h-11 w-11 rounded-full shadow" />
+        <div class="leading-tight">
+          <div class="text-lg sm:text-xl font-semibold tracking-tight">
+            California Bitcoin Education Lab
+          </div>
+          <div class="text-xs sm:text-sm text-slate-300">
+            Bitcoin-only education for the Golden State
+          </div>
+        </div>
       </a>
 
-      <nav class="nav-links" aria-label="Primary">
-        <a class="nav-pill" href="/about/">About</a>
-        <a class="nav-pill" href="/podcasts/">Podcasts</a>
-        <a class="nav-pill" href="/articles/">Articles</a>
-        <a class="nav-pill" href="/books/">Books</a>
-        <a class="nav-pill" href="/contact/">Contact</a>
-        <a class="tip-btn" href="/tip/" aria-label="Tip">₿ Tip</a>
+      <!-- Desktop pill nav -->
+      <nav class="hidden lg:flex items-center">
+        <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
+          <a href="/about" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">About</a>
+          <a href="/podcasts" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Podcasts</a>
+          <a href="/articles" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Articles</a>
+          <a href="/books" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Books</a>
+          <a href="/contact" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Contact</a>
+
+          <!-- Tip button -->
+          <a href="/tip"
+             class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-black hover:brightness-105"
+             aria-label="Tip">
+            ₿
+          </a>
+        </div>
       </nav>
+
+      <!-- Mobile menu button -->
+      <button id="menuBtn"
+              class="lg:hidden inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-3 hover:bg-white/10"
+              aria-label="Open menu"
+              aria-expanded="false">
+        <span class="text-sm font-semibold text-slate-200">Menu</span>
+      </button>
     </div>
-  </header>
+
+    <!-- Mobile nav -->
+    <div id="mobileNav" class="lg:hidden hidden pb-4">
+      <div class="glass rounded-3xl p-4">
+        <div class="grid gap-2 text-base text-slate-200">
+          <a href="/about" class="rounded-2xl px-4 py-3 hover:bg-white/10">About</a>
+          <a href="/podcasts" class="rounded-2xl px-4 py-3 hover:bg-white/10">Podcasts</a>
+          <a href="/articles" class="rounded-2xl px-4 py-3 hover:bg-white/10">Articles</a>
+          <a href="/books" class="rounded-2xl px-4 py-3 hover:bg-white/10">Books</a>
+          <a href="/contact" class="rounded-2xl px-4 py-3 hover:bg-white/10">Contact</a>
+          <a href="/tip" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
+  <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
+  <span class="font-semibold"> Tip</span>
+</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
   <main class="section">
     <div class="container">
