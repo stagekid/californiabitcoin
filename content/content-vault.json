@@ -20,7 +20,7 @@
       "subtitle": "Bitcoin-only conversations with builders and educators.",
       "href": "https://stephanlivera.com/",
       "tags": ["technical", "interviews", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
     {
       "id": "bitcoin-audible",
@@ -30,7 +30,7 @@
       "subtitle": "Readings of the best Bitcoin articles and papers.",
       "href": "https://bitcoinaudible.com/",
       "tags": ["reading", "deep-dives", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
     {
       "id": "tftc",
@@ -40,7 +40,7 @@
       "subtitle": "Bitcoin and freedom tech conversations.",
       "href": "https://www.tftc.io/",
       "tags": ["culture", "interviews", "mining"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
     {
       "id": "coin-stories",
@@ -50,7 +50,7 @@
       "subtitle": "Bitcoin-focused interviews and perspectives.",
       "href": "https://www.coinsstories.com/",
       "tags": ["interviews", "macro", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
     {
       "id": "unchained",
@@ -60,7 +60,7 @@
       "subtitle": "Industry interviews and explainers (filter for Bitcoin episodes).",
       "href": "https://unchainedcrypto.com/",
       "tags": ["interviews", "industry"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
 
     {
@@ -71,7 +71,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["news", "events"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
     {
       "id": "swan-yt",
@@ -81,7 +81,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["education", "interviews"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
     {
       "id": "blockworks-yt",
@@ -91,7 +91,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["macro", "markets"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
     {
       "id": "btcsessions-yt",
@@ -101,7 +101,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["how-to", "wallets", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
     {
       "id": "aantonop-yt",
@@ -111,7 +111,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["talks", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
     {
       "id": "btcmn-yt",
@@ -121,7 +121,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["mining", "energy", "infrastructure"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.jpg"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
     },
 
     {
