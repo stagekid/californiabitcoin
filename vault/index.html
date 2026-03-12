@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>The Bitcoin Content Vault | Podcasts, Books & Articles • California Bitcoin Education Lab</title>
+  <meta name="description" content="Explore the Bitcoin Content Vault — a curated Bitcoin-only library of podcasts, books, and articles built for learners in California and beyond. Search and filter by topic, difficulty, and tags." />
+
+  <link rel="canonical" href="https://californiabitcoin.org/vault" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body data-source="/content/content-vault.json">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="flex items-center justify-between gap-3 py-4">
+
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-3">
+          <img src="/assets/logo-circle.png" alt="CBEL logo" class="h-11 w-11 rounded-full shadow" />
+          <div class="leading-tight">
+            <div class="text-lg sm:text-xl font-semibold tracking-tight">
+              California Bitcoin Education Lab
+            </div>
+            <div class="text-xs sm:text-sm text-slate-300">
+              Bitcoin-only education for the Golden State
+            </div>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center">
+          <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
+            <a href="/about" class="px-4 py-2 rounded-full text-slate-200 hover:bg-white/10 hover:text-white">About</a>
+            <a href="/vault" class="px-4 py-2 rounded-full bg-white/10 text-white">Content Vault</a>
+            <a href="/contact" class="px-4 py-2 rounded-full text-slate-200 hover:bg-white/10 hover:text-white">Contact</a>
+
+            <!-- Tip Button -->
+            <a href="/tip"
+               class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-semibold hover:brightness-105"
+               aria-label="Tip">
+              ₿
+            </a>
+          </div>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn"
+                class="lg:hidden inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-3 hover:bg-white/10"
+                aria-label="Open menu"
+                aria-expanded="false">
+          <span class="text-sm font-semibold text-slate-200">Menu</span>
+        </button>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div id="mobileNav" class="lg:hidden hidden pb-4">
+        <div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
+          <div class="grid gap-2 text-slate-200">
+            <a href="/about" class="rounded-2xl px-4 py-3 hover:bg-white/10">About</a>
+            <a href="/vault" class="rounded-2xl px-4 py-3 hover:bg-white/10">Content Vault</a>
+            <a href="/contact" class="rounded-2xl px-4 py-3 hover:bg-white/10">Contact</a>
+            <a href="/tip" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
+              <span class="font-semibold">₿ Tip</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="section">
+    <div class="container">
+      <div class="block pad">
+
+        <!-- HERO -->
+        <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-6 sm:p-8 mb-6"
+             style="box-shadow: 0 0 0 1px rgba(247,147,26,0.12) inset;">
+          <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-4">
+            Bitcoin Content Vault
+          </h1>
+
+          <p class="text-slate-300 max-w-3xl leading-relaxed">
+            A curated Bitcoin-only library of podcasts, books, and articles —
+            organized by tags so you can go from first principles to deep dives.
+            Built for learners in California and beyond.
+          </p>
+        </div>
+
+        <!-- SECTION TITLE -->
+        <div class="section-title">
+          <h2>Library</h2>
+          <div class="hint"><span id="resultCount">0</span> items</div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div id="controls" class="controls">
+          <div id="typeTabs"></div>
+
+          <div class="search" role="search">
+            <span style="opacity:.75;">Search</span>
+            <input id="searchInput" type="search" placeholder="Titles, topics, tags…" autocomplete="off" />
+          </div>
+
+          <button id="clearBtn" class="clear-btn" type="button">Clear</button>
+        </div>
+
+        <!-- TAG FILTERS -->
+        <div id="tagBar" class="pills" style="margin: 6px 0 16px;"></div>
+
+        <!-- CARD GRID -->
+        <div id="cards" class="grid"></div>
+
+        <!-- SEO SUPPORT COPY -->
+        <div class="mt-8 text-sm text-slate-300/80 leading-relaxed">
+          This vault focuses on Bitcoin-only education: monetary history,
+          economics, security, mining, self-custody, privacy, and open-source development.
+          Use tags to explore topics and build your learning path.
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <div>© <span id="year"></span> California Bitcoin Education Lab</div>
+        <div style="opacity:.8;">Deep black • Bitcoin orange</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- YEAR -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <!-- MOBILE NAV TOGGLE -->
+  <script>
+    (function () {
+      const btn = document.getElementById("menuBtn");
+      const nav = document.getElementById("mobileNav");
+      if (!btn || !nav) return;
+
+      btn.addEventListener("click", () => {
+        const willOpen = nav.classList.contains("hidden");
+        nav.classList.toggle("hidden");
+        btn.setAttribute("aria-expanded", String(willOpen));
+      });
+    })();
+  </script>
+
+  <!-- VAULT LOGIC -->
+  <script src="/js/library.js"></script>
+
+</body>
+</html>
