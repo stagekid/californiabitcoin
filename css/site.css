@@ -433,3 +433,39 @@ h1{
   font-size: 18px;
   margin: 0;
 }
+/* Vault Type Tabs — Segmented Control */
+.tabs{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: var(--pill);
+  background: rgba(14,14,14,.65);
+  border: 2px solid rgba(247,147,26,.18);
+}
+
+.tab{
+  padding: 8px 14px;
+  border-radius: var(--pill);
+  border: 2px solid transparent;
+  background: transparent;
+  color: rgba(255,255,255,.7);
+  font-weight: 650;
+  font-size: 13px;
+  letter-spacing: .2px;
+  cursor: pointer;
+  transition: all .12s ease;
+}
+
+.tab:hover{
+  color: var(--text);
+  border-color: rgba(247,147,26,.25);
+  background: rgba(255,255,255,.04);
+}
+
+.tab.active{
+  background: rgba(247,147,26,.15);
+  border-color: rgba(247,147,26,.65);
+  color: var(--orange);
+  box-shadow: 0 0 0 2px rgba(247,147,26,.08) inset;
+}
