@@ -1,235 +1,133 @@
+// /js/script.js
+
 window.CABTLab = {
   handleSubmit: (e) => {
     e.preventDefault();
     const email = document.querySelector('#email')?.value?.trim();
     if (!email) return false;
 
-    // Placeholder behavior for now:
     alert("Thanks! We'll email you when we launch. ✅");
     e.target.reset();
-
-    // Later: replace this with your ConvertKit/Beehiiv form action
-    // or send to a Worker endpoint.
     return false;
   }
 };
 
-// -------- Shared Footer (all pages) --------
-(function footerInit(){
-  const BRAND_NAME = "California Bitcoin Education Lab";
-  const COPYRIGHT_YEAR = "2026";
+(function init(){
+  // ----- Footer renderer -----
+  const mount = document.getElementById("site-footer");
+  if (mount) {
+    mount.innerHTML = `
+      <footer class="py-10 text-sm text-slate-400">
+        <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <!-- LEFT -->
+          <div class="flex flex-col gap-2">
+            <div>
+              © <span id="year"></span> California Bitcoin Education Lab
+            </div>
 
-  const SOCIAL = [
-    { name: "X", href: "https://x.com/CABitcoinLab", icon: "x" },
-    { name: "Instagram", href: "https://instagram.com/CABitcoinLab", icon: "instagram" },
-    { name: "TikTok", href: "https://tiktok.com/@CABitcoinLab", icon: "tiktok" },
-    { name: "YouTube", href: "https://youtube.com/@CABitcoinLab", icon: "youtube" }
-  ];
-
-  function iconSvg(kind) {
-    switch (kind) {
-      case "x":
-        return `
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d="M18.9 2H22l-6.9 7.9L23.5 22h-6.6l-5.2-6.8L5.8 22H2.6l7.4-8.5L.5 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.7L7.4 3.9H5.6L17.7 20Z"/>
-          </svg>
-        `;
-      case "instagram":
-        return `
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.7-.8a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/>
-          </svg>
-        `;
-      case "tiktok":
-        return `
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d="M16.6 2c.3 2.3 1.6 3.8 3.9 4v3.1c-1.6.1-3.1-.4-4.3-1.3v7c0 3.5-2.9 6.2-6.4 6.2S3.4 18.3 3.4 14.8c0-3.5 2.9-6.3 6.4-6.3.4 0 .8 0 1.2.1v3.4c-.4-.2-.8-.3-1.2-.3-1.6 0-3 1.3-3 3 0 1.6 1.4 3 3 3s3-.9 3-3.2V2h3.8Z"/>
-          </svg>
-        `;
-      case "youtube":
-        return `
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31.6 31.6 0 0 0 2 12a31.6 31.6 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 22 12a31.6 31.6 0 0 0-.4-4.8ZM10.2 15.3V8.7L15.8 12l-5.6 3.3Z"/>
-          </svg>
-        `;
-      default:
-        return "";
-    }
-  }
-
-  function ensureFooterStyles() {
-    if (document.getElementById("cab-footer-styles")) return;
-    const style = document.createElement("style");
-    style.id = "cab-footer-styles";
-    style.textContent = `
-      .cab-footer{
-        padding: 40px 0;
-        color: rgba(148,163,184,.92);
-        font-size: 14px;
-      }
-      .cab-footer-inner{
-        max-width: 72rem;
-        margin: 0 auto;
-        padding: 0 16px;
-        border-top: 1px solid rgba(255,255,255,.10);
-        padding-top: 20px;
-
-        display:flex;
-        align-items:flex-start;
-        justify-content:space-between;
-        gap: 16px;
-        flex-wrap: wrap;
-      }
-      .cab-footer-left{
-        display:flex;
-        flex-direction:column;
-        gap: 10px;
-      }
-      .cab-footer-copy{
-        color: rgba(148,163,184,.95);
-        font-weight: 500;
-      }
-      .cab-footer-built{
-        display:inline-flex;
-        align-items:center;
-        gap:10px;
-        width: fit-content;
-        padding: 6px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(255,255,255,.05);
-        font-size: 11px;
-        letter-spacing: .14em;
-        text-transform: uppercase;
-        color: rgba(148,163,184,.92);
-      }
-      .cab-dot{
-        width: 6px;
-        height: 6px;
-        border-radius: 999px;
-        background: #f7931a;
-        display:inline-block;
-      }
-      .cab-footer-right{
-        display:flex;
-        align-items:center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .cab-social{
-        display:inline-flex;
-        align-items:center;
-        gap: 10px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,.12);
-        background: rgba(255,255,255,.04);
-        text-decoration: none;
-        color: rgba(226,232,240,.90);
-        transition: transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
-      }
-      .cab-social:hover{
-        background: rgba(255,255,255,.08);
-        border-color: rgba(255,255,255,.18);
-        color: rgba(255,255,255,.96);
-        transform: translateY(-1px);
-      }
-      .cab-social:focus{
-        outline: none;
-      }
-      .cab-social:focus-visible{
-        box-shadow: 0 0 0 2px rgba(247,147,26,.35);
-      }
-      .cab-ic{
-        width: 18px;
-        height: 18px;
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-      }
-      .cab-ic svg{
-        width: 18px;
-        height: 18px;
-        display:block;
-      }
-      .cab-txt{
-        font-weight: 600;
-        font-size: 13px;
-        letter-spacing: .01em;
-      }
-      @media (max-width: 520px){
-        .cab-social{ padding: 10px 12px; }
-        .cab-txt{ display:none; } /* icons-only on tiny screens */
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  function footerHtml() {
-    const social = SOCIAL.map(s => `
-      <a class="cab-social" href="${s.href}" target="_blank" rel="noopener noreferrer" aria-label="${s.name}">
-        <span class="cab-ic">${iconSvg(s.icon)}</span>
-        <span class="cab-txt">${s.name}</span>
-      </a>
-    `).join("");
-
-    return `
-      <footer class="cab-footer" role="contentinfo">
-        <div class="cab-footer-inner">
-          <div class="cab-footer-left">
-            <div class="cab-footer-copy">© ${COPYRIGHT_YEAR} ${BRAND_NAME}</div>
-            <div class="cab-footer-built">
-              <span class="cab-dot" aria-hidden="true"></span>
+            <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] tracking-[0.14em] uppercase text-slate-400/90">
+              <span class="h-1.5 w-1.5 rounded-full bg-[#f7931a]"></span>
               Built in California
             </div>
+
+            <div class="text-xs sm:text-sm">
+              Educational only — not financial, legal, or tax advice.
+            </div>
           </div>
-          <div class="cab-footer-right" aria-label="Social links">
-            ${social}
+
+          <!-- RIGHT -->
+          <div class="flex items-center gap-2">
+            ${socialBtn({
+              href: "https://x.com/CABitcoinLab",
+              label: "X",
+              svg: iconX()
+            })}
+            ${socialBtn({
+              href: "https://instagram.com/CABitcoinLab",
+              label: "Instagram",
+              svg: iconInstagram()
+            })}
+            ${socialBtn({
+              href: "https://tiktok.com/@CABitcoinLab",
+              label: "TikTok",
+              svg: iconTikTok()
+            })}
+            ${socialBtn({
+              href: "https://youtube.com/@CABitcoinLab",
+              label: "YouTube",
+              svg: iconYouTube()
+            })}
           </div>
         </div>
       </footer>
     `;
+
+    // Year (after injection)
+    const year = mount.querySelector("#year");
+    if (year) year.textContent = String(new Date().getFullYear());
   }
 
-  function mountFooter() {
-    ensureFooterStyles();
-
-    // Preferred mount
-    const mount = document.getElementById("site-footer");
-    if (mount) {
-      mount.outerHTML = footerHtml();
-      return;
-    }
-
-    // Replace existing footer if present
-    const existing = document.querySelector("footer");
-    if (existing) {
-      existing.outerHTML = footerHtml();
-      return;
-    }
-
-    // Last resort
-    document.body.insertAdjacentHTML("beforeend", footerHtml());
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", mountFooter);
-  } else {
-    mountFooter();
-  }
-})();
-
-// -------- Existing init --------
-(function init(){
-  const year = document.getElementById('year');
-  if (year) year.textContent = new Date().getFullYear();
-
+  // Optional: theme toggle (only if the button exists on a page)
   const modeBtn = document.getElementById('modeBtn');
   const saved = localStorage.getItem('cablab_theme');
   if (saved === 'light') document.body.classList.add('light');
 
   modeBtn?.addEventListener('click', () => {
     document.body.classList.toggle('light');
-    localStorage.setItem('cablab_theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    localStorage.setItem(
+      'cablab_theme',
+      document.body.classList.contains('light') ? 'light' : 'dark'
+    );
   });
+
+  // ----- Helpers -----
+  function socialBtn({ href, label, svg }) {
+    return `
+      <a
+        href="${href}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="${label}"
+        title="${label}"
+        class="inline-flex items-center justify-center h-10 w-10 rounded-full
+               border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white
+               transition"
+      >
+        <span class="sr-only">${label}</span>
+        ${svg}
+      </a>
+    `;
+  }
+
+  function iconX() {
+    return `
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
+        <path d="M18.9 2H22l-6.8 7.8L23 22h-6.8l-5.3-6.5L5.2 22H2l7.3-8.4L1 2h6.9l4.8 6.1L18.9 2zm-1.2 18h1.7L7 3.9H5.2L17.7 20z"/>
+      </svg>
+    `;
+  }
+
+  function iconInstagram() {
+    return `
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
+        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5A3.5 3.5 0 1 1 8.5 12 3.5 3.5 0 0 1 12 8.5zm0 2A1.5 1.5 0 1 0 13.5 12 1.5 1.5 0 0 0 12 10.5zM17.8 6.2a.8.8 0 1 1-.8-.8.8.8 0 0 1 .8.8z"/>
+      </svg>
+    `;
+  }
+
+  function iconTikTok() {
+    return `
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
+        <path d="M16 2c.3 2.6 1.8 4.2 4 4.5v3.1c-1.6.1-3.1-.4-4.4-1.3v6.7c0 3.8-3.1 6.9-6.9 6.9S2.8 18.8 2.8 15s3.1-6.9 6.9-6.9c.4 0 .8 0 1.2.1v3.3c-.4-.2-.8-.3-1.2-.3-2 0-3.6 1.6-3.6 3.6s1.6 3.6 3.6 3.6 3.6-1.6 3.6-3.6V2h3.3z"/>
+      </svg>
+    `;
+  }
+
+  function iconYouTube() {
+    return `
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
+        <path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5A2.7 2.7 0 0 0 2.4 7.2 28.2 28.2 0 0 0 2 12a28.2 28.2 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28.2 28.2 0 0 0 22 12a28.2 28.2 0 0 0-.4-4.8zM10.2 15.2V8.8l5.5 3.2-5.5 3.2z"/>
+      </svg>
+    `;
+  }
 })();
