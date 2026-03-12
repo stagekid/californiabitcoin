@@ -9,10 +9,9 @@
       "title": "What Bitcoin Did",
       "subtitle": "Interviews and stories about Bitcoin.",
       "href": "https://www.whatbitcoindid.com/",
-      "tags": ["interviews","news","education"],
+      "tags": ["interviews", "news", "education"],
       "thumb": "/assets/covers/podcasts/what-bitcoin-did.jpg"
     },
-
     {
       "id": "stephan-livera",
       "type": "podcast",
@@ -20,10 +19,9 @@
       "title": "Stephan Livera Podcast",
       "subtitle": "Bitcoin-only conversations with builders and educators.",
       "href": "https://stephanlivera.com/",
-      "tags": ["technical","interviews","education"],
+      "tags": ["technical", "interviews", "education"],
       "thumb": "/assets/covers/podcasts/stephan-livera.jpg"
     },
-
     {
       "id": "bitcoin-audible",
       "type": "podcast",
@@ -31,10 +29,9 @@
       "title": "Bitcoin Audible",
       "subtitle": "Readings of the best Bitcoin articles and papers.",
       "href": "https://bitcoinaudible.com/",
-      "tags": ["reading","deep-dives","education"],
+      "tags": ["reading", "deep-dives", "education"],
       "thumb": "/assets/covers/podcasts/bitcoin-audible.jpg"
     },
-
     {
       "id": "the-bitcoin-standard",
       "type": "book",
@@ -42,11 +39,10 @@
       "author": "Saifedean Ammous",
       "year": 2018,
       "subtitle": "A thorough history and monetary analysis of Bitcoin.",
-      "tags": ["economics","history","must-read"],
+      "tags": ["economics", "history", "must-read"],
       "thumb": "/assets/covers/books/the-bitcoin-standard.jpg",
       "buy": "https://example.com/buy/the-bitcoin-standard"
     },
-
     {
       "id": "bitcoin-is-for-everyone",
       "type": "book",
@@ -54,21 +50,19 @@
       "author": "Natalie Brunell",
       "year": 2024,
       "subtitle": "Practical essays and interviews.",
-      "tags": ["intro","education"],
+      "tags": ["intro", "education"],
       "thumb": "/assets/covers/books/bitcoin-is-for-everyone.jpg",
       "buy": "https://example.com/buy/bitcoin-is-for-everyone"
     },
-
     {
       "id": "digital-gold",
       "type": "book",
       "title": "Digital Gold",
       "author": "Nathaniel Popper",
       "year": 2015,
-      "tags": ["history","journalism"],
+      "tags": ["history", "journalism"],
       "thumb": "/assets/covers/books/digital-gold.jpg"
     },
-
     {
       "id": "breaking-bitcoin-article",
       "type": "article",
@@ -77,10 +71,9 @@
       "source": "CBEL Explained",
       "url": "/articles/how-bitcoin-mining-works.html",
       "date": "2025-08-20",
-      "tags": ["mining","energy","explainers"],
+      "tags": ["mining", "energy", "explainers"],
       "thumb": "/assets/covers/articles/mining-explainer.jpg"
     },
-
     {
       "id": "unchained",
       "type": "podcast",
@@ -88,14 +81,18 @@
       "title": "Unchained",
       "subtitle": "Industry interviews and explainers (filter for Bitcoin episodes).",
       "href": "https://unchainedcrypto.com/",
-      "tags": ["interviews","industry"],
+      "tags": ["interviews", "industry"],
       "thumb": "/assets/covers/podcasts/unchained.jpg"
     },
-
     {
-  "id": "bitcoin-magazine-yt",
-  ...
-  "thumb": "/assets/covers/podcasts/bitcoin-magazine.jpg"
-}
-]
+      "id": "bitcoin-magazine-yt",
+      "type": "podcast",
+      "mode": "watch",
+      "title": "Bitcoin Magazine (YouTube)",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["news", "events"],
+      "thumb": "/assets/covers/podcasts/bitcoin-magazine.jpg"
+    }
+  ]
 }
