@@ -656,3 +656,25 @@ h1{
     min-width: 0;
   }
 }
+/* Fix spacing: stop space-between from creating a huge gap */
+#controls.controls{
+  justify-content: flex-start !important;
+}
+
+/* Keep Type + Search + Clear in one line with a consistent gap */
+#controls .filter-stack{
+  flex: 0 0 auto;
+}
+
+#controls .search{
+  flex: 1 1 auto !important;
+  min-width: 320px;
+}
+
+#controls .clear-btn{
+  flex: 0 0 auto;
+  margin-left: 0 !important;
+}
+
+#controls.controls{ gap: 10px !important; 
+}
