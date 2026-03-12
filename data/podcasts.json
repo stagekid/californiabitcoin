@@ -1,38 +1,93 @@
 [
   {
+    "section": "Listen",
     "title": "What Bitcoin Did",
     "url": "https://www.whatbitcoindid.com/episodes",
     "description": "Long-form conversations on Bitcoin, macro, and the future of money.",
-    "tags": ["Macro", "Interviews", "Beginner-friendly"]
+    "tags": ["Interviews", "Macro"]
   },
   {
+    "section": "Listen",
     "title": "Stephan Livera Podcast",
     "url": "https://stephanlivera.com/",
     "description": "Bitcoin-focused interviews spanning economics, tech, and culture.",
-    "tags": ["Interviews", "Technical", "Economics"]
+    "tags": ["Interviews", "Technical"]
   },
   {
+    "section": "Listen",
     "title": "TFTC: A Bitcoin Podcast",
     "url": "https://www.tftc.io/",
     "description": "Marty Bent on Bitcoin, freedom tech, culture, and current events.",
-    "tags": ["News", "Interviews", "Culture"]
+    "tags": ["News", "Culture"]
   },
   {
+    "section": "Listen",
     "title": "Bitcoin Audible",
     "url": "https://bitcoinaudible.com/",
-    "description": "Guy Swann reads and distills the best writing in Bitcoin.",
-    "tags": ["Audio Essays", "Deep Dives", "Education"]
+    "description": "Audio versions and breakdowns of the best Bitcoin writing.",
+    "tags": ["Education", "Deep Dives"]
   },
   {
+    "section": "Listen",
     "title": "The Bitcoin Matrix",
     "url": "https://bitcoinmatrix.libsyn.com/",
-    "description": "Cedric Youngelman explores Bitcoin’s social, cultural, and philosophical implications.",
-    "tags": ["Culture", "Philosophy", "Interviews"]
+    "description": "Explores Bitcoin’s cultural, social, and philosophical implications.",
+    "tags": ["Culture", "Philosophy"]
   },
   {
+    "section": "Listen",
     "title": "Bitcoin Explained",
     "url": "https://bitcoinexplainedpodcast.com/",
-    "description": "Aaron van Wirdum and Sjors Provoost explain Bitcoin’s technical side, one topic at a time.",
-    "tags": ["Technical", "Bitcoin Core", "Protocol"]
+    "description": "Topic-by-topic explanations of Bitcoin’s technical side.",
+    "tags": ["Technical", "Protocol"]
+  },
+
+  {
+    "section": "Watch",
+    "title": "What Bitcoin Did — Video (placeholder)",
+    "url": "https://www.youtube.com/watch?v=BF0v2MSR0tU",
+    "youtubeId": "BF0v2MSR0tU",
+    "description": "Example YouTube card. Replace with your chosen episodes.",
+    "tags": ["YouTube", "WBD"]
+  },
+  {
+    "section": "Watch",
+    "title": "Stephan Livera — Video (placeholder)",
+    "url": "https://www.youtube.com/",
+    "youtubeId": "REPLACE_ME_2",
+    "description": "Add the YouTube ID for the episode you want to feature.",
+    "tags": ["YouTube", "SLP"]
+  },
+  {
+    "section": "Watch",
+    "title": "TFTC — Video (placeholder)",
+    "url": "https://www.youtube.com/",
+    "youtubeId": "REPLACE_ME_3",
+    "description": "Add the YouTube ID for the episode you want to feature.",
+    "tags": ["YouTube", "TFTC"]
+  },
+  {
+    "section": "Watch",
+    "title": "Bitcoin Audible — Video (placeholder)",
+    "url": "https://www.youtube.com/",
+    "youtubeId": "REPLACE_ME_4",
+    "description": "Add the YouTube ID for the episode you want to feature.",
+    "tags": ["YouTube", "Audible"]
+  },
+  {
+    "section": "Watch",
+    "title": "The Bitcoin Matrix — Video (placeholder)",
+    "url": "https://www.youtube.com/",
+    "youtubeId": "REPLACE_ME_5",
+    "description": "Add the YouTube ID for the episode you want to feature.",
+    "tags": ["YouTube", "Matrix"]
+  },
+  {
+    "section": "Watch",
+    "title": "Bitcoin Explained — Video (placeholder)",
+    "url": "https://www.youtube.com/",
+    "youtubeId": "REPLACE_ME_6",
+    "description": "Add the YouTube ID for the episode you want to feature.",
+    "tags": ["YouTube", "Explained"]
   }
 ]
