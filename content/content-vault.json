@@ -10,7 +10,7 @@
       "subtitle": "Interviews and stories about Bitcoin.",
       "href": "https://www.whatbitcoindid.com/",
       "tags": ["interviews", "news", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "stephan-livera",
@@ -20,7 +20,7 @@
       "subtitle": "Bitcoin-only conversations with builders and educators.",
       "href": "https://stephanlivera.com/",
       "tags": ["technical", "interviews", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "bitcoin-audible",
@@ -30,7 +30,7 @@
       "subtitle": "Readings of the best Bitcoin articles and papers.",
       "href": "https://bitcoinaudible.com/",
       "tags": ["reading", "deep-dives", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "tftc",
@@ -40,7 +40,7 @@
       "subtitle": "Bitcoin and freedom tech conversations.",
       "href": "https://www.tftc.io/",
       "tags": ["culture", "interviews", "mining"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "coin-stories",
@@ -50,7 +50,7 @@
       "subtitle": "Bitcoin-focused interviews and perspectives.",
       "href": "https://www.coinsstories.com/",
       "tags": ["interviews", "macro", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "unchained",
@@ -60,7 +60,7 @@
       "subtitle": "Industry interviews and explainers (filter for Bitcoin episodes).",
       "href": "https://unchainedcrypto.com/",
       "tags": ["interviews", "industry"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
 
     {
@@ -71,7 +71,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["news", "events"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "swan-yt",
@@ -81,7 +81,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["education", "interviews"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "blockworks-yt",
@@ -91,7 +91,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["macro", "markets"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "btcsessions-yt",
@@ -101,7 +101,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["how-to", "wallets", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "aantonop-yt",
@@ -111,7 +111,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["talks", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
     {
       "id": "btcmn-yt",
@@ -121,7 +121,7 @@
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["mining", "energy", "infrastructure"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
     },
 
     {
@@ -133,7 +133,7 @@
       "year": 2018,
       "date": "2018-01-01",
       "url": "/books/the-bitcoin-standard/",
-      "thumb": "/assets/covers/placeholder/cabitcoin-book.png",
+      "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
       "tags": ["economics", "history", "basics"]
     },
     {
@@ -145,7 +145,7 @@
       "year": 2020,
       "date": "2020-01-01",
       "url": "/books/the-price-of-tomorrow/",
-      "thumb": "/assets/covers/placeholder/cabitcoin-book.png",
+      "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
       "tags": ["macro", "technology", "deflation"]
     },
     {
@@ -157,7 +157,7 @@
       "year": 2015,
       "date": "2015-01-01",
       "url": "/books/digital-gold/",
-      "thumb": "/assets/covers/placeholder/cabitcoin-book.png",
+      "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
       "tags": ["history", "origins", "narrative"]
     },
     {
@@ -169,7 +169,7 @@
       "year": 2021,
       "date": "2021-01-01",
       "url": "/books/the-blocksize-war/",
-      "thumb": "/assets/covers/placeholder/cabitcoin-book.png",
+      "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
       "tags": ["history", "scaling", "bitcoin-core"]
     },
     {
@@ -181,7 +181,7 @@
       "year": 1994,
       "date": "1994-01-01",
       "url": "/books/creature-from-jekyll-island/",
-      "thumb": "/assets/covers/placeholder/cabitcoin-book.png",
+      "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
       "tags": ["central-banking", "history", "macro"]
     },
     {
@@ -193,7 +193,7 @@
       "year": 2024,
       "date": "2024-01-01",
       "url": "/books/broken-money/",
-      "thumb": "/assets/covers/placeholder/cabitcoin-book.png",
+      "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
       "tags": ["money", "macro", "technology"]
     },
     {
@@ -205,7 +205,7 @@
       "year": 2024,
       "date": "2024-01-01",
       "url": "/books/bitcoin-is-for-everyone/",
-      "thumb": "/assets/covers/placeholder/cabitcoin-book.png",
+      "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
       "tags": ["basics", "beginner-friendly", "education"]
     },
 
@@ -218,7 +218,7 @@
       "url": "/articles/how-bitcoin-mining-works.html",
       "date": "2025-08-20",
       "tags": ["mining", "energy", "explainers"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-article.png"
+      "thumb": "/assets/covers/placeholder/cabitcoin-article.webp"
     }
   ]
 }
