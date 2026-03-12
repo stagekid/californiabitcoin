@@ -5,7 +5,7 @@
     "date": "2018-01-01",
     "source": "Saifedean Ammous",
     "url": "/books/the-bitcoin-standard/",
-    "image": "/assets/covers/bitcoin-standard.jpg",
+    "image": "/assets/covers/bitcoin-standard.webp",
     "tags": ["Economics", "History", "Basics"]
   },
   {
@@ -14,7 +14,7 @@
     "date": "2020-01-01",
     "source": "Jeff Booth",
     "url": "/books/the-price-of-tomorrow/",
-    "image": "/assets/covers/price-of-tomorrow.jpg",
+    "image": "/assets/covers/price-of-tomorrow.webp",
     "tags": ["Macro", "Technology", "Deflation"]
   },
   {
@@ -23,7 +23,7 @@
     "date": "2015-01-01",
     "source": "Nathaniel Popper",
     "url": "/books/digital-gold/",
-    "image": "/assets/covers/digital-gold.jpg",
+    "image": "/assets/covers/digital-gold.webp",
     "tags": ["History", "Origins", "Narrative"]
   },
   {
@@ -32,7 +32,7 @@
     "date": "2021-01-01",
     "source": "Jonathan Bier",
     "url": "/books/the-blocksize-war/",
-    "image": "/assets/covers/blocksize-war.jpg",
+    "image": "/assets/covers/blocksize-war.webp",
     "tags": ["History", "Scaling", "Bitcoin Core"]
   },
   {
@@ -41,7 +41,7 @@
     "date": "1994-01-01",
     "source": "G. Edward Griffin",
     "url": "/books/creature-from-jekyll-island/",
-    "image": "/assets/covers/creature-jekyll-island.jpg",
+    "image": "/assets/covers/creature-jekyll-island.webp",
     "tags": ["Central Banking", "History", "Macro"]
   },
   {
@@ -50,16 +50,16 @@
     "date": "2024-01-01",
     "source": "Lyn Alden",
     "url": "/books/broken-money/",
-    "image": "/assets/covers/broken-money.jpg",
+    "image": "/assets/covers/broken-money.webp",
     "tags": ["Money", "Macro", "Technology"]
   },
   {
     "title": "Bitcoin Is for Everyone",
     "description": "An accessible introduction designed for new learners.",
     "date": "2024-01-01",
-    "source": "Book",
+    "source": "Natalie Brunell",
     "url": "/books/bitcoin-is-for-everyone/",
-    "image": "/assets/covers/bitcoin-is-for-everyone.jpg",
+    "image": "/assets/covers/bitcoin-is-for-everyone.webp",
     "tags": ["Basics", "Beginner-friendly", "Education"]
   }
 ]
