@@ -74,50 +74,13 @@
       "using": [],
       "level": "intermediate"
     },
-
-    {
-      "id": "bitcoin-magazine-yt",
-      "type": "podcast",
-      "mode": "watch",
-      "title": "Bitcoin Magazine (YouTube)",
-      "youtubeId": "REPLACE_WITH_VIDEO_ID",
-      "subtitle": "Reserved for YouTube embeds later.",
-      "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["macro", "economics"],
-      "using": ["mining"],
-      "level": "intermediate"
-    },
-    {
-      "id": "swan-yt",
-      "type": "podcast",
-      "mode": "watch",
-      "title": "Swan (YouTube)",
-      "youtubeId": "REPLACE_WITH_VIDEO_ID",
-      "subtitle": "Reserved for YouTube embeds later.",
-      "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["basics", "economics", "money"],
-      "using": ["self-custody", "security"],
-      "level": "beginner"
-    },
-    {
-      "id": "blockworks-yt",
-      "type": "podcast",
-      "mode": "watch",
-      "title": "Blockworks (YouTube)",
-      "youtubeId": "REPLACE_WITH_VIDEO_ID",
-      "subtitle": "Reserved for YouTube embeds later.",
-      "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["macro", "economics"],
-      "using": [],
-      "level": "intermediate"
-    },
     {
       "id": "btcsessions-yt",
       "type": "podcast",
       "mode": "watch",
       "title": "BTC Sessions (YouTube)",
-      "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
+      "href": "https://www.btcsessions.ca/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["basics"],
       "using": ["wallets", "self-custody", "security"],
@@ -130,25 +93,13 @@
       "title": "Andreas M. Antonopoulos (YouTube)",
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
+      "href": "https://www.youtube.com/user/aantonop",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["basics", "money", "economics"],
       "using": ["security", "privacy"],
       "level": "intermediate",
       "thoughtLeader": "Andreas M. Antonopoulos"
     },
-    {
-      "id": "btcmn-yt",
-      "type": "podcast",
-      "mode": "watch",
-      "title": "Bitcoin Mining (YouTube)",
-      "youtubeId": "REPLACE_WITH_VIDEO_ID",
-      "subtitle": "Reserved for YouTube embeds later.",
-      "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["economics", "macro"],
-      "using": ["mining"],
-      "level": "intermediate"
-    },
-
     {
       "id": "the-bitcoin-standard",
       "type": "book",
