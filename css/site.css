@@ -380,3 +380,17 @@ h1{
   .card{grid-column: span 12;}
   .hero{min-height: 68vh;}
 }
+.library-section + .library-section { margin-top: 28px; }
+
+.library-section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 12px;
+  margin: 6px 0 14px;
+}
+
+.library-section-head h3{
+  font-size: 18px;
+  margin: 0;
+}
