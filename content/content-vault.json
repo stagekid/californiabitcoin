@@ -15,16 +15,16 @@
       "level": "intermediate"
     },
     {
-      "id": "stephan-livera",
+      "id": "one-chair",
       "type": "podcast",
       "mode": "listen",
-      "title": "Stephan Livera Podcast",
-      "subtitle": "Bitcoin-only conversations with builders and educators.",
-      "href": "https://stephanlivera.com/",
+      "title": "One Chair Podcast",
+      "subtitle": "Conversations about Bitcoin treasury companies.",
+      "href": "https://www.youtube.com/@OneChairPod",
       "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["economics"],
+      "foundations": ["bitcoin treasuries", "macro"],
       "using": ["lightning", "nodes", "security"],
-      "level": "advanced"
+      "level": "intermediate"
     },
     {
       "id": "bitcoin-audible",
@@ -54,7 +54,7 @@
       "id": "coin-stories",
       "type": "podcast",
       "mode": "listen",
-      "title": "Coin Stories",
+      "title": "Coin Stories with Natalie Brunell",
       "subtitle": "Bitcoin-focused interviews and perspectives.",
       "href": "https://www.coinsstories.com/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
@@ -63,12 +63,12 @@
       "level": "beginner"
     },
     {
-      "id": "unchained",
+      "id": "mustard",
       "type": "podcast",
       "mode": "listen",
-      "title": "Unchained",
-      "subtitle": "Industry interviews and explainers (filter for Bitcoin episodes).",
-      "href": "https://unchainedcrypto.com/",
+      "title": "The Mustard Seed Bitcoin Podcast",
+      "subtitle": "Bitcoin podcast exploring treasury strategies, digital credit, and institutional adoption.",
+      "href": "https://www.youtube.com/playlist?list=PLn7gNaAnMoUgZ2tTsjJFEQ3I1NUSHwTHP",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["economics", "macro"],
       "using": [],
