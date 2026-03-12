@@ -1,5 +1,6 @@
 // /js/library.js — Content Vault only (NO big CTA badges; whole card is clickable)
-// Keeps type/mode subtle pills only. Disabled items render as non-clickable cards.
+// Change: remove duplicate/meta tags inside cards (listen/watch/podcast/book/article)
+// and remove the subtle type/mode pills from cards entirely.
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
@@ -28,6 +29,16 @@
   let query = "";
 
   const THOUGHT_LEADERS_TAG = "thought leaders";
+
+  // Tags we never want to show as "content tags" inside cards or the tag bar
+  const BANNED_TAGS = new Set([
+    "podcast", "podcasts",
+    "book", "books",
+    "article", "articles",
+    "listen", "watch",
+    "open", "read",
+    "video", "audio"
+  ]);
 
   function escapeHtml(str) {
     return String(str ?? "")
@@ -68,6 +79,7 @@
   // - level
   // - "thought leaders" if thoughtLeaderBookId exists (or thoughtLeader === true)
   // - legacy tags[] (optional, until migration is complete)
+  // Then: de-dupe + remove banned meta-tags
   function getAllTags(item) {
     const foundations = Array.isArray(item.foundations) ? item.foundations : [];
     const using = Array.isArray(item.using) ? item.using : [];
@@ -81,11 +93,12 @@
     const legacy = Array.isArray(item.tags) ? item.tags : [];
     tags.push(...legacy);
 
-    return uniq(tags.map(t => String(t).trim()).filter(Boolean));
+    return uniq(tags.map(t => String(t).trim()).filter(Boolean))
+      .filter(t => !BANNED_TAGS.has(norm(t)));
   }
 
   function computeLink(item) {
-    // Returns { url, disabled } based on your existing CTA logic
+    // Returns { url, disabled } based on existing link logic
     if (item.type === "podcast") {
       if (item.mode === "listen") {
         const url = item.href || null;
@@ -238,9 +251,6 @@
       </div>
     ` : "";
 
-    const typePill = item.type ? `<span class="pill subtle">${escapeHtml(item.type)}</span>` : "";
-    const modePill = (item.type === "podcast" && item.mode) ? `<span class="pill subtle">${escapeHtml(item.mode)}</span>` : "";
-
     const imgTag = `
       <img
         src="${thumb}"
@@ -264,10 +274,6 @@
             <div class="card-title">${title}</div>
             ${desc ? `<div class="card-desc">${desc}</div>` : ""}
             ${tagsHtml}
-            <div class="card-actions">
-              ${typePill}
-              ${modePill}
-            </div>
           </div>
         </div>
       `;
@@ -283,10 +289,6 @@
           <div class="card-title">${title}</div>
           ${desc ? `<div class="card-desc">${desc}</div>` : ""}
           ${tagsHtml}
-          <div class="card-actions">
-            ${typePill}
-            ${modePill}
-          </div>
         </div>
       </a>
     `;
@@ -305,6 +307,7 @@
 
     const allTags = getAllTags(item);
 
+    // Keep type/mode searchable even though we don't show them as tags
     const hay = norm([
       item.title,
       item.subtitle || item.description,
