@@ -1,4 +1,4 @@
-// /js/library.js — Content Vault only (auto placeholders + WebP srcset)
+// /js/library.js — Content Vault only (Type + Podcast Mode filter + grouped tags + WebP srcset)
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
@@ -7,6 +7,10 @@
   const PODCAST_PLACEHOLDER = "/assets/covers/placeholder/podcast.webp";
   const ARTICLE_PLACEHOLDER = "/assets/covers/placeholder/article.webp";
   const BOOK_PLACEHOLDER = "/assets/covers/placeholder/book.webp";
+
+  // Optional: add this container in your HTML where you want the mode pills to appear:
+  // <div id="modeTabs"></div>
+  const modeTabsEl = document.getElementById("modeTabs");
 
   const cardsEl = document.getElementById("cards");
   const searchEl = document.getElementById("searchInput");
@@ -18,8 +22,11 @@
   if (!cardsEl) return;
 
   let allItems = [];
+
+  // Filters
   let selectedType = "all"; // all | podcast | book | article
-  let selectedTag = "";
+  let selectedPodcastMode = "all"; // all | listen | watch (only applies when selectedType === "podcast")
+  let selectedTag = ""; // unified tag pill selection (from Foundations/Using/Level/Thought Leaders)
   let query = "";
 
   function escapeHtml(str) {
@@ -54,6 +61,15 @@
   }
 
   function uniq(arr) { return Array.from(new Set(arr)); }
+
+  // Flatten our new grouped taxonomy into one searchable/filterable list
+  function getAllTags(item) {
+    const foundations = Array.isArray(item.foundations) ? item.foundations : [];
+    const using = Array.isArray(item.using) ? item.using : [];
+    const level = item.level ? [item.level] : [];
+    const leaders = item.thoughtLeader ? [item.thoughtLeader] : [];
+    return uniq([...foundations, ...using, ...level, ...leaders].map(t => String(t).trim()).filter(Boolean));
+  }
 
   function computeCta(item) {
     if (item.type === "podcast") {
@@ -109,6 +125,43 @@
     typeTabsEl.querySelectorAll("button[data-type]").forEach(btn => {
       btn.addEventListener("click", () => {
         selectedType = btn.getAttribute("data-type") || "all";
+
+        // Reset podcast mode when leaving podcasts to keep UX simple/expected
+        if (selectedType !== "podcast") selectedPodcastMode = "all";
+
+        renderAll();
+      });
+    });
+  }
+
+  function renderPodcastModeTabs() {
+    if (!modeTabsEl) return;
+
+    // Only show when Podcasts is selected
+    if (selectedType !== "podcast") {
+      modeTabsEl.innerHTML = "";
+      return;
+    }
+
+    const options = [
+      { key: "all", label: "All" },
+      { key: "listen", label: "Listen" },
+      { key: "watch", label: "Watch" }
+    ];
+
+    modeTabsEl.innerHTML = `
+      <div class="tabs">
+        ${options.map(o => `
+          <button class="tab ${selectedPodcastMode === o.key ? "active" : ""}" type="button" data-mode="${escapeAttr(o.key)}">
+            ${escapeHtml(o.label)}
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    modeTabsEl.querySelectorAll("button[data-mode]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        selectedPodcastMode = btn.getAttribute("data-mode") || "all";
         renderAll();
       });
     });
@@ -165,7 +218,7 @@
     const thumb = escapeAttr(thumbRaw);
     const srcset = escapeAttr(buildSrcset(thumbRaw));
 
-    const tags = Array.isArray(item.tags) ? item.tags : [];
+    const tags = getAllTags(item);
     const cta = computeCta(item);
 
     const tagsHtml = tags.length ? `
@@ -175,6 +228,7 @@
     ` : "";
 
     const typePill = item.type ? `<span class="pill subtle">${escapeHtml(item.type)}</span>` : "";
+    const modePill = (item.type === "podcast" && item.mode) ? `<span class="pill subtle">${escapeHtml(item.mode)}</span>` : "";
 
     const imgTag = `
       <img
@@ -190,6 +244,7 @@
       />
     `;
 
+    // Disabled CTA: show plain "Watch" (no "(soon)")
     if (cta.disabled) {
       return `
         <div class="card disabled" aria-disabled="true">
@@ -200,7 +255,8 @@
             ${tagsHtml}
             <div class="card-actions">
               ${typePill}
-              <button class="btn disabled-cta" type="button" disabled>${escapeHtml(cta.label)} (soon)</button>
+              ${modePill}
+              <button class="btn disabled-cta" type="button" disabled>${escapeHtml(cta.label)}</button>
             </div>
           </div>
         </div>
@@ -219,6 +275,7 @@
           ${tagsHtml}
           <div class="card-actions">
             ${typePill}
+            ${modePill}
             <button class="btn" type="button">${escapeHtml(cta.label)}</button>
           </div>
         </div>
@@ -232,25 +289,34 @@
 
     const matchesType = (selectedType === "all") || (item.type === selectedType);
 
+    // Podcast mode filter (only when podcasts selected)
+    const matchesPodcastMode =
+      (selectedType !== "podcast") ||
+      (selectedPodcastMode === "all") ||
+      (norm(item.mode) === selectedPodcastMode);
+
+    const allTags = getAllTags(item);
     const hay = norm([
       item.title,
       item.subtitle || item.description,
-      (Array.isArray(item.tags) ? item.tags.join(" ") : ""),
+      allTags.join(" "),
       item.type,
-      item.mode
+      item.mode,
+      item.thoughtLeader
     ].join(" "));
 
     const matchesQuery = !q || hay.includes(q);
-    const matchesTag = !tag || (Array.isArray(item.tags) && item.tags.some(t => norm(t) === tag));
+    const matchesTag = !tag || allTags.some(t => norm(t) === tag);
 
-    return matchesType && matchesQuery && matchesTag;
+    return matchesType && matchesPodcastMode && matchesQuery && matchesTag;
   }
 
   function renderAll() {
     const types = uniq(allItems.map(i => i.type).filter(Boolean));
     renderTypeTabs(types);
+    renderPodcastModeTabs();
 
-    const tags = uniq(allItems.flatMap(i => Array.isArray(i.tags) ? i.tags : []).filter(Boolean))
+    const tags = uniq(allItems.flatMap(i => getAllTags(i)).filter(Boolean))
       .map(t => String(t).trim())
       .filter(Boolean)
       .sort((a, b) => a.localeCompare(b));
@@ -259,6 +325,7 @@
     const filtered = allItems.filter(matchesFilters);
 
     filtered.sort((a, b) => {
+      // Within podcasts: sort listen before watch (or swap if you prefer)
       if (a.type === "podcast" && b.type === "podcast") {
         const am = a.mode === "watch" ? 1 : 0;
         const bm = b.mode === "watch" ? 1 : 0;
@@ -276,6 +343,7 @@
 
     if (resultCountEl) resultCountEl.textContent = String(filtered.length);
 
+    // Inline tag clicks
     cardsEl.querySelectorAll("button[data-inline-tag]").forEach(btn => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -290,21 +358,56 @@
     const json = await loadJson(DATA_PATH);
     allItems = unwrapItems(json);
 
-    allItems = allItems.map(it => ({
-      id: it.id,
-      type: it.type || "other",
-      title: it.title || "Untitled",
-      subtitle: it.subtitle ?? it.description ?? "",
-      description: it.description,
-      tags: Array.isArray(it.tags) ? it.tags : [],
-      thumb: it.thumb || it.image || "",
-      image: it.image,
-      href: it.href,
-      url: it.url,
-      buy: it.buy,
-      mode: it.mode,
-      youtubeId: it.youtubeId
-    }));
+    // Normalize items (support both old "tags" and new grouped fields)
+    allItems = allItems.map(it => {
+      const legacyTags = Array.isArray(it.tags) ? it.tags : [];
+
+      // If user hasn't migrated yet, keep legacy tags usable by mapping into foundations
+      // (you can delete this block after migration)
+      const foundations = Array.isArray(it.foundations) ? it.foundations : [];
+      const using = Array.isArray(it.using) ? it.using : [];
+      const level = it.level || "";
+
+      return {
+        id: it.id,
+        type: it.type || "other",
+        title: it.title || "Untitled",
+        subtitle: it.subtitle ?? it.description ?? "",
+        description: it.description,
+
+        // New taxonomy
+        foundations,
+        using,
+        level,
+        thoughtLeader: it.thoughtLeader || "",
+
+        // Legacy support (so you can migrate gradually)
+        // If you want legacy tags to still appear, append them into foundations-ish space:
+        // Comment out the next line once fully migrated.
+        legacyTags,
+
+        thumb: it.thumb || it.image || "",
+        image: it.image,
+        href: it.href,
+        url: it.url,
+        buy: it.buy,
+        mode: it.mode,
+        youtubeId: it.youtubeId
+      };
+    });
+
+    // If legacy tags exist, merge them into our tag system for pills/search
+    // (Delete these two helpers + references once all content uses foundations/using/level/thoughtLeader only)
+    const originalGetAllTags = getAllTags;
+    window.__CBEL_getAllTags = function (item) {
+      const base = originalGetAllTags(item);
+      const legacy = Array.isArray(item.legacyTags) ? item.legacyTags : [];
+      return uniq([...base, ...legacy.map(t => String(t).trim()).filter(Boolean)]);
+    };
+
+    // Override getAllTags to include legacy (without rewriting the file structure)
+    // eslint-disable-next-line no-global-assign
+    getAllTags = window.__CBEL_getAllTags;
 
     renderAll();
   }
@@ -321,6 +424,7 @@
       query = "";
       selectedTag = "";
       selectedType = "all";
+      selectedPodcastMode = "all";
       if (searchEl) searchEl.value = "";
       renderAll();
     });
