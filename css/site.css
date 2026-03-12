@@ -223,6 +223,41 @@ h1{
   gap: 16px;
 }
 
+/* Make top controls the same height */
+:root{
+  --control-h: 48px;
+}
+
+/* Tabs container */
+.tabs{
+  min-height: var(--control-h);
+  padding: 6px;              /* keep your current look */
+  align-items: center;
+}
+
+/* Search pill */
+.search{
+  min-height: var(--control-h);
+  padding: 0 14px;           /* remove vertical padding so height matches */
+  gap: 10px;
+  align-items: center;
+}
+
+/* Ensure the input aligns nicely inside the fixed-height pill */
+.search input{
+  height: calc(var(--control-h) - 16px); /* gives breathing room inside border */
+  line-height: 1;
+}
+
+/* Clear button */
+.clear-btn{
+  min-height: var(--control-h);
+  padding: 0 16px;           /* remove vertical padding so height matches */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Card layout */
 .card{
   display:flex;
