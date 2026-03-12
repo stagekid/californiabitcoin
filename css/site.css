@@ -566,3 +566,15 @@ h1{
   justify-content: center;
   line-height: 1;
 }
+/* Force exact same control height on the actual clickable elements */
+.tabs { height: var(--control-h) !important; }
+
+.search { height: var(--control-h) !important; }
+
+.clear-btn { height: var(--control-h) !important; }
+
+/* Kill any vertical padding/line-height that can “look” shorter/taller */
+.search > * { line-height: 1 !important; }
+.search span { font-size: 13px; }
+
+.tab { line-height: 1 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
