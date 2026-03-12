@@ -30,12 +30,12 @@
     background-position: center, center, center, center, center;
   }
   .glass {
-  background: rgba(255,255,255,.04);
-  border: 2px solid rgba(247,147,26,.22);
-  backdrop-filter: blur(10px);
-}
+    background: rgba(255,255,255,.04);
+    border: 2px solid rgba(247,147,26,.22);
+    backdrop-filter: blur(10px);
+  }
   .shadow-soft { box-shadow: 0 20px 70px rgba(0,0,0,.65); }
-</style>
+  </style>
 </head>
 
 <body class="grid-bg text-slate-100">
@@ -58,23 +58,23 @@
 
       <!-- Desktop pill nav -->
       <nav class="hidden lg:flex items-center">
-  <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
-    <a href="/about" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">About</a>
+        <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
+          <a href="/about" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">About</a>
 
-    <a href="/vault" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">
-      Content Vault
-    </a>
+          <a href="/vault/" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">
+            Content Vault
+          </a>
 
-    <a href="/contact" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Contact</a>
+          <a href="/contact" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Contact</a>
 
-    <!-- Tip button -->
-    <a href="/tip"
-       class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-semibold hover:brightness-105"
-       aria-label="Tip">
-      ₿
-    </a>
-  </div>
-</nav>
+          <!-- Tip button -->
+          <a href="/tip"
+             class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-semibold hover:brightness-105"
+             aria-label="Tip">
+            ₿
+          </a>
+        </div>
+      </nav>
 
       <!-- Mobile menu button -->
       <button id="menuBtn"
@@ -90,14 +90,19 @@
       <div class="glass rounded-3xl p-4">
         <div class="grid gap-2 text-base text-slate-200">
           <a href="/about" class="rounded-2xl px-4 py-3 hover:bg-white/10">About</a>
+
+          <!-- Added: Content Vault (and fixed trailing slash) -->
+          <a href="/vault/" class="rounded-2xl px-4 py-3 hover:bg-white/10">Content Vault</a>
+
           <a href="/podcasts" class="rounded-2xl px-4 py-3 hover:bg-white/10">Podcasts</a>
           <a href="/articles" class="rounded-2xl px-4 py-3 hover:bg-white/10">Articles</a>
           <a href="/books" class="rounded-2xl px-4 py-3 hover:bg-white/10">Books</a>
           <a href="/contact" class="rounded-2xl px-4 py-3 hover:bg-white/10">Contact</a>
+
           <a href="/tip" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
-  <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
-  <span class="font-semibold"> Tip</span>
-</a>
+            <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
+            <span class="font-semibold"> Tip</span>
+          </a>
         </div>
       </div>
     </div>
