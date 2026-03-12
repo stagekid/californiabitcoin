@@ -102,25 +102,27 @@
         <!-- CONTROLS -->
         <div id="controls" class="controls">
 
-          <!-- FILTERS (Type + Mode) -->
+          <!-- TYPE + SEARCH -->
           <div class="filter-stack">
             <div class="filter-group">
               <div class="filter-label">Type</div>
               <div id="typeTabs"></div>
             </div>
 
-            <!-- Only shows when Podcasts is selected (JS will inject tabs) -->
-            <div class="filter-group">
-  <div id="modeTabs"></div>
-</div>
+            <!-- Search moved under Type -->
+            <div class="search-row">
+              <div class="search" role="search">
+                <span style="opacity:.75;">Search</span>
+                <input id="searchInput" type="search" placeholder="Titles, topics, tags…" autocomplete="off" />
+              </div>
+
+              <button id="clearBtn" class="clear-btn" type="button">Clear</button>
+            </div>
+
+            <!-- Mode removed (kept hidden for future flexibility) -->
+            <div id="modeTabs" style="display:none;"></div>
           </div>
 
-          <div class="search" role="search">
-            <span style="opacity:.75;">Search</span>
-            <input id="searchInput" type="search" placeholder="Titles, topics, tags…" autocomplete="off" />
-          </div>
-
-          <button id="clearBtn" class="clear-btn" type="button">Clear</button>
         </div>
 
         <!-- TAG FILTERS -->
