@@ -578,3 +578,59 @@ h1{
 .search span { font-size: 13px; }
 
 .tab { line-height: 1 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+/* === Pixel-match: Tabs should size like Search/Clear === */
+:root{
+  --control-h: 48px;
+  --control-pad-x: 14px;
+}
+
+/* Lock heights */
+.tabs, .search, .clear-btn{
+  height: var(--control-h) !important;
+  min-height: 0 !important;
+}
+
+/* Remove the "framed" padding that makes tabs look taller */
+.tabs{
+  padding: 0 !important;
+  gap: 0 !important;
+  display: inline-flex !important;
+  align-items: stretch !important;
+  overflow: hidden; /* keeps rounded corners clean */
+}
+
+/* Tabs become true segmented buttons that fill the same height */
+.tab{
+  height: 100% !important;
+  padding: 0 var(--control-pad-x) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  border-radius: 0 !important;          /* segment edges */
+  border-left: 2px solid rgba(247,147,26,.14);
+}
+
+/* First/last segments get the pill rounding */
+.tab:first-child{
+  border-left: 0;
+  border-top-left-radius: var(--pill) !important;
+  border-bottom-left-radius: var(--pill) !important;
+}
+.tab:last-child{
+  border-top-right-radius: var(--pill) !important;
+  border-bottom-right-radius: var(--pill) !important;
+}
+
+/* Search: ensure nothing inside changes perceived height */
+.search{
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 var(--control-pad-x) !important;
+}
+.search span, .search input{
+  line-height: 1 !important;
+}
+.search input{
+  height: calc(var(--control-h) - 16px) !important;
+}
