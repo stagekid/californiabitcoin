@@ -1,4 +1,4 @@
-/* /css/site.css */
+/* /css/site.css — cleaned + consolidated */
 :root{
   --bg:#050505;
   --panel:#0b0b0b;
@@ -13,6 +13,10 @@
   --pill: 999px;
   --max: 1120px;
   --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+
+  /* Vault control sizing */
+  --control-h: 48px;
+  --control-pad-x: 14px;
 }
 
 *{box-sizing:border-box}
@@ -20,9 +24,10 @@ html,body{height:100%}
 body{
   margin:0;
   font-family:var(--font);
-  background: radial-gradient(900px 500px at 20% -10%, rgba(247,147,26,.08), transparent 60%),
-              radial-gradient(700px 500px at 90% 0%, rgba(247,147,26,.06), transparent 55%),
-              var(--bg);
+  background:
+    radial-gradient(900px 500px at 20% -10%, rgba(247,147,26,.08), transparent 60%),
+    radial-gradient(700px 500px at 90% 0%, rgba(247,147,26,.06), transparent 55%),
+    var(--bg);
   color:var(--text);
 }
 
@@ -34,6 +39,7 @@ a:hover{opacity:.92}
   margin: 0 auto;
 }
 
+/* ===== Header / Nav (kept, even if Tailwind handles most) ===== */
 .navbar{
   position: sticky;
   top: 0;
@@ -114,6 +120,7 @@ a:hover{opacity:.92}
   border-color: rgba(247,147,26,.85);
 }
 
+/* ===== Hero ===== */
 .hero{
   position: relative;
   min-height: 62vh;
@@ -183,6 +190,7 @@ h1{
   margin: 10px 0 0;
 }
 
+/* ===== Sections / Blocks ===== */
 .section{
   padding: 42px 0;
 }
@@ -194,9 +202,7 @@ h1{
   box-shadow: var(--shadow);
 }
 
-.block.pad{
-  padding: 22px;
-}
+.block.pad{ padding: 22px; }
 
 .section-title{
   display:flex;
@@ -223,42 +229,178 @@ h1{
   gap: 16px;
 }
 
-/* Make top controls the same height */
-:root{
-  --control-h: 48px;
+/* ===== Controls (Type tabs, mode tabs, search, clear) ===== */
+.controls{
+  display:flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom: 14px;
 }
 
-/* Tabs container */
-.tabs{
-  min-height: var(--control-h);
-  padding: 6px;              /* keep your current look */
-  align-items: center;
-}
-
-/* Search pill */
-.search{
-  min-height: var(--control-h);
-  padding: 0 14px;           /* remove vertical padding so height matches */
+.filter-stack{
+  display:flex;
+  flex-direction:column;
   gap: 10px;
-  align-items: center;
 }
 
-/* Ensure the input aligns nicely inside the fixed-height pill */
-.search input{
-  height: calc(var(--control-h) - 16px); /* gives breathing room inside border */
+.filter-group{
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+
+.filter-label{
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.82);
+  font-weight: 750;
+  margin-bottom: 2px;
+}
+
+.filter-label::before{
+  content:"";
+  display:inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-right: 8px;
+  background: rgba(247,147,26,.18);
+  border: 2px solid rgba(247,147,26,.55);
+  vertical-align: -1px;
+}
+
+/* Segmented tabs */
+.tabs{
+  height: var(--control-h);
+  padding: 0 6px;
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  border-radius: var(--pill);
+  background: rgba(14,14,14,.65);
+  border: 2px solid rgba(247,147,26,.18);
+}
+
+.tab{
+  height: calc(var(--control-h) - 12px);
+  padding: 0 var(--control-pad-x);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius: var(--pill);
+  border: 2px solid transparent;
+  background: transparent;
+  color: rgba(255,255,255,.7);
+  font-weight: 650;
+  font-size: 13px;
+  letter-spacing: .2px;
+  cursor: pointer;
+  transition: all .12s ease;
   line-height: 1;
 }
 
-/* Clear button */
-.clear-btn{
-  min-height: var(--control-h);
-  padding: 0 16px;           /* remove vertical padding so height matches */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.tab:hover{
+  color: var(--text);
+  border-color: rgba(247,147,26,.25);
+  background: rgba(255,255,255,.04);
 }
 
-/* Card layout */
+.tab.active{
+  background: rgba(247,147,26,.15);
+  border-color: rgba(247,147,26,.65);
+  color: var(--orange);
+  box-shadow: 0 0 0 2px rgba(247,147,26,.08) inset;
+}
+
+/* Search */
+.search{
+  height: var(--control-h);
+  flex: 1 1 260px;
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 0 var(--control-pad-x);
+  border-radius: var(--pill);
+  border: 2px solid rgba(247,147,26,.22);
+  background: rgba(14,14,14,.65);
+}
+
+.search input{
+  width: 100%;
+  height: calc(var(--control-h) - 16px);
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.search input::placeholder{ color: rgba(255,255,255,.45); }
+
+/* Clear */
+.clear-btn{
+  height: var(--control-h);
+  padding: 0 calc(var(--control-pad-x) + 2px);
+  border-radius: var(--pill);
+  border: 2px solid rgba(247,147,26,.22);
+  background: rgba(14,14,14,.65);
+  color: var(--text);
+  font-weight: 650;
+  cursor: pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  line-height: 1;
+}
+
+.clear-btn:hover{ border-color: rgba(247,147,26,.4); }
+
+/* ===== Pills (tags) ===== */
+.pills{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: var(--pill);
+  border: 2px solid rgba(247,147,26,.38);
+  background: rgba(247,147,26,.10);
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: .15px;
+  cursor: pointer;
+  user-select:none;
+}
+
+.pill:hover{
+  background: rgba(247,147,26,.14);
+  border-color: rgba(247,147,26,.55);
+}
+
+.pill.selected{
+  background: rgba(247,147,26,.22);
+  border-color: rgba(247,147,26,.85);
+}
+
+.pill.subtle{
+  cursor: default;
+  border-color: rgba(247,147,26,.18);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.72);
+}
+
+/* ===== Cards ===== */
 .card{
   display:flex;
   gap: 14px;
@@ -275,6 +417,18 @@ h1{
   transform: translateY(-2px);
   border-color: rgba(247,147,26,.35);
   background: rgba(18,18,18,.78);
+}
+
+/* Disabled cards */
+.card.disabled{
+  opacity: .72;
+  cursor: not-allowed;
+}
+
+.card.disabled:hover{
+  transform: none;
+  border-color: rgba(247,147,26,.18);
+  background: rgba(14,14,14,.7);
 }
 
 .cover{
@@ -318,91 +472,6 @@ h1{
   font-size: 12px;
 }
 
-.pills{
-  display:flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap: 6px;
-  padding: 6px 10px;
-  border-radius: var(--pill);
-  border: 2px solid rgba(247,147,26,.38);
-  background: rgba(247,147,26,.10);
-  color: var(--orange);
-  font-size: 12px;
-  font-weight: 650;
-  letter-spacing: .15px;
-  cursor: pointer;
-  user-select:none;
-}
-
-.pill:hover{
-  background: rgba(247,147,26,.14);
-  border-color: rgba(247,147,26,.55);
-}
-
-.pill.selected{
-  background: rgba(247,147,26,.22);
-  border-color: rgba(247,147,26,.85);
-}
-
-.controls{
-  display:flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom: 14px;
-}
-
-.search{
-  flex: 1 1 260px;
-  display:flex;
-  align-items:center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: var(--pill);
-  border: 2px solid rgba(247,147,26,.22);
-  background: rgba(14,14,14,.65);
-}
-
-.search input{
-  width: 100%;
-  border: 0;
-  outline: none;
-  background: transparent;
-  color: var(--text);
-  font-size: 14px;
-}
-
-.search input::placeholder{color: rgba(255,255,255,.45)}
-
-.clear-btn{
-  padding: 10px 14px;
-  border-radius: var(--pill);
-  border: 2px solid rgba(247,147,26,.22);
-  background: rgba(14,14,14,.65);
-  color: var(--text);
-  font-weight: 650;
-  cursor: pointer;
-}
-
-.clear-btn:hover{
-  border-color: rgba(247,147,26,.4);
-}
-
-.footer{
-  padding: 34px 0 56px;
-  color: rgba(255,255,255,.62);
-  border-top: 2px solid rgba(247,147,26,.18);
-}
-
-/* ✅ Option A support: CTA badge (reuses your .btn class) */
 .card-actions{
   display:flex;
   align-items:center;
@@ -411,47 +480,24 @@ h1{
   flex-wrap: wrap;
 }
 
-/* This is now used as a non-button badge (span) inside the card */
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 8px 12px;
-  border-radius: var(--pill);
-  border: 2px solid rgba(247,147,26,.22);
-  background: rgba(14,14,14,.65);
-  color: var(--text);
-  font-weight: 650;
-  font-size: 12px;
-  letter-spacing: .15px;
-  line-height: 1;
-  user-select:none;
-  pointer-events: none; /* important: card is the click target */
+/* ===== Footer ===== */
+.footer{
+  padding: 34px 0 56px;
+  color: rgba(255,255,255,.62);
+  border-top: 2px solid rgba(247,147,26,.18);
 }
 
-/* Disabled CTA badge style */
-.btn.disabled-cta{
-  opacity: .55;
-  border-color: rgba(247,147,26,.18);
-}
-
-/* If you keep subtle pills for type/mode, this prevents them looking clickable */
-.pill.subtle{
-  cursor: default;
-  border-color: rgba(247,147,26,.18);
-  background: rgba(255,255,255,.04);
-  color: rgba(255,255,255,.72);
-}
-
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width: 980px){
   .card{grid-column: span 6;}
 }
+
 @media (max-width: 640px){
   .nav-inner{align-items:flex-start; flex-direction:column}
   .nav-links{justify-content:flex-start}
   .card{grid-column: span 12;}
   .hero{min-height: 68vh;}
+  .filter-stack{ width: 100%; }
 }
 
 .library-section + .library-section { margin-top: 28px; }
@@ -467,65 +513,4 @@ h1{
 .library-section-head h3{
   font-size: 18px;
   margin: 0;
-}
-/* Vault Type Tabs — Segmented Control */
-.tabs{
-  display:inline-flex;
-  align-items:center;
-  gap: 6px;
-  padding: 6px;
-  border-radius: var(--pill);
-  background: rgba(14,14,14,.65);
-  border: 2px solid rgba(247,147,26,.18);
-}
-
-.tab{
-  padding: 8px 14px;
-  border-radius: var(--pill);
-  border: 2px solid transparent;
-  background: transparent;
-  color: rgba(255,255,255,.7);
-  font-weight: 650;
-  font-size: 13px;
-  letter-spacing: .2px;
-  cursor: pointer;
-  transition: all .12s ease;
-}
-
-.tab:hover{
-  color: var(--text);
-  border-color: rgba(247,147,26,.25);
-  background: rgba(255,255,255,.04);
-}
-
-.tab.active{
-  background: rgba(247,147,26,.15);
-  border-color: rgba(247,147,26,.65);
-  color: var(--orange);
-  box-shadow: 0 0 0 2px rgba(247,147,26,.08) inset;
-}
-
-/* Filter labels + grouping */
-.filter-stack{
-  display:flex;
-  flex-direction:column;
-  gap: 10px;
-}
-
-.filter-group{
-  display:flex;
-  flex-direction:column;
-  gap: 6px;
-}
-
-.filter-label{
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  color: rgba(255,255,255,.45);
-}
-
-/* If controls wrap on small screens, keep filters readable */
-@media (max-width: 640px){
-  .filter-stack{ width: 100%; }
 }
