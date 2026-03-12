@@ -1,11 +1,12 @@
-// /js/library.js — Content Vault only (with automatic podcast/article placeholders)
+// /js/library.js — Content Vault only (auto placeholders + WebP srcset)
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
-  // Placeholders (your paths)
+  // Placeholder images (WebP + @2x)
   const FALLBACK_PLACEHOLDER = "/assets/covers/placeholder-512.jpg";
-  const ARTICLE_PLACEHOLDER = "/assets/covers/placeholder/podcast-cabitcoin-article.png";
-  const PODCAST_PLACEHOLDER = "/assets/covers/placeholder/podcast-cabitcoin-podcast.png";
+  const PODCAST_PLACEHOLDER = "/assets/covers/placeholder/podcast.webp";
+  const ARTICLE_PLACEHOLDER = "/assets/covers/placeholder/article.webp";
+  const BOOK_PLACEHOLDER = "/assets/covers/placeholder/book.webp";
 
   const cardsEl = document.getElementById("cards");
   const searchEl = document.getElementById("searchInput");
@@ -55,7 +56,6 @@
   function uniq(arr) { return Array.from(new Set(arr)); }
 
   function computeCta(item) {
-    // Podcasts
     if (item.type === "podcast") {
       if (item.mode === "listen") {
         const url = item.href || null;
@@ -68,19 +68,16 @@
       }
     }
 
-    // Books
     if (item.type === "book") {
       const url = item.buy || item.href || item.url || null;
       return { label: url ? (item.buy ? "Buy" : "Open") : "Info", url, disabled: !url };
     }
 
-    // Articles
     if (item.type === "article") {
       const url = item.url || item.href || null;
       return { label: "Read", url, disabled: !url };
     }
 
-    // Fallback
     const url = item.href || item.url || null;
     return { label: "Open", url, disabled: !url };
   }
@@ -138,22 +135,36 @@
   }
 
   function resolveThumb(item) {
-    // Prefer explicit thumb/image if provided
     const explicit = (item.thumb || item.image || "").toString().trim();
     if (explicit) return explicit;
 
-    // Auto placeholders by type
     if (item.type === "podcast") return PODCAST_PLACEHOLDER;
     if (item.type === "article") return ARTICLE_PLACEHOLDER;
+    if (item.type === "book") return BOOK_PLACEHOLDER;
 
-    // Books keep real covers; if missing, fall back to generic placeholder
     return FALLBACK_PLACEHOLDER;
   }
 
+  // If url is ".../name.webp", srcset becomes "name.webp 1x, name@2x.webp 2x"
+  function buildSrcset(url) {
+    const m = String(url || "").match(/^(.*?)(\.[^./]+)$/);
+    if (!m) return "";
+    const base = m[1];
+    const ext = m[2];
+    const oneX = `${base}${ext}`;
+    const twoX = `${base}@2x${ext}`;
+    return `${oneX} 1x, ${twoX} 2x`;
+  }
+
   function cardHtml(item) {
-    const title = escapeHtml(item.title || "Untitled");
+    const titleText = item.title || "Untitled";
+    const title = escapeHtml(titleText);
     const desc = escapeHtml(item.subtitle || item.description || "");
-    const thumb = escapeAttr(resolveThumb(item));
+
+    const thumbRaw = resolveThumb(item);
+    const thumb = escapeAttr(thumbRaw);
+    const srcset = escapeAttr(buildSrcset(thumbRaw));
+
     const tags = Array.isArray(item.tags) ? item.tags : [];
     const cta = computeCta(item);
 
@@ -168,18 +179,21 @@
     const imgTag = `
       <img
         src="${thumb}"
-        alt="${escapeAttr(item.title || "Untitled")} cover"
+        ${srcset ? `srcset="${srcset}"` : ""}
+        sizes="200px"
+        width="500"
+        height="700"
+        alt="${escapeAttr(titleText)} cover"
         loading="lazy"
         onerror="this.onerror=null; this.src='${escapeAttr(FALLBACK_PLACEHOLDER)}';"
+        style="object-fit:cover; width:100%; height:100%; display:block;"
       />
     `;
 
     if (cta.disabled) {
       return `
         <div class="card disabled" aria-disabled="true">
-          <div class="cover">
-            ${imgTag}
-          </div>
+          <div class="cover">${imgTag}</div>
           <div class="card-body">
             <div class="card-title">${title}</div>
             ${desc ? `<div class="card-desc">${desc}</div>` : ""}
@@ -198,9 +212,7 @@
 
     return `
       <a class="card" href="${escapeAttr(cta.url)}" ${linkAttrs}>
-        <div class="cover">
-          ${imgTag}
-        </div>
+        <div class="cover">${imgTag}</div>
         <div class="card-body">
           <div class="card-title">${title}</div>
           ${desc ? `<div class="card-desc">${desc}</div>` : ""}
@@ -235,7 +247,6 @@
   }
 
   function renderAll() {
-    // update tab + tag bar active states by re-rendering them
     const types = uniq(allItems.map(i => i.type).filter(Boolean));
     renderTypeTabs(types);
 
@@ -248,13 +259,11 @@
     const filtered = allItems.filter(matchesFilters);
 
     filtered.sort((a, b) => {
-      // podcasts: listen first then watch
       if (a.type === "podcast" && b.type === "podcast") {
         const am = a.mode === "watch" ? 1 : 0;
         const bm = b.mode === "watch" ? 1 : 0;
         if (am !== bm) return am - bm;
       }
-      // then by title
       return String(a.title || "").localeCompare(String(b.title || ""));
     });
 
@@ -267,12 +276,10 @@
 
     if (resultCountEl) resultCountEl.textContent = String(filtered.length);
 
-    // inline tag click inside cards
     cardsEl.querySelectorAll("button[data-inline-tag]").forEach(btn => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
         selectedTag = btn.getAttribute("data-inline-tag") || "";
-        // scroll to controls for UX
         document.getElementById("controls")?.scrollIntoView({ behavior: "smooth", block: "start" });
         renderAll();
       });
@@ -283,7 +290,6 @@
     const json = await loadJson(DATA_PATH);
     allItems = unwrapItems(json);
 
-    // basic sanity normalize
     allItems = allItems.map(it => ({
       id: it.id,
       type: it.type || "other",
@@ -303,7 +309,6 @@
     renderAll();
   }
 
-  // search
   if (searchEl) {
     searchEl.addEventListener("input", () => {
       query = searchEl.value || "";
@@ -311,7 +316,6 @@
     });
   }
 
-  // clear
   if (clearBtn) {
     clearBtn.addEventListener("click", () => {
       query = "";
