@@ -321,3 +321,26 @@ a:hover{opacity:.92}
     width: 100%;
   }
 }
+.search-row{
+  display:flex;
+  gap: 12px;
+  align-items:center;
+}
+
+.search-row .search{
+  flex: 1 1 auto;
+}
+
+.search-row .clear-btn{
+  flex: 0 0 auto;
+}
+
+@media (max-width: 640px){
+  .search-row{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-row .clear-btn{
+    width: 100%;
+  }
+}
