@@ -1,6 +1,5 @@
-// /js/library.js — Content Vault only (Type + Podcast Mode filter + grouped tags + WebP srcset)
-// Change requested: NO author-name tags. Instead, add ONE tag: "thought leaders"
-// Rule: any item with a book attached (thoughtLeaderBookId) gets the "thought leaders" tag.
+// /js/library.js — Content Vault only (NO big CTA badges; whole card is clickable)
+// Keeps type/mode subtle pills only. Disabled items render as non-clickable cards.
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
@@ -10,10 +9,7 @@
   const ARTICLE_PLACEHOLDER = "/assets/covers/placeholder/article.webp";
   const BOOK_PLACEHOLDER = "/assets/covers/placeholder/book.webp";
 
-  // Optional: add this container in your HTML where you want the mode pills to appear:
-  // <div id="modeTabs"></div>
   const modeTabsEl = document.getElementById("modeTabs");
-
   const cardsEl = document.getElementById("cards");
   const searchEl = document.getElementById("searchInput");
   const clearBtn = document.getElementById("clearBtn");
@@ -28,10 +24,9 @@
   // Filters
   let selectedType = "all"; // all | podcast | book | article
   let selectedPodcastMode = "all"; // all | listen | watch (only applies when selectedType === "podcast")
-  let selectedTag = ""; // unified tag pill selection
+  let selectedTag = "";
   let query = "";
 
-  // Single canonical tag label for this category
   const THOUGHT_LEADERS_TAG = "thought leaders";
 
   function escapeHtml(str) {
@@ -67,62 +62,54 @@
 
   function uniq(arr) { return Array.from(new Set(arr)); }
 
-  // --- TAG SYSTEM (grouped + legacy support) ---
-  // Tags are:
-  // - foundations[] (array)
-  // - using[] (array)
-  // - level (string)
-  // - thought leaders (single tag) if thoughtLeaderBookId exists (or thoughtLeader === true)
-  // - legacy tags[] (optional, for gradual migration)
+  // Unified tag list:
+  // - foundations[]
+  // - using[]
+  // - level
+  // - "thought leaders" if thoughtLeaderBookId exists (or thoughtLeader === true)
+  // - legacy tags[] (optional, until migration is complete)
   function getAllTags(item) {
     const foundations = Array.isArray(item.foundations) ? item.foundations : [];
     const using = Array.isArray(item.using) ? item.using : [];
     const level = item.level ? [item.level] : [];
 
-    const tags = [
-      ...foundations,
-      ...using,
-      ...level
-    ];
+    const tags = [...foundations, ...using, ...level];
 
-    // ✅ Your new rule:
-    // If this item has a book attached, give it the "thought leaders" tag.
-    // (Also supports a simple boolean if you prefer: thoughtLeader: true)
     const isThoughtLeader = Boolean(item.thoughtLeaderBookId) || item.thoughtLeader === true;
     if (isThoughtLeader) tags.push(THOUGHT_LEADERS_TAG);
 
-    // Legacy support: if content still uses item.tags, include them until you delete that field
     const legacy = Array.isArray(item.tags) ? item.tags : [];
     tags.push(...legacy);
 
     return uniq(tags.map(t => String(t).trim()).filter(Boolean));
   }
 
-  function computeCta(item) {
+  function computeLink(item) {
+    // Returns { url, disabled } based on your existing CTA logic
     if (item.type === "podcast") {
       if (item.mode === "listen") {
         const url = item.href || null;
-        return { label: "Listen", url, disabled: !url };
+        return { url, disabled: !url };
       }
       if (item.mode === "watch") {
         const placeholder = !item.youtubeId || item.youtubeId === "REPLACE_WITH_VIDEO_ID";
-        if (placeholder) return { label: "Watch", url: null, disabled: true };
-        return { label: "Watch", url: `https://www.youtube.com/watch?v=${item.youtubeId}`, disabled: false };
+        if (placeholder) return { url: null, disabled: true };
+        return { url: `https://www.youtube.com/watch?v=${item.youtubeId}`, disabled: false };
       }
     }
 
     if (item.type === "book") {
       const url = item.buy || item.href || item.url || null;
-      return { label: url ? (item.buy ? "Buy" : "Open") : "Info", url, disabled: !url };
+      return { url, disabled: !url };
     }
 
     if (item.type === "article") {
       const url = item.url || item.href || null;
-      return { label: "Read", url, disabled: !url };
+      return { url, disabled: !url };
     }
 
     const url = item.href || item.url || null;
-    return { label: "Open", url, disabled: !url };
+    return { url, disabled: !url };
   }
 
   function renderTypeTabs(types) {
@@ -152,10 +139,7 @@
     typeTabsEl.querySelectorAll("button[data-type]").forEach(btn => {
       btn.addEventListener("click", () => {
         selectedType = btn.getAttribute("data-type") || "all";
-
-        // Reset podcast mode when leaving podcasts
         if (selectedType !== "podcast") selectedPodcastMode = "all";
-
         renderAll();
       });
     });
@@ -164,7 +148,6 @@
   function renderPodcastModeTabs() {
     if (!modeTabsEl) return;
 
-    // Only show when Podcasts is selected
     if (selectedType !== "podcast") {
       modeTabsEl.innerHTML = "";
       return;
@@ -225,15 +208,16 @@
     return FALLBACK_PLACEHOLDER;
   }
 
-  // If url is ".../name.webp", srcset becomes "name.webp 1x, name@2x.webp 2x"
+  // Only build srcset for known placeholders (prevents missing @2x on custom thumbs)
   function buildSrcset(url) {
-    const m = String(url || "").match(/^(.*?)(\.[^./]+)$/);
-    if (!m) return "";
-    const base = m[1];
-    const ext = m[2];
-    const oneX = `${base}${ext}`;
-    const twoX = `${base}@2x${ext}`;
-    return `${oneX} 1x, ${twoX} 2x`;
+    const u = String(url || "");
+    const isKnown =
+      u.endsWith("/assets/covers/placeholder/podcast.webp") ||
+      u.endsWith("/assets/covers/placeholder/book.webp") ||
+      u.endsWith("/assets/covers/placeholder/article.webp");
+
+    if (!isKnown) return "";
+    return `${u} 1x, ${u.replace(".webp", "@2x.webp")} 2x`;
   }
 
   function cardHtml(item) {
@@ -246,7 +230,7 @@
     const srcset = escapeAttr(buildSrcset(thumbRaw));
 
     const tags = getAllTags(item);
-    const cta = computeCta(item);
+    const { url, disabled } = computeLink(item);
 
     const tagsHtml = tags.length ? `
       <div class="pills" aria-label="tags">
@@ -271,8 +255,8 @@
       />
     `;
 
-    // Disabled CTA: show plain "Watch" (no "(soon)")
-    if (cta.disabled) {
+    // Disabled card (not clickable)
+    if (disabled) {
       return `
         <div class="card disabled" aria-disabled="true">
           <div class="cover">${imgTag}</div>
@@ -283,18 +267,17 @@
             <div class="card-actions">
               ${typePill}
               ${modePill}
-              <button class="btn disabled-cta" type="button" disabled>${escapeHtml(cta.label)}</button>
             </div>
           </div>
         </div>
       `;
     }
 
-    const isExternal = /^https?:\/\//i.test(cta.url || "");
+    const isExternal = /^https?:\/\//i.test(url || "");
     const linkAttrs = isExternal ? `target="_blank" rel="noopener noreferrer"` : "";
 
     return `
-      <a class="card" href="${escapeAttr(cta.url)}" ${linkAttrs}>
+      <a class="card" href="${escapeAttr(url)}" ${linkAttrs}>
         <div class="cover">${imgTag}</div>
         <div class="card-body">
           <div class="card-title">${title}</div>
@@ -303,7 +286,6 @@
           <div class="card-actions">
             ${typePill}
             ${modePill}
-            <button class="btn" type="button">${escapeHtml(cta.label)}</button>
           </div>
         </div>
       </a>
@@ -316,13 +298,13 @@
 
     const matchesType = (selectedType === "all") || (item.type === selectedType);
 
-    // Podcast mode filter (only when podcasts selected)
     const matchesPodcastMode =
       (selectedType !== "podcast") ||
       (selectedPodcastMode === "all") ||
       (norm(item.mode) === selectedPodcastMode);
 
     const allTags = getAllTags(item);
+
     const hay = norm([
       item.title,
       item.subtitle || item.description,
@@ -351,7 +333,6 @@
     const filtered = allItems.filter(matchesFilters);
 
     filtered.sort((a, b) => {
-      // Within podcasts: sort listen before watch (or swap if you prefer)
       if (a.type === "podcast" && b.type === "podcast") {
         const am = a.mode === "watch" ? 1 : 0;
         const bm = b.mode === "watch" ? 1 : 0;
@@ -369,7 +350,6 @@
 
     if (resultCountEl) resultCountEl.textContent = String(filtered.length);
 
-    // Inline tag clicks
     cardsEl.querySelectorAll("button[data-inline-tag]").forEach(btn => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -384,7 +364,6 @@
     const json = await loadJson(DATA_PATH);
     allItems = unwrapItems(json);
 
-    // Normalize items (supports both old "tags" and new grouped fields)
     allItems = allItems.map(it => ({
       id: it.id,
       type: it.type || "other",
@@ -392,19 +371,15 @@
       subtitle: it.subtitle ?? it.description ?? "",
       description: it.description,
 
-      // New taxonomy (preferred)
       foundations: Array.isArray(it.foundations) ? it.foundations : [],
       using: Array.isArray(it.using) ? it.using : [],
       level: it.level || "",
-      // Thought leaders rule uses this:
-      thoughtLeaderBookId: it.thoughtLeaderBookId || "", // <- set this on items you want tagged "thought leaders"
-      // Optional boolean alternative:
+      thoughtLeaderBookId: it.thoughtLeaderBookId || "",
       thoughtLeader: it.thoughtLeader === true,
 
-      // Legacy tags (optional; delete once migrated)
+      // legacy tags (keep until fully migrated; remove later)
       tags: Array.isArray(it.tags) ? it.tags : [],
 
-      // Media + CTA fields
       thumb: it.thumb || it.image || "",
       image: it.image,
       href: it.href,
