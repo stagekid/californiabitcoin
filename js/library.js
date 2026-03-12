@@ -101,25 +101,59 @@
     });
   }
 
-  function renderList(items) {
-    const grid = qs("#cards");
-    const count = qs("#resultCount");
-    if (!grid) return;
+  function getSection(item) {
+  return (item.section || "").trim() || "Other";
+function renderList(items) {
+  const grid = qs("#cards");
+  const count = qs("#resultCount");
+  if (!grid) return;
 
-    if (!items.length) {
-      grid.innerHTML = `
-        <div class="block pad" style="grid-column: 1 / -1;">
-          <div style="color: rgba(255,255,255,.75); font-weight:650; margin-bottom:8px;">No results</div>
-          <div style="color: rgba(255,255,255,.62);">Try clearing filters or searching for something else.</div>
-        </div>
-      `;
-      if (count) count.textContent = "0";
-      return;
-    }
-
-    grid.innerHTML = items.map(cardTemplate).join("");
-    if (count) count.textContent = String(items.length);
+  if (!items.length) {
+    grid.innerHTML = `
+      <div class="block pad" style="grid-column: 1 / -1;">
+        <div style="color: rgba(255,255,255,.75); font-weight:650; margin-bottom:8px;">No results</div>
+        <div style="color: rgba(255,255,255,.62);">Try clearing filters or searching for something else.</div>
+      </div>
+    `;
+    if (count) count.textContent = "0";
+    return;
   }
+
+  // Count stays total results
+  if (count) count.textContent = String(items.length);
+
+  // Group by section
+  const groups = {};
+  items.forEach((item) => {
+    const s = getSection(item);
+    if (!groups[s]) groups[s] = [];
+    groups[s].push(item);
+  });
+
+  // Preferred order
+  const sectionOrder = ["Listen", "Watch", "Other"];
+  const orderedSections = Object.keys(groups).sort((a, b) => {
+    const ia = sectionOrder.indexOf(a);
+    const ib = sectionOrder.indexOf(b);
+    return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+  });
+
+  // Render sections + each section’s own grid
+  grid.innerHTML = orderedSections.map((sectionName) => {
+    const sectionItems = groups[sectionName] || [];
+    return `
+      <div class="library-section" style="grid-column: 1 / -1;">
+        <div class="library-section-head">
+          <h3>${escapeHtml(sectionName)}</h3>
+          <div class="hint">${sectionItems.length} items</div>
+        </div>
+        <div class="grid">
+          ${sectionItems.map(cardTemplate).join("")}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
 
   function setActiveNav() {
     const path = location.pathname.replace(/\/+$/, "") || "/";
