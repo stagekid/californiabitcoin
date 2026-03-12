@@ -1,6 +1,11 @@
-// /js/library.js — Content Vault only
+// /js/library.js — Content Vault only (with automatic podcast/article placeholders)
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
+
+  // Placeholders (your paths)
+  const FALLBACK_PLACEHOLDER = "/assets/covers/placeholder-512.jpg";
+  const ARTICLE_PLACEHOLDER = "/assets/covers/placeholder/podcast-cabitcoin-article.png";
+  const PODCAST_PLACEHOLDER = "/assets/covers/placeholder/podcast-cabitcoin-podcast.png";
 
   const cardsEl = document.getElementById("cards");
   const searchEl = document.getElementById("searchInput");
@@ -132,10 +137,23 @@
     });
   }
 
+  function resolveThumb(item) {
+    // Prefer explicit thumb/image if provided
+    const explicit = (item.thumb || item.image || "").toString().trim();
+    if (explicit) return explicit;
+
+    // Auto placeholders by type
+    if (item.type === "podcast") return PODCAST_PLACEHOLDER;
+    if (item.type === "article") return ARTICLE_PLACEHOLDER;
+
+    // Books keep real covers; if missing, fall back to generic placeholder
+    return FALLBACK_PLACEHOLDER;
+  }
+
   function cardHtml(item) {
     const title = escapeHtml(item.title || "Untitled");
     const desc = escapeHtml(item.subtitle || item.description || "");
-    const thumb = escapeAttr(item.thumb || item.image || "/assets/covers/placeholder-512.jpg");
+    const thumb = escapeAttr(resolveThumb(item));
     const tags = Array.isArray(item.tags) ? item.tags : [];
     const cta = computeCta(item);
 
@@ -147,11 +165,20 @@
 
     const typePill = item.type ? `<span class="pill subtle">${escapeHtml(item.type)}</span>` : "";
 
+    const imgTag = `
+      <img
+        src="${thumb}"
+        alt="${escapeAttr(item.title || "Untitled")} cover"
+        loading="lazy"
+        onerror="this.onerror=null; this.src='${escapeAttr(FALLBACK_PLACEHOLDER)}';"
+      />
+    `;
+
     if (cta.disabled) {
       return `
         <div class="card disabled" aria-disabled="true">
           <div class="cover">
-            <img src="${thumb}" alt="${title} cover" loading="lazy" />
+            ${imgTag}
           </div>
           <div class="card-body">
             <div class="card-title">${title}</div>
@@ -172,7 +199,7 @@
     return `
       <a class="card" href="${escapeAttr(cta.url)}" ${linkAttrs}>
         <div class="cover">
-          <img src="${thumb}" alt="${title} cover" loading="lazy" />
+          ${imgTag}
         </div>
         <div class="card-body">
           <div class="card-title">${title}</div>
