@@ -19,29 +19,40 @@
   }
 
   function cardTemplate(item) {
-    const title = item.title || "Untitled";
-    const desc = item.description || "";
-    const date = item.date ? formatDate(item.date) : "";
-    const source = item.source ? item.source : "";
-    const link = item.url || "#";
-    const tags = Array.isArray(item.tags) ? item.tags : [];
+  const title = item.title || "Untitled";
+  const desc = item.description || "";
+  const date = item.date ? formatDate(item.date) : "";
+  const source = item.source ? item.source : "";
+  const link = item.url || "#";
+  const tags = Array.isArray(item.tags) ? item.tags : [];
+  const img = item.image ? item.image : "";
 
-    const metaLeft = [date, source].filter(Boolean).join(" • ");
+  const metaLeft = [date, source].filter(Boolean).join(" • ");
 
-    return `
-      <a class="card" href="${link}" ${link.startsWith("http") ? `target="_blank" rel="noopener"` : ""}>
+  return `
+    <a class="card" href="${link}" ${link.startsWith("http") ? `target="_blank" rel="noopener"` : ""}>
+      ${img ? `
+        <div class="cover">
+          <img src="${escapeAttr(img)}" alt="${escapeAttr(title)} cover" loading="lazy" />
+        </div>
+      ` : ""}
+
+      <div class="card-body">
         <div class="card-title">${escapeHtml(title)}</div>
         <div class="card-desc">${escapeHtml(desc)}</div>
+
         <div class="meta">
           <div>${escapeHtml(metaLeft)}</div>
           <div>${item.duration ? escapeHtml(item.duration) : ""}</div>
         </div>
+
         <div class="pills" aria-label="tags">
           ${tags.map(t => `<span class="pill" data-tag="${escapeAttr(t)}">${escapeHtml(t)}</span>`).join("")}
         </div>
-      </a>
-    `;
-  }
+      </div>
+    </a>
+  `;
+}
 
   function escapeHtml(str) {
     return (str ?? "").toString()
