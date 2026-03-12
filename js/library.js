@@ -3,13 +3,8 @@
   function qs(sel, el = document) { return el.querySelector(sel); }
   function qsa(sel, el = document) { return Array.from(el.querySelectorAll(sel)); }
 
-  function normalize(str) {
-    return (str || "").toString().toLowerCase().trim();
-  }
-
-  function uniq(arr) {
-    return Array.from(new Set(arr));
-  }
+  function normalize(str) { return (str || "").toString().toLowerCase().trim(); }
+  function uniq(arr) { return Array.from(new Set(arr)); }
 
   function formatDate(iso) {
     if (!iso) return "";
@@ -41,46 +36,104 @@
     return await res.json();
   }
 
+  // Determine section: prefer explicit mode mapping, then section field, then "Other"
   function getSection(item) {
+    if (!item) return "Other";
+    if (item.mode === "listen") return "Listen";
+    if (item.mode === "watch") return "Watch";
     return (item.section || "").toString().trim() || "Other";
+  }
+
+  // Normalize incoming JSON: support either plain array or wrapper { items: [...] }
+  function normalizeData(json) {
+    if (!json) return [];
+    if (Array.isArray(json)) return json;
+    if (Array.isArray(json.items)) return json.items;
+    return [];
+  }
+
+  // Build CTA for podcast / generic items
+  function computeCta(item) {
+    // Listen items: external link
+    if (item.mode === "listen") {
+      return { label: "Listen", url: item.href || item.url || null, disabled: !item.href };
+    }
+
+    // Watch items: youtubeId
+    if (item.mode === "watch") {
+      const placeholder = !item.youtubeId || item.youtubeId === "REPLACE_WITH_VIDEO_ID";
+      if (placeholder) return { label: "Watch", url: null, disabled: true };
+      return { label: "Watch", url: `https://www.youtube.com/watch?v=${item.youtubeId}`, disabled: false };
+    }
+
+    // Generic fallback: prefer href/url
+    if (item.href || item.url) return { label: "Open", url: item.href || item.url, disabled: false };
+    return { label: "Open", url: null, disabled: true };
   }
 
   function cardTemplate(item) {
     const title = item.title || "Untitled";
-    const desc = item.description || "";
+    const desc = item.subtitle || item.description || "";
     const date = item.date ? formatDate(item.date) : "";
     const source = item.source ? item.source : "";
-    const link = item.url || "#";
+    const duration = item.duration ? item.duration : "";
     const tags = Array.isArray(item.tags) ? item.tags : [];
-    const img = item.image ? item.image : "";
+    const img = item.thumb || item.image || "";
 
     const metaLeft = [date, source].filter(Boolean).join(" • ");
-    const isExternal = /^https?:\/\//i.test(link);
+    const cta = computeCta(item);
 
+    const tagsHtml = tags.length
+      ? `<div class="pills" aria-label="tags">${tags.map(t => `<span class="pill" data-tag="${escapeAttr(t)}">${escapeHtml(t)}</span>`).join("")}</div>`
+      : "";
+
+    // If CTA is disabled (e.g., watch placeholder), render non-link card with disabled CTA.
+    if (cta.disabled) {
+      return `
+        <div class="card disabled">
+          ${img ? `
+            <div class="cover">
+              <img src="${escapeAttr(img)}" alt="${escapeAttr(title)} cover" loading="lazy" />
+            </div>` : ""}
+          <div class="card-body">
+            <div class="card-title">${escapeHtml(title)}</div>
+            ${desc ? `<div class="card-desc">${escapeHtml(desc)}</div>` : ""}
+            ${(metaLeft || duration) ? `
+              <div class="meta">
+                <div>${escapeHtml(metaLeft)}</div>
+                <div>${escapeHtml(duration)}</div>
+              </div>` : ""}
+            ${tagsHtml}
+            <div class="card-actions">
+              <button class="btn disabled-cta" type="button" disabled>${escapeHtml(cta.label)} (soon)</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // normal clickable card
+    const isExternal = /^https?:\/\//i.test(cta.url || "");
+    const linkAttrs = isExternal ? `target="_blank" rel="noopener"` : "";
     return `
-      <a class="card" href="${escapeAttr(link)}" ${isExternal ? `target="_blank" rel="noopener"` : ""}>
+      <a class="card" href="${escapeAttr(cta.url || "#")}" ${linkAttrs}>
         ${img ? `
           <div class="cover">
             <img src="${escapeAttr(img)}" alt="${escapeAttr(title)} cover" loading="lazy" />
-          </div>
-        ` : ""}
-
+          </div>` : ""}
         <div class="card-body">
           <div class="card-title">${escapeHtml(title)}</div>
-          <div class="card-desc">${escapeHtml(desc)}</div>
-
-          ${(metaLeft || item.duration) ? `
+          ${desc ? `<div class="card-desc">${escapeHtml(desc)}</div>` : ""}
+          ${(metaLeft || duration) ? `
             <div class="meta">
               <div>${escapeHtml(metaLeft)}</div>
-              <div>${item.duration ? escapeHtml(item.duration) : ""}</div>
-            </div>
-          ` : ""}
-
-          ${tags.length ? `
-            <div class="pills" aria-label="tags">
-              ${tags.map(t => `<span class="pill" data-tag="${escapeAttr(t)}">${escapeHtml(t)}</span>`).join("")}
-            </div>
-          ` : ""}
+              <div>${escapeHtml(duration)}</div>
+            </div>` : ""}
+          ${tagsHtml}
+          <div class="card-actions">
+            <span class="pill subtle">${escapeHtml(item.mode || item.section || "")}</span>
+            <button class="btn">${escapeHtml(cta.label)}</button>
+          </div>
         </div>
       </a>
     `;
@@ -89,7 +142,6 @@
   function renderTagBar(tags, selectedTag) {
     const tagBar = qs("#tagBar");
     if (!tagBar) return;
-
     const all = ["All", ...tags];
     tagBar.innerHTML = all.map(t => {
       const isSelected = (t === "All" && !selectedTag) || (t === selectedTag);
@@ -104,14 +156,14 @@
     return items.filter(item => {
       const haystack = normalize([
         item.title,
-        item.description,
+        item.subtitle || item.description,
         item.source,
         (item.tags || []).join(" "),
-        item.section
+        item.section,
+        item.mode
       ].join(" "));
 
       const matchesQuery = !q || haystack.includes(q);
-
       const matchesTag = (!tagNorm || tagNorm === "all")
         ? true
         : (item.tags || []).some(t => normalize(t) === tagNorm);
@@ -138,7 +190,7 @@
 
     if (count) count.textContent = String(items.length);
 
-    // Group by section
+    // Group by section (using mode mapping first)
     const groups = {};
     items.forEach((item) => {
       const s = getSection(item);
@@ -146,7 +198,7 @@
       groups[s].push(item);
     });
 
-    // Preferred order
+    // Preferred order (Listen first, then Watch)
     const sectionOrder = ["Listen", "Watch", "Other"];
     const orderedSections = Object.keys(groups).sort((a, b) => {
       const ia = sectionOrder.indexOf(a);
@@ -154,7 +206,7 @@
       return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
     });
 
-    // Render sections
+    // Render sections with their own grid
     grid.innerHTML = orderedSections.map((sectionName) => {
       const sectionItems = groups[sectionName] || [];
       return `
@@ -171,7 +223,6 @@
     }).join("");
   }
 
-  // Optional: only useful if you still have old ".nav-pill" links somewhere
   function setActiveNav() {
     const path = location.pathname.replace(/\/+$/, "") || "/";
     qsa(".nav-pill").forEach(a => {
@@ -194,16 +245,17 @@
     let selectedTag = "";
     let query = "";
 
-    let data = await loadJson(dataPath);
-    data = (Array.isArray(data) ? data : []).slice();
+    let json = await loadJson(dataPath);
+    let data = normalizeData(json);
 
-    // Sort newest first only if there are dates
+    // Sort newest first only if dates present
     data.sort((a, b) => {
       const ad = a.date ? new Date(a.date).getTime() : 0;
       const bd = b.date ? new Date(b.date).getTime() : 0;
       return bd - ad;
     });
 
+    // Build master tag list
     const allTags = uniq(
       data.flatMap(i => Array.isArray(i.tags) ? i.tags : [])
         .map(t => (t || "").toString().trim())
@@ -219,27 +271,22 @@
       tagBar.addEventListener("click", (e) => {
         const pill = e.target.closest(".pill");
         if (!pill) return;
-
         const t = pill.dataset.tag || "";
         selectedTag = (t === "All") ? "" : t;
-
         renderTagBar(allTags, selectedTag);
         renderList(applyFilters(data, query, selectedTag));
       });
     }
 
-    // Clicking a tag inside a card sets the filter too
+    // Tag click inside card
     document.addEventListener("click", (e) => {
       const pill = e.target.closest(".card .pill");
       if (!pill) return;
-
       e.preventDefault();
       const t = pill.dataset.tag || "";
       selectedTag = t;
-
       renderTagBar(allTags, selectedTag);
       renderList(applyFilters(data, query, selectedTag));
-
       const controls = qs("#controls");
       if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
     });
