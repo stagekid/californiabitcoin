@@ -93,16 +93,9 @@
     },
 
     {
-      "id": "bitcoin-magazine-yt",
-      "type": "podcast",
-      "mode": "watch",
-      "title": "Bitcoin Magazine (YouTube)",
-      "youtubeId": "REPLACE_WITH_VIDEO_ID",
-      "subtitle": "Reserved for YouTube embeds later.",
-      "tags": ["news","events"],
-      "thumb": "/assets/covers/podcasts/bitcoin-magazine.jpg"
-    }
-
-    /* add more items here... */
-  ]
+  "id": "bitcoin-magazine-yt",
+  ...
+  "thumb": "/assets/covers/podcasts/bitcoin-magazine.jpg"
+}
+]
 }
