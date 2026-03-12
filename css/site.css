@@ -634,3 +634,25 @@ h1{
 .search input{
   height: calc(var(--control-h) - 16px) !important;
 }
+/* Align Search start with Type block width */
+#controls .filter-stack{
+  width: 420px;              /* sets Type column width */
+  flex: 0 0 420px;
+}
+
+#controls .search{
+  flex: 1 1 auto;            /* Search fills remaining width */
+  min-width: 320px;
+}
+
+/* Responsive: let everything stack naturally on small screens */
+@media (max-width: 980px){
+  #controls .filter-stack{
+    width: 100%;
+    flex: 1 1 100%;
+  }
+  #controls .search{
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}
