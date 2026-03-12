@@ -1,5 +1,6 @@
 // /js/library.js — Content Vault only (NO big CTA badges; whole card is clickable)
 // Mode toggle removed entirely. Disabled items render as non-clickable cards.
+// Option A: For podcasts/watch placeholders, fall back to href/url instead of disabling.
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
@@ -56,6 +57,15 @@
 
   function norm(s) { return String(s ?? "").toLowerCase().trim(); }
 
+  // helper: first non-empty string
+  function pickUrl(...vals) {
+    for (const v of vals) {
+      const s = String(v ?? "").trim();
+      if (s) return s;
+    }
+    return null;
+  }
+
   async function loadJson(path) {
     const res = await fetch(path, { cache: "no-store" });
     if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
@@ -88,30 +98,45 @@
   }
 
   function computeLink(item) {
-    // Returns { url, disabled } based on existing link logic
+    // Returns { url, disabled }
     if (item.type === "podcast") {
       if (item.mode === "listen") {
-        const url = item.href || null;
+        const url = pickUrl(item.href, item.url);
         return { url, disabled: !url };
       }
+
       if (item.mode === "watch") {
-        const placeholder = !item.youtubeId || item.youtubeId === "REPLACE_WITH_VIDEO_ID";
-        if (placeholder) return { url: null, disabled: true };
-        return { url: `https://www.youtube.com/watch?v=${item.youtubeId}`, disabled: false };
+        const youtubeOk =
+          Boolean(item.youtubeId) &&
+          item.youtubeId !== "REPLACE_WITH_VIDEO_ID";
+
+        // If we have a real YouTube ID, link directly to the video
+        if (youtubeOk) {
+          return { url: `https://www.youtube.com/watch?v=${item.youtubeId}`, disabled: false };
+        }
+
+        // Option A: If it's a placeholder, fall back to any available link
+        // (channel / site / whatever you provided)
+        const url = pickUrl(item.href, item.url);
+        return { url, disabled: !url };
       }
+
+      // Unknown mode: still try to make it clickable
+      const url = pickUrl(item.href, item.url);
+      return { url, disabled: !url };
     }
 
     if (item.type === "book") {
-      const url = item.buy || item.href || item.url || null;
+      const url = pickUrl(item.buy, item.url, item.href);
       return { url, disabled: !url };
     }
 
     if (item.type === "article") {
-      const url = item.url || item.href || null;
+      const url = pickUrl(item.url, item.href);
       return { url, disabled: !url };
     }
 
-    const url = item.href || item.url || null;
+    const url = pickUrl(item.href, item.url);
     return { url, disabled: !url };
   }
 
