@@ -1,20 +1,38 @@
 [
   {
-    "title": "Why Bitcoin Education Matters in California",
-    "description": "A short overview of the Lab’s mission and what we’re building.",
-    "date": "2026-03-01",
-    "source": "California Bitcoin Education Lab",
-    "duration": "18m",
-    "url": "https://example.com/podcast-episode-1",
-    "tags": ["Education", "California", "Basics"]
+    "title": "What Bitcoin Did",
+    "url": "https://www.whatbitcoindid.com/episodes",
+    "description": "Long-form conversations on Bitcoin, macro, and the future of money.",
+    "tags": ["Macro", "Interviews", "Beginner-friendly"]
   },
   {
-    "title": "Proof of Work: Energy, Tradeoffs, and Truth",
-    "description": "How to think clearly about energy narratives and incentive design.",
-    "date": "2026-02-10",
-    "source": "Guest Conversation",
-    "duration": "52m",
-    "url": "https://example.com/podcast-episode-2",
-    "tags": ["Mining", "Energy", "Incentives"]
+    "title": "Stephan Livera Podcast",
+    "url": "https://stephanlivera.com/",
+    "description": "Bitcoin-focused interviews spanning economics, tech, and culture.",
+    "tags": ["Interviews", "Technical", "Economics"]
+  },
+  {
+    "title": "TFTC: A Bitcoin Podcast",
+    "url": "https://www.tftc.io/",
+    "description": "Marty Bent on Bitcoin, freedom tech, culture, and current events.",
+    "tags": ["News", "Interviews", "Culture"]
+  },
+  {
+    "title": "Bitcoin Audible",
+    "url": "https://bitcoinaudible.com/",
+    "description": "Guy Swann reads and distills the best writing in Bitcoin.",
+    "tags": ["Audio Essays", "Deep Dives", "Education"]
+  },
+  {
+    "title": "The Bitcoin Matrix",
+    "url": "https://bitcoinmatrix.libsyn.com/",
+    "description": "Cedric Youngelman explores Bitcoin’s social, cultural, and philosophical implications.",
+    "tags": ["Culture", "Philosophy", "Interviews"]
+  },
+  {
+    "title": "Bitcoin Explained",
+    "url": "https://bitcoinexplainedpodcast.com/",
+    "description": "Aaron van Wirdum and Sjors Provoost explain Bitcoin’s technical side, one topic at a time.",
+    "tags": ["Technical", "Bitcoin Core", "Protocol"]
   }
 ]
