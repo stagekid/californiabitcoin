@@ -33,46 +33,24 @@
       "thumb": "/assets/covers/podcasts/bitcoin-audible.jpg"
     },
     {
-      "id": "the-bitcoin-standard",
-      "type": "book",
-      "title": "The Bitcoin Standard",
-      "author": "Saifedean Ammous",
-      "year": 2018,
-      "subtitle": "A thorough history and monetary analysis of Bitcoin.",
-      "tags": ["economics", "history", "must-read"],
-      "thumb": "/assets/covers/books/the-bitcoin-standard.jpg",
-      "buy": "https://example.com/buy/the-bitcoin-standard"
+      "id": "tftc",
+      "type": "podcast",
+      "mode": "listen",
+      "title": "TFTC",
+      "subtitle": "Bitcoin and freedom tech conversations.",
+      "href": "https://www.tftc.io/",
+      "tags": ["culture", "interviews", "mining"],
+      "thumb": "/assets/covers/podcasts/tftc.jpg"
     },
     {
-      "id": "bitcoin-is-for-everyone",
-      "type": "book",
-      "title": "Bitcoin Is for Everyone",
-      "author": "Natalie Brunell",
-      "year": 2024,
-      "subtitle": "Practical essays and interviews.",
-      "tags": ["intro", "education"],
-      "thumb": "/assets/covers/books/bitcoin-is-for-everyone.jpg",
-      "buy": "https://example.com/buy/bitcoin-is-for-everyone"
-    },
-    {
-      "id": "digital-gold",
-      "type": "book",
-      "title": "Digital Gold",
-      "author": "Nathaniel Popper",
-      "year": 2015,
-      "tags": ["history", "journalism"],
-      "thumb": "/assets/covers/books/digital-gold.jpg"
-    },
-    {
-      "id": "breaking-bitcoin-article",
-      "type": "article",
-      "title": "How Bitcoin Mining Works",
-      "subtitle": "An explainer on mining, energy and decentralization.",
-      "source": "CBEL Explained",
-      "url": "/articles/how-bitcoin-mining-works.html",
-      "date": "2025-08-20",
-      "tags": ["mining", "energy", "explainers"],
-      "thumb": "/assets/covers/articles/mining-explainer.jpg"
+      "id": "coin-stories",
+      "type": "podcast",
+      "mode": "listen",
+      "title": "Coin Stories",
+      "subtitle": "Bitcoin-focused interviews and perspectives.",
+      "href": "https://www.coinsstories.com/",
+      "tags": ["interviews", "macro", "education"],
+      "thumb": "/assets/covers/podcasts/coin-stories.jpg"
     },
     {
       "id": "unchained",
@@ -84,6 +62,7 @@
       "tags": ["interviews", "industry"],
       "thumb": "/assets/covers/podcasts/unchained.jpg"
     },
+
     {
       "id": "bitcoin-magazine-yt",
       "type": "podcast",
@@ -93,6 +72,153 @@
       "subtitle": "Reserved for YouTube embeds later.",
       "tags": ["news", "events"],
       "thumb": "/assets/covers/podcasts/bitcoin-magazine.jpg"
+    },
+    {
+      "id": "swan-yt",
+      "type": "podcast",
+      "mode": "watch",
+      "title": "Swan (YouTube)",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["education", "interviews"],
+      "thumb": "/assets/covers/podcasts/swan.jpg"
+    },
+    {
+      "id": "blockworks-yt",
+      "type": "podcast",
+      "mode": "watch",
+      "title": "Blockworks (YouTube)",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["macro", "markets"],
+      "thumb": "/assets/covers/podcasts/blockworks.jpg"
+    },
+    {
+      "id": "btcsessions-yt",
+      "type": "podcast",
+      "mode": "watch",
+      "title": "BTC Sessions (YouTube)",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["how-to", "wallets", "education"],
+      "thumb": "/assets/covers/podcasts/btc-sessions.jpg"
+    },
+    {
+      "id": "aantonop-yt",
+      "type": "podcast",
+      "mode": "watch",
+      "title": "Andreas M. Antonopoulos (YouTube)",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["talks", "education"],
+      "thumb": "/assets/covers/podcasts/andreas.jpg"
+    },
+    {
+      "id": "btcmn-yt",
+      "type": "podcast",
+      "mode": "watch",
+      "title": "Bitcoin Mining (YouTube)",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["mining", "energy", "infrastructure"],
+      "thumb": "/assets/covers/podcasts/mining.jpg"
+    },
+
+    {
+      "id": "the-bitcoin-standard",
+      "type": "book",
+      "title": "The Bitcoin Standard",
+      "subtitle": "A history of money and the economic case for Bitcoin.",
+      "author": "Saifedean Ammous",
+      "year": 2018,
+      "date": "2018-01-01",
+      "url": "/books/the-bitcoin-standard/",
+      "thumb": "/assets/covers/bitcoin-standard.webp",
+      "tags": ["economics", "history", "basics"]
+    },
+    {
+      "id": "the-price-of-tomorrow",
+      "type": "book",
+      "title": "The Price of Tomorrow",
+      "subtitle": "Deflation, technology, and why monetary systems shape society.",
+      "author": "Jeff Booth",
+      "year": 2020,
+      "date": "2020-01-01",
+      "url": "/books/the-price-of-tomorrow/",
+      "thumb": "/assets/covers/price-of-tomorrow.webp",
+      "tags": ["macro", "technology", "deflation"]
+    },
+    {
+      "id": "digital-gold",
+      "type": "book",
+      "title": "Digital Gold",
+      "subtitle": "The story of Bitcoin’s early days and the people who built it.",
+      "author": "Nathaniel Popper",
+      "year": 2015,
+      "date": "2015-01-01",
+      "url": "/books/digital-gold/",
+      "thumb": "/assets/covers/digital-gold.webp",
+      "tags": ["history", "origins", "narrative"]
+    },
+    {
+      "id": "the-blocksize-war",
+      "type": "book",
+      "title": "The Blocksize War",
+      "subtitle": "The inside story of the scaling conflict and what it revealed about Bitcoin governance.",
+      "author": "Jonathan Bier",
+      "year": 2021,
+      "date": "2021-01-01",
+      "url": "/books/the-blocksize-war/",
+      "thumb": "/assets/covers/blocksize-war.webp",
+      "tags": ["history", "scaling", "bitcoin-core"]
+    },
+    {
+      "id": "the-creature-from-jekyll-island",
+      "type": "book",
+      "title": "The Creature from Jekyll Island",
+      "subtitle": "A critical history of central banking and the origins of the Federal Reserve.",
+      "author": "G. Edward Griffin",
+      "year": 1994,
+      "date": "1994-01-01",
+      "url": "/books/creature-from-jekyll-island/",
+      "thumb": "/assets/covers/creature-jekyll-island.webp",
+      "tags": ["central-banking", "history", "macro"]
+    },
+    {
+      "id": "broken-money",
+      "type": "book",
+      "title": "Broken Money",
+      "subtitle": "A framework for understanding money as technology and why it fails—and how it can improve.",
+      "author": "Lyn Alden",
+      "year": 2024,
+      "date": "2024-01-01",
+      "url": "/books/broken-money/",
+      "thumb": "/assets/covers/broken-money.webp",
+      "tags": ["money", "macro", "technology"]
+    },
+    {
+      "id": "bitcoin-is-for-everyone",
+      "type": "book",
+      "title": "Bitcoin Is for Everyone",
+      "subtitle": "An accessible introduction designed for new learners.",
+      "author": "Natalie Brunell",
+      "year": 2024,
+      "date": "2024-01-01",
+      "url": "/books/bitcoin-is-for-everyone/",
+      "thumb": "/assets/covers/bitcoin-is-for-everyone.webp",
+      "tags": ["basics", "beginner-friendly", "education"]
+    },
+
+    {
+      "id": "how-bitcoin-mining-works",
+      "type": "article",
+      "title": "How Bitcoin Mining Works",
+      "subtitle": "An explainer on mining, energy and decentralization.",
+      "source": "CBEL Explained",
+      "url": "/articles/how-bitcoin-mining-works.html",
+      "date": "2025-08-20",
+      "tags": ["mining", "energy", "explainers"],
+      "thumb": "/assets/covers/articles/mining-explainer.jpg"
     }
   ]
 }
