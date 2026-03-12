@@ -1,18 +1,65 @@
 [
   {
-    "title": "The Price of Tomorrow",
-    "description": "Deflation, technology, and why monetary systems shape society.",
-    "date": "2026-01-15",
-    "source": "Book",
-    "url": "https://example.com/the-price-of-tomorrow",
-    "tags": ["Macro", "Technology", "Jeff Booth"]
-  },
-  {
     "title": "The Bitcoin Standard",
     "description": "A history of money and the economic case for Bitcoin.",
-    "date": "2026-01-10",
+    "date": "2018-01-01",
+    "source": "Saifedean Ammous",
+    "url": "/books/the-bitcoin-standard/",
+    "image": "/assets/covers/bitcoin-standard.jpg",
+    "tags": ["Economics", "History", "Basics"]
+  },
+  {
+    "title": "The Price of Tomorrow",
+    "description": "Deflation, technology, and why monetary systems shape society.",
+    "date": "2020-01-01",
+    "source": "Jeff Booth",
+    "url": "/books/the-price-of-tomorrow/",
+    "image": "/assets/covers/price-of-tomorrow.jpg",
+    "tags": ["Macro", "Technology", "Deflation"]
+  },
+  {
+    "title": "Digital Gold",
+    "description": "The story of Bitcoin’s early days and the people who built it.",
+    "date": "2015-01-01",
+    "source": "Nathaniel Popper",
+    "url": "/books/digital-gold/",
+    "image": "/assets/covers/digital-gold.jpg",
+    "tags": ["History", "Origins", "Narrative"]
+  },
+  {
+    "title": "The Blocksize War",
+    "description": "The inside story of the scaling conflict and what it revealed about Bitcoin governance.",
+    "date": "2021-01-01",
+    "source": "Jonathan Bier",
+    "url": "/books/the-blocksize-war/",
+    "image": "/assets/covers/blocksize-war.jpg",
+    "tags": ["History", "Scaling", "Bitcoin Core"]
+  },
+  {
+    "title": "The Creature from Jekyll Island",
+    "description": "A critical history of central banking and the origins of the Federal Reserve.",
+    "date": "1994-01-01",
+    "source": "G. Edward Griffin",
+    "url": "/books/creature-from-jekyll-island/",
+    "image": "/assets/covers/creature-jekyll-island.jpg",
+    "tags": ["Central Banking", "History", "Macro"]
+  },
+  {
+    "title": "Broken Money",
+    "description": "A framework for understanding money as technology and why it fails—and how it can improve.",
+    "date": "2024-01-01",
+    "source": "Lyn Alden",
+    "url": "/books/broken-money/",
+    "image": "/assets/covers/broken-money.jpg",
+    "tags": ["Money", "Macro", "Technology"]
+  },
+  {
+    "title": "Bitcoin Is for Everyone",
+    "description": "An accessible introduction designed for new learners.",
+    "date": "2024-01-01",
     "source": "Book",
-    "url": "https://example.com/the-bitcoin-standard",
-    "tags": ["History", "Economics", "Basics"]
+    "url": "/books/bitcoin-is-for-everyone/",
+    "image": "/assets/covers/bitcoin-is-for-everyone.jpg",
+    "tags": ["Basics", "Beginner-friendly", "Education"]
   }
 ]
