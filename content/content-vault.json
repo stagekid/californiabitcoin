@@ -133,7 +133,7 @@
       "year": 2018,
       "date": "2018-01-01",
       "url": "/books/the-bitcoin-standard/",
-      "thumb": "/assets/covers/bitcoin-standard.webp",
+      "thumb": "/assets/covers/books/bitcoin-standard.webp",
       "tags": ["economics", "history", "basics"]
     },
     {
@@ -145,7 +145,7 @@
       "year": 2020,
       "date": "2020-01-01",
       "url": "/books/the-price-of-tomorrow/",
-      "thumb": "/assets/covers/price-of-tomorrow.webp",
+      "thumb": "/assets/covers/books/price-of-tomorrow.webp",
       "tags": ["macro", "technology", "deflation"]
     },
     {
@@ -157,7 +157,7 @@
       "year": 2015,
       "date": "2015-01-01",
       "url": "/books/digital-gold/",
-      "thumb": "/assets/covers/digital-gold.webp",
+      "thumb": "/assets/covers/books/digital-gold.webp",
       "tags": ["history", "origins", "narrative"]
     },
     {
@@ -169,7 +169,7 @@
       "year": 2021,
       "date": "2021-01-01",
       "url": "/books/the-blocksize-war/",
-      "thumb": "/assets/covers/blocksize-war.webp",
+      "thumb": "/assets/covers/books/blocksize-war.webp",
       "tags": ["history", "scaling", "bitcoin-core"]
     },
     {
@@ -181,7 +181,7 @@
       "year": 1994,
       "date": "1994-01-01",
       "url": "/books/creature-from-jekyll-island/",
-      "thumb": "/assets/covers/creature-jekyll-island.webp",
+      "thumb": "/assets/covers/books/creature-jekyll-island.webp",
       "tags": ["central-banking", "history", "macro"]
     },
     {
@@ -193,7 +193,7 @@
       "year": 2024,
       "date": "2024-01-01",
       "url": "/books/broken-money/",
-      "thumb": "/assets/covers/broken-money.webp",
+      "thumb": "/assets/covers/books/broken-money.webp",
       "tags": ["money", "macro", "technology"]
     },
     {
@@ -205,7 +205,7 @@
       "year": 2024,
       "date": "2024-01-01",
       "url": "/books/bitcoin-is-for-everyone/",
-      "thumb": "/assets/covers/bitcoin-is-for-everyone.webp",
+      "thumb": "/assets/covers/books/bitcoin-is-for-everyone.webp",
       "tags": ["basics", "beginner-friendly", "education"]
     },
 
