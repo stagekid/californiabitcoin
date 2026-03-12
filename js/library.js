@@ -1,6 +1,5 @@
 // /js/library.js — Content Vault only (NO big CTA badges; whole card is clickable)
-// Change: remove duplicate/meta tags inside cards (listen/watch/podcast/book/article)
-// and remove the subtle type/mode pills from cards entirely.
+// Mode toggle removed entirely. Disabled items render as non-clickable cards.
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
@@ -10,7 +9,6 @@
   const ARTICLE_PLACEHOLDER = "/assets/covers/placeholder/article.webp";
   const BOOK_PLACEHOLDER = "/assets/covers/placeholder/book.webp";
 
-  const modeTabsEl = document.getElementById("modeTabs");
   const cardsEl = document.getElementById("cards");
   const searchEl = document.getElementById("searchInput");
   const clearBtn = document.getElementById("clearBtn");
@@ -24,7 +22,6 @@
 
   // Filters
   let selectedType = "all"; // all | podcast | book | article
-  let selectedPodcastMode = "all"; // all | listen | watch (only applies when selectedType === "podcast")
   let selectedTag = "";
   let query = "";
 
@@ -73,13 +70,6 @@
 
   function uniq(arr) { return Array.from(new Set(arr)); }
 
-  // Unified tag list:
-  // - foundations[]
-  // - using[]
-  // - level
-  // - "thought leaders" if thoughtLeaderBookId exists (or thoughtLeader === true)
-  // - legacy tags[] (optional, until migration is complete)
-  // Then: de-dupe + remove banned meta-tags
   function getAllTags(item) {
     const foundations = Array.isArray(item.foundations) ? item.foundations : [];
     const using = Array.isArray(item.using) ? item.using : [];
@@ -152,39 +142,6 @@
     typeTabsEl.querySelectorAll("button[data-type]").forEach(btn => {
       btn.addEventListener("click", () => {
         selectedType = btn.getAttribute("data-type") || "all";
-        if (selectedType !== "podcast") selectedPodcastMode = "all";
-        renderAll();
-      });
-    });
-  }
-
-  function renderPodcastModeTabs() {
-    if (!modeTabsEl) return;
-
-    if (selectedType !== "podcast") {
-      modeTabsEl.innerHTML = "";
-      return;
-    }
-
-    const options = [
-      { key: "all", label: "All" },
-      { key: "listen", label: "Listen" },
-      { key: "watch", label: "Watch" }
-    ];
-
-    modeTabsEl.innerHTML = `
-      <div class="tabs">
-        ${options.map(o => `
-          <button class="tab ${selectedPodcastMode === o.key ? "active" : ""}" type="button" data-mode="${escapeAttr(o.key)}">
-            ${escapeHtml(o.label)}
-          </button>
-        `).join("")}
-      </div>
-    `;
-
-    modeTabsEl.querySelectorAll("button[data-mode]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        selectedPodcastMode = btn.getAttribute("data-mode") || "all";
         renderAll();
       });
     });
@@ -265,7 +222,6 @@
       />
     `;
 
-    // Disabled card (not clickable)
     if (disabled) {
       return `
         <div class="card disabled" aria-disabled="true">
@@ -300,14 +256,9 @@
 
     const matchesType = (selectedType === "all") || (item.type === selectedType);
 
-    const matchesPodcastMode =
-      (selectedType !== "podcast") ||
-      (selectedPodcastMode === "all") ||
-      (norm(item.mode) === selectedPodcastMode);
-
     const allTags = getAllTags(item);
 
-    // Keep type/mode searchable even though we don't show them as tags
+    // Keep type/mode searchable even though mode isn't a UI filter anymore
     const hay = norm([
       item.title,
       item.subtitle || item.description,
@@ -319,13 +270,12 @@
     const matchesQuery = !q || hay.includes(q);
     const matchesTag = !tag || allTags.some(t => norm(t) === tag);
 
-    return matchesType && matchesPodcastMode && matchesQuery && matchesTag;
+    return matchesType && matchesQuery && matchesTag;
   }
 
   function renderAll() {
     const types = uniq(allItems.map(i => i.type).filter(Boolean));
     renderTypeTabs(types);
-    renderPodcastModeTabs();
 
     const tags = uniq(allItems.flatMap(i => getAllTags(i)).filter(Boolean))
       .map(t => String(t).trim())
@@ -335,14 +285,7 @@
 
     const filtered = allItems.filter(matchesFilters);
 
-    filtered.sort((a, b) => {
-      if (a.type === "podcast" && b.type === "podcast") {
-        const am = a.mode === "watch" ? 1 : 0;
-        const bm = b.mode === "watch" ? 1 : 0;
-        if (am !== bm) return am - bm;
-      }
-      return String(a.title || "").localeCompare(String(b.title || ""));
-    });
+    filtered.sort((a, b) => String(a.title || "").localeCompare(String(b.title || "")));
 
     cardsEl.innerHTML = filtered.map(cardHtml).join("") || `
       <div class="block pad" style="grid-column: 1 / -1;">
@@ -407,7 +350,6 @@
       query = "";
       selectedTag = "";
       selectedType = "all";
-      selectedPodcastMode = "all";
       if (searchEl) searchEl.value = "";
       renderAll();
     });
