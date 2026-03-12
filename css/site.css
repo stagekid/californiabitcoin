@@ -223,6 +223,32 @@ h1{
   gap: 16px;
 }
 
+/* Book cover support */
+.card{
+  display:flex;
+  gap: 14px;
+  align-items:flex-start;
+}
+
+.cover{
+  flex: 0 0 84px;
+  width: 84px;
+}
+
+.cover img{
+  width: 84px;
+  height: 126px; /* clean “book” ratio */
+  object-fit: cover;
+  border-radius: 14px;
+  border: 2px solid rgba(247,147,26,.18);
+  background: rgba(255,255,255,.04);
+}
+
+.card-body{
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .card{
   grid-column: span 4;
   background: rgba(14,14,14,.7);
