@@ -1,93 +1,121 @@
-[
-  {
-    "section": "Listen",
-    "title": "What Bitcoin Did",
-    "url": "https://www.whatbitcoindid.com/episodes",
-    "description": "Long-form conversations on Bitcoin, macro, and the future of money.",
-    "tags": ["Interviews", "Macro"]
-  },
-  {
-    "section": "Listen",
-    "title": "Stephan Livera Podcast",
-    "url": "https://stephanlivera.com/",
-    "description": "Bitcoin-focused interviews spanning economics, tech, and culture.",
-    "tags": ["Interviews", "Technical"]
-  },
-  {
-    "section": "Listen",
-    "title": "TFTC: A Bitcoin Podcast",
-    "url": "https://www.tftc.io/",
-    "description": "Marty Bent on Bitcoin, freedom tech, culture, and current events.",
-    "tags": ["News", "Culture"]
-  },
-  {
-    "section": "Listen",
-    "title": "Bitcoin Audible",
-    "url": "https://bitcoinaudible.com/",
-    "description": "Audio versions and breakdowns of the best Bitcoin writing.",
-    "tags": ["Education", "Deep Dives"]
-  },
-  {
-    "section": "Listen",
-    "title": "The Bitcoin Matrix",
-    "url": "https://bitcoinmatrix.libsyn.com/",
-    "description": "Explores Bitcoin’s cultural, social, and philosophical implications.",
-    "tags": ["Culture", "Philosophy"]
-  },
-  {
-    "section": "Listen",
-    "title": "Bitcoin Explained",
-    "url": "https://bitcoinexplainedpodcast.com/",
-    "description": "Topic-by-topic explanations of Bitcoin’s technical side.",
-    "tags": ["Technical", "Protocol"]
-  },
+{
+  "version": 1,
+  "updated": "2026-03-11",
+  "items": [
+    {
+      "id": "what-bitcoin-did",
+      "title": "What Bitcoin Did",
+      "mode": "listen",
+      "href": "https://www.whatbitcoindid.com/",
+      "subtitle": "Interviews and stories about Bitcoin.",
+      "tags": ["interviews", "news", "education"],
+      "thumb": "/assets/covers/podcasts/what-bitcoin-did.jpg"
+    },
+    {
+      "id": "stefan-livera",
+      "title": "Stephan Livera Podcast",
+      "mode": "listen",
+      "href": "https://stephanlivera.com/",
+      "subtitle": "Bitcoin-only conversations with builders and educators.",
+      "tags": ["technical", "interviews", "education"],
+      "thumb": "/assets/covers/podcasts/stephan-livera.jpg"
+    },
+    {
+      "id": "bitcoin-audible",
+      "title": "Bitcoin Audible",
+      "mode": "listen",
+      "href": "https://bitcoinaudible.com/",
+      "subtitle": "Readings of the best Bitcoin articles and papers.",
+      "tags": ["reading", "deep-dives", "education"],
+      "thumb": "/assets/covers/podcasts/bitcoin-audible.jpg"
+    },
+    {
+      "id": "tftc",
+      "title": "TFTC",
+      "mode": "listen",
+      "href": "https://www.tftc.io/",
+      "subtitle": "Bitcoin and freedom tech conversations.",
+      "tags": ["culture", "interviews", "mining"],
+      "thumb": "/assets/covers/podcasts/tftc.jpg"
+    },
+    {
+      "id": "coin-stories",
+      "title": "Coin Stories",
+      "mode": "listen",
+      "href": "https://www.coinsstories.com/",
+      "subtitle": "Bitcoin-focused interviews and perspectives.",
+      "tags": ["interviews", "macro", "education"],
+      "thumb": "/assets/covers/podcasts/coin-stories.jpg"
+    },
+    {
+      "id": "unchained",
+      "title": "Unchained",
+      "mode": "listen",
+      "href": "https://unchainedcrypto.com/",
+      "subtitle": "Industry interviews and explainers (filter for Bitcoin episodes).",
+      "tags": ["interviews", "industry"],
+      "thumb": "/assets/covers/podcasts/unchained.jpg"
+    },
 
-  {
-    "section": "Watch",
-    "title": "What Bitcoin Did — Video (placeholder)",
-    "url": "https://www.youtube.com/watch?v=BF0v2MSR0tU",
-    "youtubeId": "BF0v2MSR0tU",
-    "description": "Example YouTube card. Replace with your chosen episodes.",
-    "tags": ["YouTube", "WBD"]
-  },
-  {
-    "section": "Watch",
-    "title": "Stephan Livera — Video (placeholder)",
-    "url": "https://www.youtube.com/",
-    "youtubeId": "REPLACE_ME_2",
-    "description": "Add the YouTube ID for the episode you want to feature.",
-    "tags": ["YouTube", "SLP"]
-  },
-  {
-    "section": "Watch",
-    "title": "TFTC — Video (placeholder)",
-    "url": "https://www.youtube.com/",
-    "youtubeId": "REPLACE_ME_3",
-    "description": "Add the YouTube ID for the episode you want to feature.",
-    "tags": ["YouTube", "TFTC"]
-  },
-  {
-    "section": "Watch",
-    "title": "Bitcoin Audible — Video (placeholder)",
-    "url": "https://www.youtube.com/",
-    "youtubeId": "REPLACE_ME_4",
-    "description": "Add the YouTube ID for the episode you want to feature.",
-    "tags": ["YouTube", "Audible"]
-  },
-  {
-    "section": "Watch",
-    "title": "The Bitcoin Matrix — Video (placeholder)",
-    "url": "https://www.youtube.com/",
-    "youtubeId": "REPLACE_ME_5",
-    "description": "Add the YouTube ID for the episode you want to feature.",
-    "tags": ["YouTube", "Matrix"]
-  },
-  {
-    "section": "Watch",
-    "title": "Bitcoin Explained — Video (placeholder)",
-    "url": "https://www.youtube.com/",
-    "youtubeId": "REPLACE_ME_6",
-    "description": "Add the YouTube ID for the episode you want to feature.",
-    "tags": ["YouTube", "Explained"]
-  }
-]
+    {
+      "id": "bitcoin-magazine-yt",
+      "title": "Bitcoin Magazine (YouTube)",
+      "mode": "watch",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "href": null,
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["news", "events"],
+      "thumb": "/assets/covers/podcasts/bitcoin-magazine.jpg"
+    },
+    {
+      "id": "swan-yt",
+      "title": "Swan (YouTube)",
+      "mode": "watch",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "href": null,
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["education", "interviews"],
+      "thumb": "/assets/covers/podcasts/swan.jpg"
+    },
+    {
+      "id": "blockworks-yt",
+      "title": "Blockworks (YouTube)",
+      "mode": "watch",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "href": null,
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["macro", "markets"],
+      "thumb": "/assets/covers/podcasts/blockworks.jpg"
+    },
+    {
+      "id": "btcsessions-yt",
+      "title": "BTC Sessions (YouTube)",
+      "mode": "watch",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "href": null,
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["how-to", "wallets", "education"],
+      "thumb": "/assets/covers/podcasts/btc-sessions.jpg"
+    },
+    {
+      "id": "aantonop-yt",
+      "title": "Andreas M. Antonopoulos (YouTube)",
+      "mode": "watch",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "href": null,
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["talks", "education"],
+      "thumb": "/assets/covers/podcasts/andreas.jpg"
+    },
+    {
+      "id": "btcmn-yt",
+      "title": "Bitcoin Mining (YouTube)",
+      "mode": "watch",
+      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "href": null,
+      "subtitle": "Reserved for YouTube embeds later.",
+      "tags": ["mining", "energy", "infrastructure"],
+      "thumb": "/assets/covers/podcasts/mining.jpg"
+    }
+  ]
+}
