@@ -18,42 +18,6 @@
     return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
   }
 
-  function cardTemplate(item) {
-  const title = item.title || "Untitled";
-  const desc = item.description || "";
-  const date = item.date ? formatDate(item.date) : "";
-  const source = item.source ? item.source : "";
-  const link = item.url || "#";
-  const tags = Array.isArray(item.tags) ? item.tags : [];
-  const img = item.image ? item.image : "";
-
-  const metaLeft = [date, source].filter(Boolean).join(" • ");
-
-  return `
-    <a class="card" href="${link}" ${link.startsWith("http") ? `target="_blank" rel="noopener"` : ""}>
-      ${img ? `
-        <div class="cover">
-          <img src="${escapeAttr(img)}" alt="${escapeAttr(title)} cover" loading="lazy" />
-        </div>
-      ` : ""}
-
-      <div class="card-body">
-        <div class="card-title">${escapeHtml(title)}</div>
-        <div class="card-desc">${escapeHtml(desc)}</div>
-
-        <div class="meta">
-          <div>${escapeHtml(metaLeft)}</div>
-          <div>${item.duration ? escapeHtml(item.duration) : ""}</div>
-        </div>
-
-        <div class="pills" aria-label="tags">
-          ${tags.map(t => `<span class="pill" data-tag="${escapeAttr(t)}">${escapeHtml(t)}</span>`).join("")}
-        </div>
-      </div>
-    </a>
-  `;
-}
-
   function escapeHtml(str) {
     return (str ?? "").toString()
       .replaceAll("&", "&amp;")
@@ -64,13 +28,62 @@
   }
 
   function escapeAttr(str) {
-    return (str ?? "").toString().replaceAll('"', "&quot;");
+    return (str ?? "").toString()
+      .replaceAll("&", "&amp;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;");
   }
 
   async function loadJson(path) {
     const res = await fetch(path, { cache: "no-store" });
     if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
     return await res.json();
+  }
+
+  function getSection(item) {
+    return (item.section || "").toString().trim() || "Other";
+  }
+
+  function cardTemplate(item) {
+    const title = item.title || "Untitled";
+    const desc = item.description || "";
+    const date = item.date ? formatDate(item.date) : "";
+    const source = item.source ? item.source : "";
+    const link = item.url || "#";
+    const tags = Array.isArray(item.tags) ? item.tags : [];
+    const img = item.image ? item.image : "";
+
+    const metaLeft = [date, source].filter(Boolean).join(" • ");
+    const isExternal = /^https?:\/\//i.test(link);
+
+    return `
+      <a class="card" href="${escapeAttr(link)}" ${isExternal ? `target="_blank" rel="noopener"` : ""}>
+        ${img ? `
+          <div class="cover">
+            <img src="${escapeAttr(img)}" alt="${escapeAttr(title)} cover" loading="lazy" />
+          </div>
+        ` : ""}
+
+        <div class="card-body">
+          <div class="card-title">${escapeHtml(title)}</div>
+          <div class="card-desc">${escapeHtml(desc)}</div>
+
+          ${(metaLeft || item.duration) ? `
+            <div class="meta">
+              <div>${escapeHtml(metaLeft)}</div>
+              <div>${item.duration ? escapeHtml(item.duration) : ""}</div>
+            </div>
+          ` : ""}
+
+          ${tags.length ? `
+            <div class="pills" aria-label="tags">
+              ${tags.map(t => `<span class="pill" data-tag="${escapeAttr(t)}">${escapeHtml(t)}</span>`).join("")}
+            </div>
+          ` : ""}
+        </div>
+      </a>
+    `;
   }
 
   function renderTagBar(tags, selectedTag) {
@@ -86,75 +99,79 @@
 
   function applyFilters(items, query, selectedTag) {
     const q = normalize(query);
+    const tagNorm = normalize(selectedTag);
 
     return items.filter(item => {
       const haystack = normalize([
-        item.title, item.description, item.source, (item.tags || []).join(" ")
+        item.title,
+        item.description,
+        item.source,
+        (item.tags || []).join(" "),
+        item.section
       ].join(" "));
 
       const matchesQuery = !q || haystack.includes(q);
-      const matchesTag = !selectedTag || selectedTag === "All"
+
+      const matchesTag = (!tagNorm || tagNorm === "all")
         ? true
-        : (item.tags || []).some(t => normalize(t) === normalize(selectedTag));
+        : (item.tags || []).some(t => normalize(t) === tagNorm);
 
       return matchesQuery && matchesTag;
     });
   }
 
-  function getSection(item) {
-  return (item.section || "").trim() || "Other";
-function renderList(items) {
-  const grid = qs("#cards");
-  const count = qs("#resultCount");
-  if (!grid) return;
+  function renderList(items) {
+    const grid = qs("#cards");
+    const count = qs("#resultCount");
+    if (!grid) return;
 
-  if (!items.length) {
-    grid.innerHTML = `
-      <div class="block pad" style="grid-column: 1 / -1;">
-        <div style="color: rgba(255,255,255,.75); font-weight:650; margin-bottom:8px;">No results</div>
-        <div style="color: rgba(255,255,255,.62);">Try clearing filters or searching for something else.</div>
-      </div>
-    `;
-    if (count) count.textContent = "0";
-    return;
+    if (!items.length) {
+      grid.innerHTML = `
+        <div class="block pad" style="grid-column: 1 / -1;">
+          <div style="color: rgba(255,255,255,.75); font-weight:650; margin-bottom:8px;">No results</div>
+          <div style="color: rgba(255,255,255,.62);">Try clearing filters or searching for something else.</div>
+        </div>
+      `;
+      if (count) count.textContent = "0";
+      return;
+    }
+
+    if (count) count.textContent = String(items.length);
+
+    // Group by section
+    const groups = {};
+    items.forEach((item) => {
+      const s = getSection(item);
+      if (!groups[s]) groups[s] = [];
+      groups[s].push(item);
+    });
+
+    // Preferred order
+    const sectionOrder = ["Listen", "Watch", "Other"];
+    const orderedSections = Object.keys(groups).sort((a, b) => {
+      const ia = sectionOrder.indexOf(a);
+      const ib = sectionOrder.indexOf(b);
+      return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+    });
+
+    // Render sections
+    grid.innerHTML = orderedSections.map((sectionName) => {
+      const sectionItems = groups[sectionName] || [];
+      return `
+        <div class="library-section" style="grid-column: 1 / -1;">
+          <div class="library-section-head">
+            <h3>${escapeHtml(sectionName)}</h3>
+            <div class="hint">${sectionItems.length} items</div>
+          </div>
+          <div class="grid">
+            ${sectionItems.map(cardTemplate).join("")}
+          </div>
+        </div>
+      `;
+    }).join("");
   }
 
-  // Count stays total results
-  if (count) count.textContent = String(items.length);
-
-  // Group by section
-  const groups = {};
-  items.forEach((item) => {
-    const s = getSection(item);
-    if (!groups[s]) groups[s] = [];
-    groups[s].push(item);
-  });
-
-  // Preferred order
-  const sectionOrder = ["Listen", "Watch", "Other"];
-  const orderedSections = Object.keys(groups).sort((a, b) => {
-    const ia = sectionOrder.indexOf(a);
-    const ib = sectionOrder.indexOf(b);
-    return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
-  });
-
-  // Render sections + each section’s own grid
-  grid.innerHTML = orderedSections.map((sectionName) => {
-    const sectionItems = groups[sectionName] || [];
-    return `
-      <div class="library-section" style="grid-column: 1 / -1;">
-        <div class="library-section-head">
-          <h3>${escapeHtml(sectionName)}</h3>
-          <div class="hint">${sectionItems.length} items</div>
-        </div>
-        <div class="grid">
-          ${sectionItems.map(cardTemplate).join("")}
-        </div>
-      </div>
-    `;
-  }).join("");
-}
-
+  // Optional: only useful if you still have old ".nav-pill" links somewhere
   function setActiveNav() {
     const path = location.pathname.replace(/\/+$/, "") || "/";
     qsa(".nav-pill").forEach(a => {
@@ -178,9 +195,10 @@ function renderList(items) {
     let query = "";
 
     let data = await loadJson(dataPath);
+    data = (Array.isArray(data) ? data : []).slice();
 
-    // Optional: sort newest first if dates exist
-    data = (Array.isArray(data) ? data : []).slice().sort((a, b) => {
+    // Sort newest first only if there are dates
+    data.sort((a, b) => {
       const ad = a.date ? new Date(a.date).getTime() : 0;
       const bd = b.date ? new Date(b.date).getTime() : 0;
       return bd - ad;
@@ -222,12 +240,11 @@ function renderList(items) {
       renderTagBar(allTags, selectedTag);
       renderList(applyFilters(data, query, selectedTag));
 
-      // scroll to controls on mobile
       const controls = qs("#controls");
       if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    // Search input
+    // Search
     if (searchInput) {
       searchInput.addEventListener("input", () => {
         query = searchInput.value || "";
@@ -250,7 +267,7 @@ function renderList(items) {
   document.addEventListener("DOMContentLoaded", () => {
     init().catch(err => {
       console.error(err);
-      const grid = document.querySelector("#cards");
+      const grid = qs("#cards");
       if (grid) {
         grid.innerHTML = `
           <div class="block pad" style="grid-column: 1 / -1;">
