@@ -514,3 +514,55 @@ h1{
   font-size: 18px;
   margin: 0;
 }
+/* === FINAL OVERRIDE: make Tabs / Search / Clear EXACT same height === */
+:root{
+  --control-h: 48px;
+  --control-pad-x: 14px;
+}
+
+.tabs,
+.search,
+.clear-btn{
+  height: var(--control-h) !important;
+  min-height: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Tabs frame */
+.tabs{
+  padding: 0 6px !important;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Individual tab buttons */
+.tab{
+  height: calc(var(--control-h) - 12px) !important;
+  padding: 0 var(--control-pad-x) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Search pill */
+.search{
+  padding: 0 var(--control-pad-x) !important;
+  display: flex;
+  align-items: center;
+}
+
+/* Keep input vertically centered */
+.search input{
+  height: calc(var(--control-h) - 16px) !important;
+  line-height: 1;
+}
+
+/* Clear button */
+.clear-btn{
+  padding: 0 calc(var(--control-pad-x) + 2px) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
