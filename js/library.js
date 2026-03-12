@@ -1,6 +1,8 @@
 // /js/library.js — Content Vault only (NO big CTA badges; whole card is clickable)
 // Mode toggle removed entirely. Disabled items render as non-clickable cards.
 // Option A: For podcasts/watch placeholders, fall back to href/url instead of disabling.
+//
+// Added: "Built in California" footer badge helper (safe + no duplicates).
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
@@ -16,6 +18,77 @@
   const tagBarEl = document.getElementById("tagBar");
   const resultCountEl = document.getElementById("resultCount");
   const typeTabsEl = document.getElementById("typeTabs");
+
+  // ---------- Shared Footer Helper (Built in California) ----------
+  function injectBuiltInCaliforniaBadge(intoEl) {
+    if (!intoEl) return;
+
+    // Prevent duplicates
+    if (intoEl.querySelector('[data-built-ca-badge="true"]')) return;
+
+    const badge = document.createElement("div");
+    badge.setAttribute("data-built-ca-badge", "true");
+    badge.className =
+      "inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] tracking-[0.14em] uppercase text-slate-400/90";
+    badge.innerHTML = `
+      <span class="h-1.5 w-1.5 rounded-full bg-[#f7931a]"></span>
+      Built in California
+    `.trim();
+
+    intoEl.appendChild(badge);
+  }
+
+  function renderSiteFooterIfPresent() {
+    // 1) Preferred future-proof approach: a placeholder footer mount
+    const mount = document.getElementById("site-footer");
+    if (mount) {
+      // If it's already been rendered, skip
+      if (mount.getAttribute("data-rendered") === "true") return;
+
+      // Minimal, premium footer markup (matches your vibe)
+      mount.innerHTML = `
+        <div class="container">
+          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div>© <span id="year"></span> California Bitcoin Education Lab</div>
+              <div id="builtCaMount"></div>
+            </div>
+            <div style="opacity:.8;">Deep black • Bitcoin orange</div>
+          </div>
+        </div>
+      `.trim();
+
+      mount.classList.add("footer");
+      mount.setAttribute("data-rendered", "true");
+
+      // Year
+      const yearEl = mount.querySelector("#year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      // Badge
+      injectBuiltInCaliforniaBadge(mount.querySelector("#builtCaMount"));
+      return;
+    }
+
+    // 2) Back-compat: existing vault footer (.footer). Add badge only if missing.
+    const existingFooter = document.querySelector("footer.footer");
+    if (existingFooter) {
+      // Find a reasonable place to insert the badge.
+      // Prefer: a left column container if present; else, just append to footer content.
+      const leftCol =
+        existingFooter.querySelector('div[style*="flex-direction:column"]') ||
+        existingFooter.querySelector(".container") ||
+        existingFooter;
+
+      // If the leftCol is the footer itself, we’ll still append safely.
+      injectBuiltInCaliforniaBadge(leftCol);
+    }
+  }
+  // ---------------------------------------------------------------
+
+  // If we're not on the vault page (no cards), we still might want the footer helper.
+  // So we do NOT early-return until after footer runs.
+  renderSiteFooterIfPresent();
 
   if (!cardsEl) return;
 
@@ -116,7 +189,6 @@
         }
 
         // Option A: If it's a placeholder, fall back to any available link
-        // (channel / site / whatever you provided)
         const url = pickUrl(item.href, item.url);
         return { url, disabled: !url };
       }
@@ -381,6 +453,9 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    // Run footer helper again once DOM is fully ready (safe/no-dup).
+    renderSiteFooterIfPresent();
+
     init().catch(err => {
       console.error(err);
       cardsEl.innerHTML = `
