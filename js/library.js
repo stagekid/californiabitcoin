@@ -1,4 +1,6 @@
 // /js/library.js — Content Vault only (Type + Podcast Mode filter + grouped tags + WebP srcset)
+// Change requested: NO author-name tags. Instead, add ONE tag: "thought leaders"
+// Rule: any item with a book attached (thoughtLeaderBookId) gets the "thought leaders" tag.
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
@@ -26,8 +28,11 @@
   // Filters
   let selectedType = "all"; // all | podcast | book | article
   let selectedPodcastMode = "all"; // all | listen | watch (only applies when selectedType === "podcast")
-  let selectedTag = ""; // unified tag pill selection (from Foundations/Using/Level/Thought Leaders)
+  let selectedTag = ""; // unified tag pill selection
   let query = "";
+
+  // Single canonical tag label for this category
+  const THOUGHT_LEADERS_TAG = "thought leaders";
 
   function escapeHtml(str) {
     return String(str ?? "")
@@ -62,13 +67,35 @@
 
   function uniq(arr) { return Array.from(new Set(arr)); }
 
-  // Flatten our new grouped taxonomy into one searchable/filterable list
+  // --- TAG SYSTEM (grouped + legacy support) ---
+  // Tags are:
+  // - foundations[] (array)
+  // - using[] (array)
+  // - level (string)
+  // - thought leaders (single tag) if thoughtLeaderBookId exists (or thoughtLeader === true)
+  // - legacy tags[] (optional, for gradual migration)
   function getAllTags(item) {
     const foundations = Array.isArray(item.foundations) ? item.foundations : [];
     const using = Array.isArray(item.using) ? item.using : [];
     const level = item.level ? [item.level] : [];
-    const leaders = item.thoughtLeader ? [item.thoughtLeader] : [];
-    return uniq([...foundations, ...using, ...level, ...leaders].map(t => String(t).trim()).filter(Boolean));
+
+    const tags = [
+      ...foundations,
+      ...using,
+      ...level
+    ];
+
+    // ✅ Your new rule:
+    // If this item has a book attached, give it the "thought leaders" tag.
+    // (Also supports a simple boolean if you prefer: thoughtLeader: true)
+    const isThoughtLeader = Boolean(item.thoughtLeaderBookId) || item.thoughtLeader === true;
+    if (isThoughtLeader) tags.push(THOUGHT_LEADERS_TAG);
+
+    // Legacy support: if content still uses item.tags, include them until you delete that field
+    const legacy = Array.isArray(item.tags) ? item.tags : [];
+    tags.push(...legacy);
+
+    return uniq(tags.map(t => String(t).trim()).filter(Boolean));
   }
 
   function computeCta(item) {
@@ -126,7 +153,7 @@
       btn.addEventListener("click", () => {
         selectedType = btn.getAttribute("data-type") || "all";
 
-        // Reset podcast mode when leaving podcasts to keep UX simple/expected
+        // Reset podcast mode when leaving podcasts
         if (selectedType !== "podcast") selectedPodcastMode = "all";
 
         renderAll();
@@ -301,8 +328,7 @@
       item.subtitle || item.description,
       allTags.join(" "),
       item.type,
-      item.mode,
-      item.thoughtLeader
+      item.mode
     ].join(" "));
 
     const matchesQuery = !q || hay.includes(q);
@@ -358,56 +384,35 @@
     const json = await loadJson(DATA_PATH);
     allItems = unwrapItems(json);
 
-    // Normalize items (support both old "tags" and new grouped fields)
-    allItems = allItems.map(it => {
-      const legacyTags = Array.isArray(it.tags) ? it.tags : [];
+    // Normalize items (supports both old "tags" and new grouped fields)
+    allItems = allItems.map(it => ({
+      id: it.id,
+      type: it.type || "other",
+      title: it.title || "Untitled",
+      subtitle: it.subtitle ?? it.description ?? "",
+      description: it.description,
 
-      // If user hasn't migrated yet, keep legacy tags usable by mapping into foundations
-      // (you can delete this block after migration)
-      const foundations = Array.isArray(it.foundations) ? it.foundations : [];
-      const using = Array.isArray(it.using) ? it.using : [];
-      const level = it.level || "";
+      // New taxonomy (preferred)
+      foundations: Array.isArray(it.foundations) ? it.foundations : [],
+      using: Array.isArray(it.using) ? it.using : [],
+      level: it.level || "",
+      // Thought leaders rule uses this:
+      thoughtLeaderBookId: it.thoughtLeaderBookId || "", // <- set this on items you want tagged "thought leaders"
+      // Optional boolean alternative:
+      thoughtLeader: it.thoughtLeader === true,
 
-      return {
-        id: it.id,
-        type: it.type || "other",
-        title: it.title || "Untitled",
-        subtitle: it.subtitle ?? it.description ?? "",
-        description: it.description,
+      // Legacy tags (optional; delete once migrated)
+      tags: Array.isArray(it.tags) ? it.tags : [],
 
-        // New taxonomy
-        foundations,
-        using,
-        level,
-        thoughtLeader: it.thoughtLeader || "",
-
-        // Legacy support (so you can migrate gradually)
-        // If you want legacy tags to still appear, append them into foundations-ish space:
-        // Comment out the next line once fully migrated.
-        legacyTags,
-
-        thumb: it.thumb || it.image || "",
-        image: it.image,
-        href: it.href,
-        url: it.url,
-        buy: it.buy,
-        mode: it.mode,
-        youtubeId: it.youtubeId
-      };
-    });
-
-    // If legacy tags exist, merge them into our tag system for pills/search
-    // (Delete these two helpers + references once all content uses foundations/using/level/thoughtLeader only)
-    const originalGetAllTags = getAllTags;
-    window.__CBEL_getAllTags = function (item) {
-      const base = originalGetAllTags(item);
-      const legacy = Array.isArray(item.legacyTags) ? item.legacyTags : [];
-      return uniq([...base, ...legacy.map(t => String(t).trim()).filter(Boolean)]);
-    };
-
-    // Override getAllTags to include legacy (without rewriting the file structure)
-    // eslint-disable-next-line no-global-assign
-    getAllTags = window.__CBEL_getAllTags;
+      // Media + CTA fields
+      thumb: it.thumb || it.image || "",
+      image: it.image,
+      href: it.href,
+      url: it.url,
+      buy: it.buy,
+      mode: it.mode,
+      youtubeId: it.youtubeId
+    }));
 
     renderAll();
   }
