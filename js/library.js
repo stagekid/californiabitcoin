@@ -1,11 +1,39 @@
-// /js/library.js  (UNIFIED Content Vault loader)
+// /js/library.js — Content Vault only
 (function () {
-  function qs(sel, el = document) { return el.querySelector(sel); }
-  function qsa(sel, el = document) { return Array.from(el.querySelectorAll(sel)); }
-  function normalize(s) { return (s || "").toString().toLowerCase().trim(); }
-  function uniq(arr) { return Array.from(new Set(arr)); }
-  function escapeHtml(str) { return (str ?? "").toString().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'", "&#039;"); }
-  function escapeAttr(str) { return (str ?? "").toString().replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<","&lt;").replaceAll(">","&gt;"); }
+  const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
+
+  const cardsEl = document.getElementById("cards");
+  const searchEl = document.getElementById("searchInput");
+  const clearBtn = document.getElementById("clearBtn");
+  const tagBarEl = document.getElementById("tagBar");
+  const resultCountEl = document.getElementById("resultCount");
+  const typeTabsEl = document.getElementById("typeTabs");
+
+  if (!cardsEl) return;
+
+  let allItems = [];
+  let selectedType = "all"; // all | podcast | book | article
+  let selectedTag = "";
+  let query = "";
+
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function escapeAttr(str) {
+    return String(str ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;");
+  }
+
+  function norm(s) { return String(s ?? "").toLowerCase().trim(); }
 
   async function loadJson(path) {
     const res = await fetch(path, { cache: "no-store" });
@@ -13,18 +41,21 @@
     return await res.json();
   }
 
-  // Normalize wrapper object or array
-  function normalizeData(json) {
-    if (!json) return [];
+  function unwrapItems(json) {
     if (Array.isArray(json)) return json;
-    if (Array.isArray(json.items)) return json.items;
+    if (json && Array.isArray(json.items)) return json.items;
     return [];
   }
 
-  // Build CTA depending on type + mode
+  function uniq(arr) { return Array.from(new Set(arr)); }
+
   function computeCta(item) {
+    // Podcasts
     if (item.type === "podcast") {
-      if (item.mode === "listen") return { label: "Listen", url: item.href || item.url || null, disabled: !item.href };
+      if (item.mode === "listen") {
+        const url = item.href || null;
+        return { label: "Listen", url, disabled: !url };
+      }
       if (item.mode === "watch") {
         const placeholder = !item.youtubeId || item.youtubeId === "REPLACE_WITH_VIDEO_ID";
         if (placeholder) return { label: "Watch", url: null, disabled: true };
@@ -32,44 +63,103 @@
       }
     }
 
+    // Books
     if (item.type === "book") {
-      if (item.buy) return { label: "Buy", url: item.buy, disabled: false };
-      if (item.href || item.url) return { label: "Open", url: item.href || item.url, disabled: false };
-      return { label: "Info", url: null, disabled: true };
+      const url = item.buy || item.href || item.url || null;
+      return { label: url ? (item.buy ? "Buy" : "Open") : "Info", url, disabled: !url };
     }
 
+    // Articles
     if (item.type === "article") {
-      if (item.url || item.href) return { label: "Read", url: item.url || item.href, disabled: false };
-      return { label: "Open", url: null, disabled: true };
+      const url = item.url || item.href || null;
+      return { label: "Read", url, disabled: !url };
     }
 
-    // generic fallback
-    if (item.href || item.url) return { label: "Open", url: item.href || item.url, disabled: false };
-    return { label: "Open", url: null, disabled: true };
+    // Fallback
+    const url = item.href || item.url || null;
+    return { label: "Open", url, disabled: !url };
   }
 
-  function itemTags(item) { return Array.isArray(item.tags) ? item.tags : []; }
+  function renderTypeTabs(types) {
+    if (!typeTabsEl) return;
+
+    const pretty = (t) => {
+      if (t === "all") return "All";
+      if (t === "podcast") return "Podcasts";
+      if (t === "book") return "Books";
+      if (t === "article") return "Articles";
+      return t;
+    };
+
+    const ordered = ["all", "podcast", "book", "article"]
+      .filter(t => t === "all" || types.includes(t));
+
+    typeTabsEl.innerHTML = `
+      <div class="tabs">
+        ${ordered.map(t => `
+          <button class="tab ${selectedType === t ? "active" : ""}" type="button" data-type="${escapeAttr(t)}">
+            ${escapeHtml(pretty(t))}
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    typeTabsEl.querySelectorAll("button[data-type]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        selectedType = btn.getAttribute("data-type") || "all";
+        renderAll();
+      });
+    });
+  }
+
+  function renderTagBar(tags) {
+    if (!tagBarEl) return;
+
+    tagBarEl.innerHTML = `
+      <button class="pill ${selectedTag ? "" : "active"}" type="button" data-tag="">All</button>
+      ${tags.map(t => `
+        <button class="pill ${selectedTag === t ? "active" : ""}" type="button" data-tag="${escapeAttr(t)}">
+          ${escapeHtml(t)}
+        </button>
+      `).join("")}
+    `;
+
+    tagBarEl.querySelectorAll("button[data-tag]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        selectedTag = btn.getAttribute("data-tag") || "";
+        renderAll();
+      });
+    });
+  }
 
   function cardHtml(item) {
     const title = escapeHtml(item.title || "Untitled");
     const desc = escapeHtml(item.subtitle || item.description || "");
     const thumb = escapeAttr(item.thumb || item.image || "/assets/covers/placeholder-512.jpg");
-    const tags = itemTags(item);
+    const tags = Array.isArray(item.tags) ? item.tags : [];
     const cta = computeCta(item);
 
-    const tagsHtml = tags.length ? `<div class="pills">${tags.map(t => `<button class="pill" data-tag="${escapeAttr(t)}">${escapeHtml(t)}</button>`).join("")}</div>` : "";
+    const tagsHtml = tags.length ? `
+      <div class="pills" aria-label="tags">
+        ${tags.map(t => `<button class="pill" type="button" data-inline-tag="${escapeAttr(t)}">${escapeHtml(t)}</button>`).join("")}
+      </div>
+    ` : "";
 
-    // Disabled CTA (no url) -> non-link card + disabled button
+    const typePill = item.type ? `<span class="pill subtle">${escapeHtml(item.type)}</span>` : "";
+
     if (cta.disabled) {
       return `
-        <div class="card disabled" data-type="${escapeAttr(item.type || "")}">
-          <div class="cover"><img src="${thumb}" alt="${title} cover" loading="lazy" /></div>
+        <div class="card disabled" aria-disabled="true">
+          <div class="cover">
+            <img src="${thumb}" alt="${title} cover" loading="lazy" />
+          </div>
           <div class="card-body">
             <div class="card-title">${title}</div>
             ${desc ? `<div class="card-desc">${desc}</div>` : ""}
             ${tagsHtml}
             <div class="card-actions">
-              <button class="btn disabled-cta" disabled>${escapeHtml(cta.label)} (soon)</button>
+              ${typePill}
+              <button class="btn disabled-cta" type="button" disabled>${escapeHtml(cta.label)} (soon)</button>
             </div>
           </div>
         </div>
@@ -79,175 +169,142 @@
     const isExternal = /^https?:\/\//i.test(cta.url || "");
     const linkAttrs = isExternal ? `target="_blank" rel="noopener noreferrer"` : "";
 
-    // clickable card
     return `
-      <a class="card" href="${escapeAttr(cta.url || "#")}" ${linkAttrs} data-type="${escapeAttr(item.type || "")}">
-        <div class="cover"><img src="${thumb}" alt="${title} cover" loading="lazy" /></div>
+      <a class="card" href="${escapeAttr(cta.url)}" ${linkAttrs}>
+        <div class="cover">
+          <img src="${thumb}" alt="${title} cover" loading="lazy" />
+        </div>
         <div class="card-body">
           <div class="card-title">${title}</div>
           ${desc ? `<div class="card-desc">${desc}</div>` : ""}
           ${tagsHtml}
           <div class="card-actions">
-            <span class="pill subtle">${escapeHtml(item.type || "")}</span>
-            <button class="btn">${escapeHtml(cta.label)}</button>
+            ${typePill}
+            <button class="btn" type="button">${escapeHtml(cta.label)}</button>
           </div>
         </div>
       </a>
     `;
   }
 
-  // UI wiring
-  async function init() {
-    const dataPath = document.body.dataset.source;
-    if (!dataPath) return;
+  function matchesFilters(item) {
+    const q = norm(query);
+    const tag = norm(selectedTag);
 
-    const cardsEl = qs("#cards");
-    const searchEl = qs("#searchInput");
-    const clearBtn = qs("#clearBtn");
-    const tagBar = qs("#tagBar");
-    const resultCount = qs("#resultCount");
-    const typeTabs = qs("#typeTabs");
+    const matchesType = (selectedType === "all") || (item.type === selectedType);
 
-    let json = await loadJson(dataPath);
-    let items = normalizeData(json);
+    const hay = norm([
+      item.title,
+      item.subtitle || item.description,
+      (Array.isArray(item.tags) ? item.tags.join(" ") : ""),
+      item.type,
+      item.mode
+    ].join(" "));
 
-    // normalize minimal fields and ensure type exists
-    items = items.map(it => Object.assign({ type: it.type || "other", tags: it.tags || [] }, it));
+    const matchesQuery = !q || hay.includes(q);
+    const matchesTag = !tag || (Array.isArray(item.tags) && item.tags.some(t => norm(t) === tag));
 
-    // master tag list
-    const allTags = uniq(items.flatMap(i => itemTags(i))).sort((a,b) => a.localeCompare(b));
+    return matchesType && matchesQuery && matchesTag;
+  }
 
-    // types list (for tabs)
-    const types = uniq(items.map(i => i.type || "other"));
-    // keep friendly order if present
-    const preferredOrder = ["podcast","book","article","other"];
-    types.sort((a,b) => {
-      const ia = preferredOrder.indexOf(a) !== -1 ? preferredOrder.indexOf(a) : 999;
-      const ib = preferredOrder.indexOf(b) !== -1 ? preferredOrder.indexOf(b) : 999;
-      if (ia !== ib) return ia - ib;
-      return a.localeCompare(b);
+  function renderAll() {
+    // update tab + tag bar active states by re-rendering them
+    const types = uniq(allItems.map(i => i.type).filter(Boolean));
+    renderTypeTabs(types);
+
+    const tags = uniq(allItems.flatMap(i => Array.isArray(i.tags) ? i.tags : []).filter(Boolean))
+      .map(t => String(t).trim())
+      .filter(Boolean)
+      .sort((a, b) => a.localeCompare(b));
+    renderTagBar(tags);
+
+    const filtered = allItems.filter(matchesFilters);
+
+    filtered.sort((a, b) => {
+      // podcasts: listen first then watch
+      if (a.type === "podcast" && b.type === "podcast") {
+        const am = a.mode === "watch" ? 1 : 0;
+        const bm = b.mode === "watch" ? 1 : 0;
+        if (am !== bm) return am - bm;
+      }
+      // then by title
+      return String(a.title || "").localeCompare(String(b.title || ""));
     });
 
-    // create type tabs UI (if container exists)
-    if (typeTabs) {
-      const allTabHtml = `<button class="tab active" data-type="all">All</button>`;
-      const typeBtns = types.map(t => `<button class="tab" data-type="${escapeAttr(t)}">${escapeHtml(t)}</button>`).join("");
-      typeTabs.innerHTML = `<div class="tabs">${allTabHtml}${typeBtns}</div>`;
-    }
+    cardsEl.innerHTML = filtered.map(cardHtml).join("") || `
+      <div class="block pad" style="grid-column: 1 / -1;">
+        <div style="color: rgba(255,255,255,.75); font-weight:650; margin-bottom:8px;">No results</div>
+        <div style="color: rgba(255,255,255,.62);">Try clearing filters or searching for something else.</div>
+      </div>
+    `;
 
-    function render(currentType = "all", query = "", activeTag = "") {
-      const q = normalize(query);
-      const tagNorm = normalize(activeTag);
-      const filtered = items.filter(it => {
-        const matchesType = currentType === "all" || (it.type || "") === currentType;
-        const hay = `${it.title || ""} ${it.subtitle || it.description || ""} ${(it.tags||[]).join(" ")}`.toLowerCase();
-        const matchesQuery = !q || hay.includes(q);
-        const matchesTag = !tagNorm || (it.tags || []).some(t => normalize(t) === tagNorm);
-        return matchesType && matchesQuery && matchesTag;
+    if (resultCountEl) resultCountEl.textContent = String(filtered.length);
+
+    // inline tag click inside cards
+    cardsEl.querySelectorAll("button[data-inline-tag]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        selectedTag = btn.getAttribute("data-inline-tag") || "";
+        // scroll to controls for UX
+        document.getElementById("controls")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        renderAll();
       });
+    });
+  }
 
-      // optional stable ordering: type then title
-      filtered.sort((a,b) => {
-        if (a.type !== b.type) return (a.type || "").localeCompare(b.type || "");
-        return (a.title || "").localeCompare(b.title || "");
-      });
+  async function init() {
+    const json = await loadJson(DATA_PATH);
+    allItems = unwrapItems(json);
 
-      cardsEl.innerHTML = filtered.map(cardHtml).join("") || `
-        <div class="block pad" style="grid-column:1 / -1;">
-          <div style="font-weight:700;margin-bottom:8px;">No results</div>
-          <div style="color:rgba(255,255,255,.62);">Try clearing filters or adjust your search.</div>
-        </div>
-      `;
+    // basic sanity normalize
+    allItems = allItems.map(it => ({
+      id: it.id,
+      type: it.type || "other",
+      title: it.title || "Untitled",
+      subtitle: it.subtitle ?? it.description ?? "",
+      description: it.description,
+      tags: Array.isArray(it.tags) ? it.tags : [],
+      thumb: it.thumb || it.image || "",
+      image: it.image,
+      href: it.href,
+      url: it.url,
+      buy: it.buy,
+      mode: it.mode,
+      youtubeId: it.youtubeId
+    }));
 
-      if (resultCount) resultCount.textContent = String(filtered.length);
+    renderAll();
+  }
 
-      // wire card-internal tag click
-      cardsEl.querySelectorAll(".pills .pill").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const tag = btn.getAttribute("data-tag") || "";
-          // set tag control UI and re-render
-          if (tagBar) {
-            // simulate click on tagBar button if exists
-            const tbBtn = tagBar.querySelector(`[data-tag="${tag}"]`);
-            if (tbBtn) tbBtn.click();
-          } else {
-            render(currentType, query, tag);
-          }
-          e.preventDefault();
-        });
-      });
-    }
+  // search
+  if (searchEl) {
+    searchEl.addEventListener("input", () => {
+      query = searchEl.value || "";
+      renderAll();
+    });
+  }
 
-    // render master tag bar
-    if (tagBar) {
-      const allBtn = `<button class="pill ${"" === "" ? "active" : ""}" data-tag="">All</button>`;
-      const tagBtns = allTags.map(t => `<button class="pill" data-tag="${escapeAttr(t)}">${escapeHtml(t)}</button>`).join("");
-      tagBar.innerHTML = allBtn + tagBtns;
-
-      tagBar.addEventListener("click", (e) => {
-        const pill = e.target.closest("button[data-tag]");
-        if (!pill) return;
-        // toggle active state visually
-        qsa("#tagBar .pill").forEach(p => p.classList.remove("active"));
-        pill.classList.add("active");
-        const tag = pill.getAttribute("data-tag") || "";
-        const activeTab = qs("#typeTabs .tab.active")?.getAttribute("data-type") || "all";
-        render(activeTab, searchEl?.value || "", tag);
-      });
-    }
-
-    // type tab handling
-    if (typeTabs) {
-      typeTabs.addEventListener("click", (e) => {
-        const btn = e.target.closest(".tab");
-        if (!btn) return;
-        qsa("#typeTabs .tab").forEach(t => t.classList.remove("active"));
-        btn.classList.add("active");
-        const type = btn.getAttribute("data-type") || "all";
-        // clear tag selection
-        qsa("#tagBar .pill").forEach(p => p.classList.remove("active"));
-        // render with current search
-        render(type, searchEl?.value || "", "");
-      });
-    }
-
-    // search
-    if (searchEl) {
-      searchEl.addEventListener("input", () => {
-        const activeType = qs("#typeTabs .tab.active")?.getAttribute("data-type") || "all";
-        const activeTag = qs("#tagBar .pill.active")?.getAttribute("data-tag") || "";
-        render(activeType, searchEl.value || "", activeTag);
-      });
-    }
-
-    // clear
-    if (clearBtn) {
-      clearBtn.addEventListener("click", () => {
-        if (searchEl) searchEl.value = "";
-        qsa("#tagBar .pill").forEach(p => p.classList.remove("active"));
-        qs("#tagBar .pill")?.classList.add("active"); // first = All
-        qs("#typeTabs .tab.active")?.classList.remove("active");
-        qs("#typeTabs .tab[data-type='all']")?.classList.add("active");
-        render("all", "", "");
-      });
-    }
-
-    // initial render
-    render("all", "", "");
+  // clear
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      query = "";
+      selectedTag = "";
+      selectedType = "all";
+      if (searchEl) searchEl.value = "";
+      renderAll();
+    });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     init().catch(err => {
       console.error(err);
-      const grid = qs("#cards");
-      if (grid) {
-        grid.innerHTML = `
-          <div class="block pad" style="grid-column: 1 / -1;">
-            <div style="font-weight:700; margin-bottom:8px;">Couldn’t load content</div>
-            <div style="color: rgba(255,255,255,.62);">Check that the JSON file exists and is valid and that <code>body[data-source]</code> points to it.</div>
-          </div>
-        `;
-      }
+      cardsEl.innerHTML = `
+        <div class="block pad" style="grid-column: 1 / -1;">
+          <div style="font-weight:700; margin-bottom:8px;">Couldn’t load content</div>
+          <div style="color: rgba(255,255,255,.62);">Check that <code>${escapeHtml(DATA_PATH)}</code> exists and returns valid JSON.</div>
+        </div>
+      `;
+      if (resultCountEl) resultCountEl.textContent = "0";
     });
   });
 })();
