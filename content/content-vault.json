@@ -9,8 +9,10 @@
       "title": "What Bitcoin Did",
       "subtitle": "Interviews and stories about Bitcoin.",
       "href": "https://www.whatbitcoindid.com/",
-      "tags": ["interviews", "news", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["basics", "economics", "macro"],
+      "using": [],
+      "level": "intermediate"
     },
     {
       "id": "stephan-livera",
@@ -19,8 +21,10 @@
       "title": "Stephan Livera Podcast",
       "subtitle": "Bitcoin-only conversations with builders and educators.",
       "href": "https://stephanlivera.com/",
-      "tags": ["technical", "interviews", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["economics"],
+      "using": ["lightning", "nodes", "security"],
+      "level": "advanced"
     },
     {
       "id": "bitcoin-audible",
@@ -29,8 +33,10 @@
       "title": "Bitcoin Audible",
       "subtitle": "Readings of the best Bitcoin articles and papers.",
       "href": "https://bitcoinaudible.com/",
-      "tags": ["reading", "deep-dives", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["basics", "economics", "money"],
+      "using": ["privacy", "security", "lightning"],
+      "level": "intermediate"
     },
     {
       "id": "tftc",
@@ -39,8 +45,10 @@
       "title": "TFTC",
       "subtitle": "Bitcoin and freedom tech conversations.",
       "href": "https://www.tftc.io/",
-      "tags": ["culture", "interviews", "mining"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["macro", "economics"],
+      "using": ["mining", "security"],
+      "level": "intermediate"
     },
     {
       "id": "coin-stories",
@@ -49,8 +57,10 @@
       "title": "Coin Stories",
       "subtitle": "Bitcoin-focused interviews and perspectives.",
       "href": "https://www.coinsstories.com/",
-      "tags": ["interviews", "macro", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["basics", "economics", "macro"],
+      "using": [],
+      "level": "beginner"
     },
     {
       "id": "unchained",
@@ -59,8 +69,10 @@
       "title": "Unchained",
       "subtitle": "Industry interviews and explainers (filter for Bitcoin episodes).",
       "href": "https://unchainedcrypto.com/",
-      "tags": ["interviews", "industry"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["economics", "macro"],
+      "using": [],
+      "level": "intermediate"
     },
 
     {
@@ -70,8 +82,10 @@
       "title": "Bitcoin Magazine (YouTube)",
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
-      "tags": ["news", "events"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["macro", "economics"],
+      "using": ["mining"],
+      "level": "intermediate"
     },
     {
       "id": "swan-yt",
@@ -80,8 +94,10 @@
       "title": "Swan (YouTube)",
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
-      "tags": ["education", "interviews"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["basics", "economics", "money"],
+      "using": ["self-custody", "security"],
+      "level": "beginner"
     },
     {
       "id": "blockworks-yt",
@@ -90,8 +106,10 @@
       "title": "Blockworks (YouTube)",
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
-      "tags": ["macro", "markets"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["macro", "economics"],
+      "using": [],
+      "level": "intermediate"
     },
     {
       "id": "btcsessions-yt",
@@ -100,8 +118,10 @@
       "title": "BTC Sessions (YouTube)",
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
-      "tags": ["how-to", "wallets", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["basics"],
+      "using": ["wallets", "self-custody", "security"],
+      "level": "beginner"
     },
     {
       "id": "aantonop-yt",
@@ -110,8 +130,11 @@
       "title": "Andreas M. Antonopoulos (YouTube)",
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
-      "tags": ["talks", "education"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["basics", "money", "economics"],
+      "using": ["security", "privacy"],
+      "level": "intermediate",
+      "thoughtLeader": "Andreas M. Antonopoulos"
     },
     {
       "id": "btcmn-yt",
@@ -120,8 +143,10 @@
       "title": "Bitcoin Mining (YouTube)",
       "youtubeId": "REPLACE_WITH_VIDEO_ID",
       "subtitle": "Reserved for YouTube embeds later.",
-      "tags": ["mining", "energy", "infrastructure"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-podcast.webp",
+      "foundations": ["economics", "macro"],
+      "using": ["mining"],
+      "level": "intermediate"
     },
 
     {
@@ -134,7 +159,11 @@
       "date": "2018-01-01",
       "url": "/books/the-bitcoin-standard/",
       "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
-      "tags": ["economics", "history", "basics"]
+      "foundations": ["history", "money", "economics"],
+      "using": [],
+      "level": "intermediate",
+      "thoughtLeader": "Saifedean Ammous",
+      "thoughtLeaderBookId": "the-bitcoin-standard"
     },
     {
       "id": "the-price-of-tomorrow",
@@ -146,7 +175,11 @@
       "date": "2020-01-01",
       "url": "/books/the-price-of-tomorrow/",
       "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
-      "tags": ["macro", "technology", "deflation"]
+      "foundations": ["macro", "economics", "money"],
+      "using": [],
+      "level": "intermediate",
+      "thoughtLeader": "Jeff Booth",
+      "thoughtLeaderBookId": "the-price-of-tomorrow"
     },
     {
       "id": "digital-gold",
@@ -158,7 +191,9 @@
       "date": "2015-01-01",
       "url": "/books/digital-gold/",
       "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
-      "tags": ["history", "origins", "narrative"]
+      "foundations": ["history", "basics"],
+      "using": [],
+      "level": "beginner"
     },
     {
       "id": "the-blocksize-war",
@@ -170,7 +205,9 @@
       "date": "2021-01-01",
       "url": "/books/the-blocksize-war/",
       "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
-      "tags": ["history", "scaling", "bitcoin-core"]
+      "foundations": ["history", "economics"],
+      "using": ["nodes", "scaling"],
+      "level": "advanced"
     },
     {
       "id": "the-creature-from-jekyll-island",
@@ -182,7 +219,9 @@
       "date": "1994-01-01",
       "url": "/books/creature-from-jekyll-island/",
       "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
-      "tags": ["central-banking", "history", "macro"]
+      "foundations": ["history", "macro", "money"],
+      "using": [],
+      "level": "intermediate"
     },
     {
       "id": "broken-money",
@@ -194,7 +233,11 @@
       "date": "2024-01-01",
       "url": "/books/broken-money/",
       "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
-      "tags": ["money", "macro", "technology"]
+      "foundations": ["money", "macro", "economics"],
+      "using": [],
+      "level": "advanced",
+      "thoughtLeader": "Lyn Alden",
+      "thoughtLeaderBookId": "broken-money"
     },
     {
       "id": "bitcoin-is-for-everyone",
@@ -206,7 +249,11 @@
       "date": "2024-01-01",
       "url": "/books/bitcoin-is-for-everyone/",
       "thumb": "/assets/covers/placeholder/cabitcoin-book.webp",
-      "tags": ["basics", "beginner-friendly", "education"]
+      "foundations": ["basics", "money"],
+      "using": [],
+      "level": "beginner",
+      "thoughtLeader": "Natalie Brunell",
+      "thoughtLeaderBookId": "bitcoin-is-for-everyone"
     },
 
     {
@@ -217,8 +264,10 @@
       "source": "CBEL Explained",
       "url": "/articles/how-bitcoin-mining-works.html",
       "date": "2025-08-20",
-      "tags": ["mining", "energy", "explainers"],
-      "thumb": "/assets/covers/placeholder/cabitcoin-article.webp"
+      "thumb": "/assets/covers/placeholder/cabitcoin-article.webp",
+      "foundations": ["basics", "economics"],
+      "using": ["mining"],
+      "level": "beginner"
     }
   ]
 }
