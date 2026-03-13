@@ -93,8 +93,8 @@
 
     <!-- Mobile nav -->
     <div id="mobileNav" class="lg:hidden hidden pb-4">
-      <div class="glass rounded-3xl p-4">
-        <div class="grid gap-2 text-base text-slate-200">
+<div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
+<div class="grid gap-2 text-base text-slate-200">
           <a href="/about" class="${mobileLinkClass("/about/")}">About</a>
           <a href="/vault/" class="${mobileLinkClass("/vault/")}">Bitcoin Library</a>
           <a href="/contact" class="${mobileLinkClass("/contact/")}">Contact</a>
