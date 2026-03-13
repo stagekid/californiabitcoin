@@ -11,13 +11,49 @@
     catch (e) { console.error("[CBEL] article-config JSON parse error:", e); return null; }
   }
 
+  function escapeHtml(s) {
+    return String(s ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
   function buildRail(cfg) {
     const nav = document.querySelector(".article-rail-nav");
     if (!nav || !cfg || !Array.isArray(cfg.rail)) return;
 
     nav.innerHTML = cfg.rail
-      .map(item => `<a href="#${item.id}">${item.label}</a>`)
+      .map(item => `<a href="#${escapeHtml(item.id)}">${escapeHtml(item.label)}</a>`)
       .join("");
+  }
+
+  function renderKeyIdea(cfg) {
+    if (!cfg || !cfg.keyIdea) return;
+    const el = document.getElementById("article-key-idea");
+    if (!el) return;
+    el.textContent = cfg.keyIdea;
+  }
+
+  function renderCtas(cfg) {
+    if (!cfg || !Array.isArray(cfg.cta)) return;
+
+    const container = document.querySelector(".article-actions");
+    if (!container) return;
+
+    container.innerHTML = cfg.cta.map(btn => {
+      const href = escapeHtml(btn.href);
+      const label = escapeHtml(btn.label);
+      const style = (btn.style || "primary").toLowerCase();
+
+      const klass =
+        style === "ghost"
+          ? "article-btn article-btn-ghost"
+          : "article-btn";
+
+      return `<a class="${klass}" href="${href}">${label}</a>`;
+    }).join("");
   }
 
   function wireActiveHighlight(cfg) {
@@ -49,7 +85,6 @@
 
     targets.forEach(t => obs.observe(t));
 
-    // Default active: first rail item
     if (cfg && cfg.rail && cfg.rail[0] && cfg.rail[0].id) {
       setActive(cfg.rail[0].id);
     }
@@ -58,6 +93,8 @@
   function boot() {
     const cfg = readConfig();
     safe(() => buildRail(cfg));
+    safe(() => renderKeyIdea(cfg));
+    safe(() => renderCtas(cfg));
     safe(() => wireActiveHighlight(cfg));
   }
 
