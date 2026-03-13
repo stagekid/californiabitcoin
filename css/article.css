@@ -425,3 +425,30 @@
 #safetyNote{
   color: rgba(255,255,255,.68);
 }
+/* Tip page: calmer heading hierarchy */
+#tip-methods .article-rail-title,
+#transparency .article-rail-title{
+  opacity: .52;
+}
+
+#tip-methods .article-bullet-title,
+#transparency .article-bullet-title{
+  font-weight: 600;
+  color: rgba(255,255,255,.9);
+}
+
+#tip-methods .article-bullet-body,
+#transparency .article-bullet-body{
+  color: rgba(255,255,255,.68);
+}
+
+#tip-methods h2,
+#transparency h2,
+#why-support h2{
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.article-next-title{
+  font-weight: 600;
+}
