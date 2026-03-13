@@ -43,68 +43,65 @@
 </head>
 
 <body class="min-h-screen text-white">
-  <!-- Nav (keep your existing nav if you already have one) -->
+  <!-- Nav -->
   <header class="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
-  <div class="mx-auto max-w-6xl px-4">
-    <div class="flex items-center justify-between gap-3 py-4">
-      <!-- Brand -->
-      <a href="/" class="flex items-center gap-3">
-        <img src="/assets/logo-circle.png" alt="CBEL logo" class="h-11 w-11 rounded-full shadow" />
-        <div class="leading-tight">
-          <div class="text-lg sm:text-xl font-semibold tracking-tight">
-            California Bitcoin Education Lab
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="flex items-center justify-between gap-3 py-4">
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-3">
+          <img src="/assets/logo-circle.png" alt="CBEL logo" class="h-11 w-11 rounded-full shadow" />
+          <div class="leading-tight">
+            <div class="text-lg sm:text-xl font-semibold tracking-tight">
+              California Bitcoin Education Lab
+            </div>
+            <div class="text-xs sm:text-sm text-slate-300">
+              Bitcoin-only education for the Golden State
+            </div>
           </div>
-          <div class="text-xs sm:text-sm text-slate-300">
-            Bitcoin-only education for the Golden State
+        </a>
+
+        <!-- Desktop pill nav -->
+        <nav class="hidden lg:flex items-center">
+          <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
+            <a href="/about" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">About</a>
+            <a href="/vault/" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Content Vault</a>
+            <a href="/contact" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Contact</a>
+
+            <!-- Tip button (active) -->
+            <a href="/tip/"
+               class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-semibold hover:brightness-105"
+               aria-label="Tip">
+              ₿
+            </a>
           </div>
-        </div>
-      </a>
+        </nav>
 
-      <!-- Desktop pill nav -->
-      <nav class="hidden lg:flex items-center">
-        <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
-          <a href="/about" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">About</a>
-          <a href="/podcasts" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Podcasts</a>
-          <a href="/articles" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Articles</a>
-          <a href="/books" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Books</a>
-          <a href="/contact" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Contact</a>
+        <!-- Mobile menu button -->
+        <button id="menuBtn"
+                class="lg:hidden inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-3 hover:bg-white/10"
+                aria-label="Open menu"
+                aria-expanded="false">
+          <span class="text-sm font-semibold text-slate-200">Menu</span>
+        </button>
+      </div>
 
-          <!-- Tip button (lighter B) -->
-          <a href="/tip"
-             class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-semibold hover:brightness-105"
-             aria-label="Tip">
-            ₿
-          </a>
-        </div>
-      </nav>
+      <!-- Mobile nav -->
+      <div id="mobileNav" class="lg:hidden hidden pb-4">
+        <div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
+          <div class="grid gap-2 text-base text-slate-200">
+            <a href="/about" class="rounded-2xl px-4 py-3 hover:bg-white/10">About</a>
+            <a href="/vault/" class="rounded-2xl px-4 py-3 hover:bg-white/10">Content Vault</a>
+            <a href="/contact" class="rounded-2xl px-4 py-3 hover:bg-white/10">Contact</a>
 
-      <!-- Mobile menu button -->
-      <button id="menuBtn"
-              class="lg:hidden inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-3 hover:bg-white/10"
-              aria-label="Open menu"
-              aria-expanded="false">
-        <span class="text-sm font-semibold text-slate-200">Menu</span>
-      </button>
-    </div>
-
-    <!-- Mobile nav (Tailwind-only; no .glass dependency) -->
-    <div id="mobileNav" class="lg:hidden hidden pb-4">
-      <div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
-        <div class="grid gap-2 text-base text-slate-200">
-          <a href="/about" class="rounded-2xl px-4 py-3 hover:bg-white/10">About</a>
-          <a href="/podcasts" class="rounded-2xl px-4 py-3 hover:bg-white/10">Podcasts</a>
-          <a href="/articles" class="rounded-2xl px-4 py-3 hover:bg-white/10">Articles</a>
-          <a href="/books" class="rounded-2xl px-4 py-3 hover:bg-white/10">Books</a>
-          <a href="/contact" class="rounded-2xl px-4 py-3 hover:bg-white/10">Contact</a>
-          <a href="/tip" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
-            <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
-            <span class="font-semibold"> Tip</span>
-          </a>
+            <a href="/tip/" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
+              <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
+              <span class="font-semibold"> Tip</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
   <main class="max-w-6xl mx-auto px-6 py-10">
     <div class="glass shadow-soft rounded-[28px] p-8 md:p-10 border-2 border-[#f7931a]/25">
@@ -173,30 +170,30 @@
       </div>
     </div>
 
-    <footer class="mt-10 text-white/60 text-sm">
-      © <span id="year"></span> California Bitcoin Education Lab
-    </footer>
+    <!-- Shared footer mount -->
+    <footer id="site-footer"></footer>
   </main>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-
-  <!-- QR library (tiny + reliable) -->
+  <!-- QR library -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <script src="/js/tip.js"></script>
-<script>
-  (function () {
-    const btn = document.getElementById("menuBtn");
-    const nav = document.getElementById("mobileNav");
-    if (!btn || !nav) return;
 
-    btn.addEventListener("click", () => {
-      const willOpen = nav.classList.contains("hidden");
-      nav.classList.toggle("hidden");
-      btn.setAttribute("aria-expanded", String(willOpen));
-    });
-  })();
-</script>
+  <!-- Mobile nav toggle -->
+  <script>
+    (function () {
+      const btn = document.getElementById("menuBtn");
+      const nav = document.getElementById("mobileNav");
+      if (!btn || !nav) return;
+
+      btn.addEventListener("click", () => {
+        const willOpen = nav.classList.contains("hidden");
+        nav.classList.toggle("hidden");
+        btn.setAttribute("aria-expanded", String(willOpen));
+      });
+    })();
+  </script>
+
+  <!-- Shared footer renderer -->
+  <script src="/js/script.js"></script>
 </body>
 </html>
