@@ -2,198 +2,297 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>₿ Tip • California Bitcoin Education Lab</title>
-  <meta name="description" content="Value for value. Tip via Lightning to support Bitcoin education in California." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Support Bitcoin Education | California Bitcoin Education Lab</title>
+  <meta name="description" content="Support the continued development of the California Bitcoin Education Lab with a voluntary Bitcoin tip via Lightning." />
 
   <!-- Keep hidden from indexing until launch -->
   <meta name="robots" content="noindex,nofollow" />
 
-  <meta property="og:title" content="₿ Tip • California Bitcoin Education Lab" />
-  <meta property="og:description" content="Value for value. Tip via Lightning." />
+  <meta property="og:title" content="Support Bitcoin Education | California Bitcoin Education Lab" />
+  <meta property="og:description" content="Support the continued development of the California Bitcoin Education Lab with a voluntary Bitcoin tip." />
   <meta property="og:image" content="/assets/launch-square.png" />
   <meta property="og:url" content="https://californiabitcoin.org/tip/" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="/assets/favicon.png" />
+
+  <!-- Tailwind (needed for header.js utility classes) -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Site styles -->
   <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/article.css" />
 
   <style>
-    .grid-bg {
+    .tip-grid-bg{
       background:
-        radial-gradient(circle at 20% 10%, rgba(247,147,26,.14), transparent 40%),
-        radial-gradient(circle at 80% 0%, rgba(247,147,26,.08), transparent 35%),
-        linear-gradient(180deg, #000 0%, #000 100%),
-        linear-gradient(to right, rgba(255,255,255,.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.045) 1px, transparent 1px);
+        radial-gradient(circle at 20% 10%, rgba(247,147,26,.12), transparent 40%),
+        radial-gradient(circle at 80% 0%, rgba(247,147,26,.07), transparent 35%),
+        linear-gradient(180deg, #050505 0%, #050505 100%),
+        linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
       background-size: auto, auto, auto, 84px 84px, 84px 84px;
       background-position: center, center, center, center, center;
     }
-    .glass {
-      background: rgba(255,255,255,.04);
-      border: 2px solid rgba(247,147,26,.22);
-      backdrop-filter: blur(10px);
-    }
-    .shadow-soft { box-shadow: 0 20px 70px rgba(0,0,0,.65); }
 
-    /* Make QR look clean on dark */
-    #qr img, #qr canvas { border-radius: 20px; }
+    .tip-card{
+      background: rgba(10,10,10,.65);
+      border: 3px solid rgba(247,147,26,.20);
+      border-radius: calc(var(--radius) + 10px);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .tip-mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .tip-wallet-link{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 2px solid rgba(247,147,26,.20);
+      background: rgba(14,14,14,.65);
+      transition: border-color .16s ease, background .16s ease, transform .16s ease;
+    }
+
+    .tip-wallet-link:hover{
+      border-color: rgba(247,147,26,.40);
+      background: rgba(18,18,18,.78);
+      transform: translateY(-1px);
+    }
+
+    #qr img,
+    #qr canvas{
+      border-radius: 20px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 640px){
+      .tip-card{
+        border-radius: calc(var(--radius) + 6px);
+      }
+    }
   </style>
 </head>
 
-<body class="min-h-screen text-white">
-  <!-- Nav -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
-    <div class="mx-auto max-w-6xl px-4">
-      <div class="flex items-center justify-between gap-3 py-4">
-        <!-- Brand -->
-        <a href="/" class="flex items-center gap-3">
-          <img src="/assets/logo-circle.png" alt="CBEL logo" class="h-11 w-11 rounded-full shadow" />
-          <div class="leading-tight">
-            <div class="text-lg sm:text-xl font-semibold tracking-tight">
-              California Bitcoin Education Lab
-            </div>
-            <div class="text-xs sm:text-sm text-slate-300">
-              Bitcoin-only education for the Golden State
-            </div>
-          </div>
-        </a>
+<body class="cbel-page cbel-article tip-grid-bg text-white">
+  <header id="site-header"></header>
 
-        <!-- Desktop pill nav -->
-        <nav class="hidden lg:flex items-center">
-          <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
-            <a href="/about" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">About</a>
-            <a href="/vault/" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Content Vault</a>
-            <a href="/contact" class="px-4 py-2 rounded-full text-base text-slate-200 hover:bg-white/10 hover:text-white">Contact</a>
-
-            <!-- Tip button (active) -->
-            <a href="/tip/"
-               class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-semibold hover:brightness-105"
-               aria-label="Tip">
-              ₿
-            </a>
-          </div>
-        </nav>
-
-        <!-- Mobile menu button -->
-        <button id="menuBtn"
-                class="lg:hidden inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-3 hover:bg-white/10"
-                aria-label="Open menu"
-                aria-expanded="false">
-          <span class="text-sm font-semibold text-slate-200">Menu</span>
-        </button>
+  <main class="article-page">
+    <!-- Hero -->
+    <section class="article-panel article-hero">
+      <div class="article-hero-inner">
+        <div class="article-eyebrow">Support</div>
+        <h1 class="article-title">Support Bitcoin Education</h1>
+        <p class="article-subtitle">
+          Help support the continued development of the California Bitcoin Education Lab.
+        </p>
+        <p class="article-support">
+          This site is built as a calm, Bitcoin-only educational resource. All lessons and articles remain free.
+          If the content has been useful to you, you can support the project with a voluntary tip.
+        </p>
       </div>
+    </section>
 
-      <!-- Mobile nav -->
-      <div id="mobileNav" class="lg:hidden hidden pb-4">
-        <div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
-          <div class="grid gap-2 text-base text-slate-200">
-            <a href="/about" class="rounded-2xl px-4 py-3 hover:bg-white/10">About</a>
-            <a href="/vault/" class="rounded-2xl px-4 py-3 hover:bg-white/10">Content Vault</a>
-            <a href="/contact" class="rounded-2xl px-4 py-3 hover:bg-white/10">Contact</a>
-
-            <a href="/tip/" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
-              <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
-              <span class="font-semibold"> Tip</span>
-            </a>
+    <section class="article-grid">
+      <article class="article-body">
+        <section class="article-section" id="why-support">
+          <h2>Why Support the Project</h2>
+          <p>
+            California Bitcoin Education Lab exists to make Bitcoin easier to understand through clear, structured,
+            and non-hype educational material.
+          </p>
+          <p>
+            Tips help support continued writing, lesson development, site improvements, and the long-term maintenance
+            of a free Bitcoin-only learning resource.
+          </p>
+          <div class="article-bullets">
+            <div class="article-bullet">
+              <div class="article-bullet-title">All content remains free</div>
+              <div class="article-bullet-body">Support is voluntary. The goal is open access to calm, durable Bitcoin education.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Bitcoin-only</div>
+              <div class="article-bullet-body">No token promotions, no trading signals, and no speculative funnels.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Long-term development</div>
+              <div class="article-bullet-body">Tips help fund new lessons, evergreen articles, and continued site refinement.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Voluntary support</div>
+              <div class="article-bullet-body">If the site has been useful, you can return value by supporting the work directly.</div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </header>
+        </section>
 
-  <main class="max-w-6xl mx-auto px-6 py-10">
-    <div class="glass shadow-soft rounded-[28px] p-8 md:p-10 border-2 border-[#f7931a]/25">
-      <h1 id="tipTitle" class="text-3xl md:text-5xl font-semibold tracking-tight">Value for Value</h1>
-      <p id="tipIntro" class="mt-4 text-white/80 text-base md:text-lg leading-relaxed">
-        If our work helped you learn, share it freely. If you'd like to give value for value, you can tip via Lightning.
-      </p>
+        <div class="article-divider" aria-hidden="true"></div>
 
-      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Left: Address + actions -->
-        <section class="glass rounded-3xl p-6 border-2 border-[#f7931a]/25">
-          <h2 class="text-xl font-semibold">Lightning Address</h2>
+        <section class="article-section" id="tip-methods">
+          <h2>Tip via Lightning</h2>
+          <p>
+            The simplest way to support the project is with a Lightning tip. You can copy the Lightning address,
+            open it in a compatible wallet, or scan the QR code.
+          </p>
 
-          <div class="mt-4 flex flex-col gap-3">
-            <div class="rounded-2xl bg-black/40 border-2 border-[#f7931a]/25 px-4 py-4">
-              <div class="text-xs uppercase tracking-wider text-white/60">Send sats to</div>
-              <div id="lnAddress" class="mt-2 text-lg md:text-2xl font-mono text-white">
-                YOURNAME@YOURDOMAIN.COM
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <!-- Left: address + actions -->
+            <section class="tip-card p-6">
+              <div class="article-rail-title">Lightning Address</div>
+
+              <div class="mt-4 rounded-3xl bg-black/35 border-2 border-[#f7931a]/20 px-4 py-4">
+                <div class="text-xs uppercase tracking-wider text-white/60">Send sats to</div>
+                <div id="lnAddress" class="tip-mono mt-2 text-lg md:text-2xl text-white">
+                  YOURNAME@YOURDOMAIN.COM
+                </div>
               </div>
-            </div>
 
-            <div class="flex gap-3 flex-wrap">
-              <button id="copyBtn"
-                class="rounded-2xl px-4 py-3 bg-white/5 border-2 border-[#f7931a]/25 hover:border-[#f7931a]/45 transition font-semibold">
-                Copy
-              </button>
+              <div class="mt-4 flex flex-wrap gap-3">
+                <button id="copyBtn"
+                  class="article-btn">
+                  Copy Address
+                </button>
 
-              <a id="openWalletBtn"
-                 href="#"
-                 class="rounded-2xl px-4 py-3 bg-white/5 border-2 border-[#f7931a]/25 hover:border-[#f7931a]/45 transition font-semibold hidden">
-                Open Wallet
-              </a>
-            </div>
+                <a id="openWalletBtn"
+                   href="#"
+                   class="article-btn article-btn-ghost hidden">
+                  Open Wallet
+                </a>
+              </div>
 
-            <p id="tipNote" class="text-white/70 leading-relaxed">
-              Tips are used to support Bitcoin education work in California.
-            </p>
-          </div>
+              <p id="tipNote" class="mt-4 text-white/75 leading-relaxed">
+                Tips are used to support continued Bitcoin education work for California Bitcoin Education Lab.
+              </p>
 
-          <div class="mt-6">
-            <div class="text-sm text-white/70 mb-3">Don’t have a Lightning wallet?</div>
-            <div id="walletLinks" class="flex flex-wrap gap-3"></div>
+              <div class="mt-6">
+                <div class="article-rail-title">Wallet Help</div>
+                <p class="mt-2 text-white/70">
+                  If you do not already use a Lightning wallet, you can explore a few options below.
+                </p>
+                <div id="walletLinks" class="mt-4 flex flex-wrap gap-3"></div>
+              </div>
+            </section>
+
+            <!-- Right: QR + safety -->
+            <section class="tip-card p-6">
+              <div class="article-rail-title">Scan to Tip</div>
+              <p class="mt-2 text-white/70">
+                Scan this QR code in a Lightning wallet to tip quickly.
+              </p>
+
+              <div class="mt-5 flex justify-center">
+                <div id="qr" class="p-4 rounded-3xl bg-white/5 border-2 border-[#f7931a]/20"></div>
+              </div>
+
+              <div class="mt-6 rounded-3xl bg-black/35 border-2 border-[#f7931a]/18 p-4">
+                <div class="text-xs uppercase tracking-wider text-white/60">Safety</div>
+                <div id="safetyNote" class="mt-2 text-white/70 leading-relaxed">
+                  Beware of impostors. Only use the Lightning address shown on the official California Bitcoin Education Lab website.
+                </div>
+              </div>
+            </section>
           </div>
         </section>
 
-        <!-- Right: QR -->
-        <section class="glass rounded-3xl p-6 border-2 border-[#f7931a]/25">
-          <h2 class="text-xl font-semibold">Scan to tip</h2>
-          <p class="mt-2 text-white/70">Scan this QR code in your Lightning wallet.</p>
+        <div class="article-divider" aria-hidden="true"></div>
 
-          <div class="mt-5 flex justify-center">
-            <div id="qr" class="p-4 rounded-3xl bg-white/5 border-2 border-[#f7931a]/25"></div>
-          </div>
-
-          <div class="mt-6 rounded-2xl bg-black/35 border-2 border-[#f7931a]/20 p-4">
-            <div class="text-xs uppercase tracking-wider text-white/60">Safety</div>
-            <div id="safetyNote" class="mt-2 text-white/70 leading-relaxed">
-              Beware of impostors. Only use the address shown on californiabitcoin.org.
+        <section class="article-section" id="transparency">
+          <h2>What Tips Support</h2>
+          <p>
+            Support goes toward the continued development of the site as a long-term educational resource.
+          </p>
+          <div class="article-bullets">
+            <div class="article-bullet">
+              <div class="article-bullet-title">Evergreen articles</div>
+              <div class="article-bullet-body">Foundational pages like The Genesis Story, Why California?, and future lesson pages.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Curriculum development</div>
+              <div class="article-bullet-body">Building the lessons structure into a coherent educational path.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Site improvements</div>
+              <div class="article-bullet-body">Design, usability, and long-term maintenance work that keeps the site calm and readable.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Bitcoin-only education</div>
+              <div class="article-bullet-body">Keeping the project focused on clarity, safety, and durable learning rather than market noise.</div>
             </div>
           </div>
         </section>
-      </div>
 
-      <div id="errorBox" class="hidden mt-8 rounded-2xl border-2 border-red-500/40 bg-red-500/10 p-4 text-white/80">
-        Couldn’t load tip settings. Check that <code>/data/tip.json</code> exists and is valid JSON.
-      </div>
-    </div>
+        <div class="article-divider" aria-hidden="true"></div>
 
-    <!-- Shared footer mount -->
-    <footer id="site-footer"></footer>
+        <section class="article-next" id="next">
+          <h2 class="article-next-title">Where to Go Next</h2>
+          <p class="article-next-subtitle">
+            If you are new to the site, start with the origin story, the curriculum, or the library.
+          </p>
+
+          <div class="article-actions"></div>
+
+          <p class="article-disclaimer">
+            Educational content only. Not financial, legal, or tax advice.
+          </p>
+        </section>
+
+        <div id="errorBox" class="hidden mt-8 rounded-3xl border-2 border-red-500/40 bg-red-500/10 p-4 text-white/85">
+          Couldn’t load tip settings. Check that <code>/data/tip.json</code> exists and is valid JSON.
+        </div>
+      </article>
+
+      <!-- Right rail -->
+      <aside class="article-rail" aria-label="Page navigation and highlights">
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">On This Page</div>
+          <nav class="article-rail-nav"></nav>
+        </section>
+
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">Key Idea</div>
+          <p class="article-rail-copy" id="article-key-idea"></p>
+        </section>
+      </aside>
+    </section>
+
+    <script type="application/json" id="article-config">
+    {
+      "slug": "tip",
+      "title": "Support Bitcoin Education",
+      "updated": "2026-03-13",
+      "keyIdea": "All content remains free. Tips are a voluntary way to support continued Bitcoin-only education and long-term site development.",
+      "rail": [
+        { "id": "why-support", "label": "Why support" },
+        { "id": "tip-methods", "label": "Tip via Lightning" },
+        { "id": "transparency", "label": "What tips support" },
+        { "id": "next", "label": "Where to go next" }
+      ],
+      "cta": [
+        { "label": "Read: The Genesis Story", "href": "/genesis/", "style": "primary" },
+        { "label": "Start: Bitcoin Foundations", "href": "/lessons/foundations/", "style": "primary" },
+        { "label": "Browse: Bitcoin Library", "href": "/vault/", "style": "ghost" }
+      ]
+    }
+    </script>
   </main>
+
+  <footer id="site-footer"></footer>
 
   <!-- QR library -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-  <script src="/js/tip.js"></script>
 
-  <!-- Mobile nav toggle -->
-  <script>
-    (function () {
-      const btn = document.getElementById("menuBtn");
-      const nav = document.getElementById("mobileNav");
-      if (!btn || !nav) return;
-
-      btn.addEventListener("click", () => {
-        const willOpen = nav.classList.contains("hidden");
-        nav.classList.toggle("hidden");
-        btn.setAttribute("aria-expanded", String(willOpen));
-      });
-    })();
-  </script>
-
-  <!-- Shared footer renderer -->
+  <!-- Shared renderers -->
+  <script src="/js/header.js"></script>
   <script src="/js/script.js"></script>
+  <script src="/js/article.js"></script>
+  <script src="/js/tip.js"></script>
 </body>
 </html>
