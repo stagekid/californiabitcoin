@@ -452,3 +452,17 @@
 .article-next-title{
   font-weight: 600;
 }
+/* Tip page: single-column spacing polish */
+#why-support,
+#tip-methods,
+#transparency{
+  margin-bottom: 12px;
+}
+
+#tip-methods .grid{
+  margin-top: 18px;
+}
+
+#transparency{
+  padding-bottom: 8px;
+}
