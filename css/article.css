@@ -403,15 +403,25 @@
 }
 
 .tip-support-card .article-bullet-title{
-  color: #fff;
+  color: rgba(255,255,255,.92);
+  font-weight: 600;
 }
 
 .tip-support-card .article-bullet-body{
-  opacity: .88;
+  color: rgba(255,255,255,.68);
+  opacity: 1;
 }
 
 @media (min-width: 760px){
   .tip-support-grid{
     grid-template-columns: repeat(3, 1fr);
   }
+}
+.article-rail-title{
+  opacity: .58;
+}
+
+#tipNote,
+#safetyNote{
+  color: rgba(255,255,255,.68);
 }
