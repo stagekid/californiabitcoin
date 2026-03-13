@@ -36,14 +36,18 @@
       background-position: center, center, center, center, center;
     }
 
-    .tip-card{
-      background: rgba(10,10,10,.65);
-      border: 3px solid rgba(247,147,26,.20);
-      border-radius: calc(var(--radius) + 10px);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
+.tip-card{
+  background: rgba(10,10,10,.65);
+  border: 2px solid rgba(255,255,255,.10);
+  border-radius: calc(var(--radius) + 10px);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.tip-card-soft{
+  background: rgba(10,10,10,.58);
+}
 
     .tip-mono{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -165,7 +169,7 @@
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             <!-- Left: address + actions -->
-            <section class="tip-card p-6">
+            <section class="tip-card tip-card-soft p-6">
               <div class="article-rail-title">Lightning Address</div>
 
               <div class="mt-4 rounded-3xl bg-white/[0.03] border border-white/10 px-4 py-4">
