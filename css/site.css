@@ -684,3 +684,34 @@ a:hover{opacity:.92}
     padding-right:10px;
   }
 }
+/* ==============================
+   Typography tuning (readability)
+   ============================== */
+
+/* Global base size */
+body{
+  font-size: 17px; /* calm + readable */
+  line-height: 1.6;
+}
+
+/* Keep UI labels tight */
+.filter-label{ font-size: 12px; }
+.section-title .hint{ font-size: 13px; }
+
+/* Card descriptions: slightly larger + looser */
+.card-desc{
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* Article paragraphs: tuned for reading */
+.article-section p{
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+/* Mobile: slightly smaller paragraphs */
+@media (max-width: 640px){
+  body{ font-size: 16px; }
+  .article-section p{ font-size: 16px; }
+}
