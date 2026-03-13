@@ -13,11 +13,6 @@
     if (el) el.textContent = value || "";
   }
 
-  function setHref(id, value) {
-    const el = $(id);
-    if (el && value) el.setAttribute("href", value);
-  }
-
   function escapeHtml(str) {
     return (str ?? "").toString()
       .replaceAll("&", "&amp;")
@@ -32,7 +27,6 @@
       await navigator.clipboard.writeText(text);
       return true;
     } catch {
-      // Fallback
       const ta = document.createElement("textarea");
       ta.value = text;
       document.body.appendChild(ta);
@@ -61,33 +55,24 @@
       ).join("");
     }
 
-    // What the QR should encode:
-    // - Most wallets accept "lightning:<address>" nicely.
+    // Open Wallet button
     const qrValue = data.lightningUrl || ("lightning:" + data.lightningAddress);
-    // Show "Open Wallet" button if we have a lightning: link
-const openWalletBtn = document.querySelector("#openWalletBtn");
-if (openWalletBtn && qrValue) {
-  openWalletBtn.setAttribute("href", qrValue);
-  openWalletBtn.classList.remove("hidden");
-}
-
-    // Render QR (requires QRCode library loaded in the page)
-    const qrTarget = $("#qr");
-    qrTarget.innerHTML = ""; // clear placeholder
-    new QRCode(qrTarget, {
-      text: qrValue,
-      width: 220,
-      height: 220,
-      correctLevel: QRCode.CorrectLevel.M
-    });
+    const openWalletBtn = document.querySelector("#openWalletBtn");
+    if (openWalletBtn && qrValue) {
+      openWalletBtn.setAttribute("href", qrValue);
+      openWalletBtn.classList.remove("hidden");
+    }
 
     // Copy button
     const copyBtn = $("#copyBtn");
     if (copyBtn) {
+      const originalLabel = copyBtn.textContent;
       copyBtn.addEventListener("click", async () => {
         const ok = await copyToClipboard(data.lightningAddress);
         copyBtn.textContent = ok ? "Copied" : "Copy failed";
-        setTimeout(() => (copyBtn.textContent = "Copy"), 1200);
+        setTimeout(() => {
+          copyBtn.textContent = originalLabel;
+        }, 1200);
       });
     }
   }
