@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bitcoin White Paper | California Bitcoin Education Lab</title>
+  <meta name="description" content="A clear guide to the Bitcoin white paper: what it says, why it matters, what aged well, and how to read it today—with the full paper embedded on-page." />
+
+  <!-- Tailwind (needed for header.js utility classes) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/article.css" />
+</head>
+
+<body class="cbel-page cbel-article">
+  <header id="site-header"></header>
+
+  <main class="article-page">
+    <!-- Hero -->
+    <section class="article-panel article-hero">
+      <div class="article-hero-inner">
+        <div class="article-eyebrow">Library • Primary Source</div>
+        <h1 class="article-title">Bitcoin White Paper</h1>
+        <p class="article-subtitle">The original design document, read with modern clarity.</p>
+        <p class="article-support">
+          Satoshi Nakamoto’s 2008 paper is short, technical, and still remarkably readable. The goal of this page is not to mythologize it, but to help you understand what it actually says, what problem it is solving, and why it still matters.
+        </p>
+      </div>
+    </section>
+
+    <!-- Content + Rail -->
+    <section class="article-grid">
+      <article class="article-body">
+        <section class="article-section" id="overview">
+          <h2>Overview</h2>
+          <p>
+            The Bitcoin white paper is one of the rare technical texts that can still be understood by a careful non-engineer. It is concise, direct, and organized around a single question:
+            how do you create digital cash that can be sent from one person to another without relying on a central intermediary?
+          </p>
+          <p>
+            The paper’s answer is not “trust better institutions.” Its answer is to replace trust in institutions with public verification, cryptographic signatures, a distributed timestamp system, and proof-of-work. Read plainly, the paper is not mostly about price, investing, or ideology. It is about building a system for electronic transactions that does not depend on a trusted third party.
+          </p>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-section" id="why-it-matters">
+          <h2>Why It Matters</h2>
+          <p>
+            The white paper matters because it states the design logic of Bitcoin before the narratives arrived. Before there were headlines, cycles, ETFs, “crypto” branding, and social-media tribalism, there was a technical proposal:
+            digital money secured by rules, network validation, and economic cost.
+          </p>
+          <p>
+            It also matters because the paper is narrow in a useful way. It does not try to solve every problem in finance or governance. It focuses on one thing and solves it with surprising discipline:
+            preventing double-spending in a peer-to-peer system without a central operator.
+          </p>
+          <p>
+            That narrowness is part of Bitcoin’s strength. The paper is not sprawling. It is constrained. It identifies the trust problem, explains the failure of the mint model, and proposes a network that publicly orders transactions through proof-of-work and verification by nodes.
+          </p>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-section" id="how-to-read-it">
+          <h2>How to Read It</h2>
+          <p>
+            The best way to read the white paper is slowly, with the right expectations. It is not a beginner explainer, and it is not a complete operations manual for the modern Bitcoin ecosystem. It is a design paper.
+          </p>
+
+          <div class="article-bullets">
+            <div class="article-bullet">
+              <div class="article-bullet-title">Read for the problem statement first</div>
+              <div class="article-bullet-body">Start with the abstract and introduction. They tell you exactly what is being solved: digital payments without a trusted third party.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Then follow the logic</div>
+              <div class="article-bullet-body">Move from transactions to timestamping, then to proof-of-work, then to network consensus. Each section builds on the previous one.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Do not over-read the terminology</div>
+              <div class="article-bullet-body">Some wording reflects the moment it was written. Focus on the mechanism, not whether every phrase maps perfectly to today’s vocabulary.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Treat it as a foundation, not the last word</div>
+              <div class="article-bullet-body">The paper explains the architecture. It does not replace learning about wallets, custody, node operation, fee markets, or Lightning.</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-section" id="key-ideas">
+          <h2>Key Ideas in the Paper</h2>
+
+          <h3>1. Cryptographic proof instead of institutional trust</h3>
+          <p>
+            The paper opens by arguing that online commerce depends too heavily on financial institutions as trusted intermediaries. Bitcoin’s proposed alternative is a system based on cryptographic proof, allowing two parties to transact directly without depending on a central processor.
+          </p>
+
+          <h3>2. Public ordering solves the double-spend problem</h3>
+          <p>
+            Digital objects can be copied. That creates the central challenge for digital money: how do participants know the same unit was not spent twice? The paper’s answer is that transactions must be publicly announced and ordered in a shared history so the network can agree which spend came first.
+          </p>
+
+          <h3>3. Proof-of-work secures the history</h3>
+          <p>
+            Bitcoin uses proof-of-work to make rewriting history expensive. Blocks are chained together, and changing a past block requires redoing the work for that block and every block after it. The system treats the chain with the greatest accumulated proof-of-work as the valid history.
+          </p>
+
+          <h3>4. Nodes enforce validity</h3>
+          <p>
+            One of the most important points in the paper is often missed: nodes accept blocks only if transactions are valid and not already spent. In other words, cost alone does not create legitimacy. Validation does.
+          </p>
+
+          <h3>5. Incentives matter</h3>
+          <p>
+            The paper explains that block rewards and fees align participants around maintaining the network. Honest participation is rewarded, while attacks become expensive and self-defeating under the model described.
+          </p>
+
+          <h3>6. Verification can exist on a spectrum</h3>
+          <p>
+            The paper also introduces simplified payment verification, showing that not every participant must verify in the same way. That distinction still matters today when discussing wallets, convenience, and tradeoffs between independence and trust minimization.
+          </p>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-section" id="what-aged-well">
+          <h2>What Aged Well — and What to Read Carefully</h2>
+          <p>
+            A great deal of the paper aged extremely well. The central architecture remains recognizable: chained blocks, proof-of-work, transaction propagation, independent verification, and an adversarial model where history becomes harder to reverse as confirmations accumulate.
+          </p>
+          <p>
+            At the same time, readers should understand that this is the original design document, not a full map of Bitcoin as it exists today. The paper is early. It is foundational, but not exhaustive. Some implementation details, ecosystem realities, and best practices now live outside the paper.
+          </p>
+          <p>
+            That is not a weakness. It is normal. Founding documents define the core structure; living systems develop operational depth later. The right posture is respect without distortion: the white paper matters because it identifies the essential mechanism with unusual precision.
+          </p>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-section" id="why-california">
+          <h2>Why California</h2>
+          <p>
+            California is one of the best places in the world to teach the Bitcoin white paper seriously because the state sits at the intersection of software, capital, regulation, infrastructure, and public debate. People here are surrounded by digital systems every day, which makes the paper’s core question feel immediate rather than abstract:
+            what should trust look like in an internet-native economy?
+          </p>
+          <p>
+            California is also a place where people often hear about Bitcoin through headlines first. That makes primary-source literacy especially valuable. Instead of inheriting a narrative from social media, students, builders, families, and professionals can go back to the text and ask a cleaner question:
+            what did the system actually set out to do?
+          </p>
+          <p>
+            For a California-based education project, the white paper is not just historical reading. It is a way to anchor discussion in first principles before policy fights, market noise, or branding confusion take over.
+          </p>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-section" id="read-the-paper">
+          <h2>Read the White Paper</h2>
+          <p>
+            The original PDF is embedded below for direct reading on-page. You can also open it in a new tab for full-screen viewing.
+          </p>
+
+          <div class="rounded-[2rem] border border-white/10 bg-white/5 shadow-[0_20px_80px_rgba(0,0,0,0.18)] overflow-hidden">
+            <div class="flex flex-col gap-4 border-b border-white/10 px-5 py-5 md:flex-row md:items-center md:justify-between">
+              <div>
+                <div class="text-sm uppercase tracking-[0.18em] opacity-70">Primary Source</div>
+                <h3 class="mt-1 text-xl font-semibold">Bitcoin: A Peer-to-Peer Electronic Cash System</h3>
+                <p class="mt-1 text-sm opacity-80">
+                  Embedded PDF reader with a direct source link.
+                </p>
+              </div>
+
+              <div class="flex flex-wrap gap-3">
+                <a
+                  href="https://bitcoin.org/bitcoin.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium border border-white/15 bg-white/10 hover:bg-white/15 transition"
+                >
+                  Open PDF
+                </a>
+                <a
+                  href="https://bitcoin.org/bitcoin.pdf#page=1&view=FitH"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium border border-white/15 bg-white/10 hover:bg-white/15 transition"
+                >
+                  Open Full Reader
+                </a>
+              </div>
+            </div>
+
+            <div class="p-3 md:p-4">
+              <div class="rounded-[1.5rem] overflow-hidden border border-black/10 bg-black/5 min-h-[72vh]">
+                <iframe
+                  src="https://bitcoin.org/bitcoin.pdf#page=1&view=FitH"
+                  title="Bitcoin White Paper PDF"
+                  class="block h-[72vh] md:h-[82vh] w-full"
+                  loading="lazy"
+                  referrerpolicy="no-referrer"
+                ></iframe>
+              </div>
+
+              <div class="mt-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
+                <p class="text-sm leading-6 opacity-85">
+                  If the embedded reader does not load in your browser, use the buttons above to open the PDF directly.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-next" id="next">
+          <h2 class="article-next-title">Where to Go Next</h2>
+          <p class="article-next-subtitle">
+            After the white paper, the best next step is to connect the original design to the practical language of nodes, mining, transactions, and custody.
+          </p>
+
+          <div class="article-actions">
+            <a class="article-btn" href="/lessons/foundations/">Start: Bitcoin Foundations</a>
+            <a class="article-btn" href="/lessons/how-bitcoin-works/">Read: How Bitcoin Works</a>
+            <a class="article-btn article-btn-ghost" href="/vault/">Back to Bitcoin Library</a>
+          </div>
+
+          <p class="article-disclaimer">Educational content only. Not financial advice.</p>
+        </section>
+      </article>
+
+      <!-- Right rail (desktop) -->
+      <aside class="article-rail" aria-label="Page navigation and highlights">
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">On This Page</div>
+          <nav class="article-rail-nav"></nav>
+        </section>
+
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">Key Idea</div>
+          <p class="article-rail-copy" id="article-key-idea"></p>
+        </section>
+      </aside>
+    </section>
+
+    <script type="application/json" id="article-config">
+    {
+      "slug": "bitcoin-white-paper",
+      "title": "Bitcoin White Paper",
+      "updated": "2026-03-13",
+      "keyIdea": "The white paper matters because it replaces institutional trust with public verification, proof-of-work, and independently enforced rules.",
+      "rail": [
+        { "id": "overview", "label": "Overview" },
+        { "id": "why-it-matters", "label": "Why it matters" },
+        { "id": "how-to-read-it", "label": "How to read it" },
+        { "id": "key-ideas", "label": "Key ideas" },
+        { "id": "what-aged-well", "label": "What aged well" },
+        { "id": "why-california", "label": "Why California" },
+        { "id": "read-the-paper", "label": "Read the paper" },
+        { "id": "next", "label": "Where to go next" }
+      ],
+      "cta": [
+        { "label": "Start: Bitcoin Foundations", "href": "/lessons/foundations/", "style": "primary" },
+        { "label": "Read: How Bitcoin Works", "href": "/lessons/how-bitcoin-works/", "style": "primary" },
+        { "label": "Back to Bitcoin Library", "href": "/vault/", "style": "ghost" }
+      ]
+    }
+    </script>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="/js/header.js"></script>
+  <script src="/js/script.js"></script>
+  <script src="/js/article.js"></script>
+</body>
+</html>
