@@ -253,57 +253,13 @@
 
         <div class="article-divider" aria-hidden="true"></div>
 
-        <section class="article-next" id="next">
-          <h2 class="article-next-title">Where to Go Next</h2>
-          <p class="article-next-subtitle">
-            If you are new to the site, start with the origin story, the curriculum, or the library.
-          </p>
-
-          <div class="article-actions"></div>
-
-          <p class="article-disclaimer">
-            Educational content only. Not financial, legal, or tax advice.
-          </p>
-        </section>
-
         <div id="errorBox" class="hidden mt-8 rounded-3xl border-2 border-red-500/40 bg-red-500/10 p-4 text-white/85">
           Couldn’t load tip settings. Check that <code>/data/tip.json</code> exists and is valid JSON.
         </div>
       </article>
 
-      <!-- Right rail -->
-      <aside class="article-rail" aria-label="Page navigation and highlights">
-        <section class="article-panel article-rail-panel">
-          <div class="article-rail-title">On This Page</div>
-          <nav class="article-rail-nav"></nav>
-        </section>
-
-        <section class="article-panel article-rail-panel">
-          <div class="article-rail-title">Key Idea</div>
-          <p class="article-rail-copy" id="article-key-idea"></p>
-        </section>
-      </aside>
     </section>
 
-    <script type="application/json" id="article-config">
-    {
-      "slug": "tip",
-      "title": "Support Bitcoin Education",
-      "updated": "2026-03-13",
-      "keyIdea": "All content remains free. Tips are a voluntary way to support continued Bitcoin-only education and long-term site development.",
-      "rail": [
-        { "id": "why-support", "label": "Why support" },
-        { "id": "tip-methods", "label": "Tip via Lightning" },
-        { "id": "transparency", "label": "What tips support" },
-        { "id": "next", "label": "Where to go next" }
-      ],
-      "cta": [
-        { "label": "Read: The Genesis Story", "href": "/genesis/", "style": "primary" },
-        { "label": "Start: Bitcoin Foundations", "href": "/lessons/foundations/", "style": "primary" },
-        { "label": "Browse: Bitcoin Library", "href": "/vault/", "style": "ghost" }
-      ]
-    }
-    </script>
   </main>
 
   <footer id="site-footer"></footer>
@@ -314,7 +270,6 @@
   <!-- Shared renderers -->
   <script src="/js/header.js"></script>
   <script src="/js/script.js"></script>
-  <script src="/js/article.js"></script>
   <script src="/js/tip.js"></script>
 </body>
 </html>
