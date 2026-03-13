@@ -722,3 +722,14 @@ body{
 
 /* Card titles should stay crisp */
 .card-title{ font-size: 16px; }
+/* ==============================
+   Lessons progression numbering
+   ============================== */
+
+.lesson-step{
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin: 0 0 6px;
+}
