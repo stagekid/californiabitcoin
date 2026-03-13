@@ -65,8 +65,6 @@
         <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
           <a href="/about/" class="${navClass("/about/")}">About</a>
 
-          <a href="/genesis/" class="${navClass("/genesis/")}">Genesis Story</a>
-
           <a href="/vault/" class="${navClass("/vault/")}">
             Bitcoin Library
           </a>
@@ -96,7 +94,6 @@
       <div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
         <div class="grid gap-2 text-base text-slate-200">
           <a href="/about/" class="${mobileLinkClass("/about/")}">About</a>
-          <a href="/genesis/" class="${mobileLinkClass("/genesis/")}">Genesis Story</a>
           <a href="/vault/" class="${mobileLinkClass("/vault/")}">Bitcoin Library</a>
           <a href="/contact/" class="${mobileLinkClass("/contact/")}">Contact</a>
 
