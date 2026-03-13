@@ -370,3 +370,15 @@
     padding:18px 4px 0;
   }
 }
+/* Article heading hierarchy */
+.article-section h2{
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 12px 0 12px;
+}
+
+@media (max-width: 640px){
+  .article-section h2{
+    font-size: 20px;
+  }
+}
