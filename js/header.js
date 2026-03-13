@@ -97,10 +97,11 @@
           <a href="/vault/" class="${mobileLinkClass("/vault/")}">Bitcoin Library</a>
           <a href="/contact/" class="${mobileLinkClass("/contact/")}">Contact</a>
 
-          <a href="/tip/" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
-            <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
-            <span class="font-semibold"> Tip</span>
-          </a>
+<a href="/tip"
+   class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black inline-flex items-center justify-center"
+   aria-label="Tip">
+  <span class="text-xl leading-none">₿</span>
+</a>
         </div>
       </div>
     </div>
