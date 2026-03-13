@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><!-- ARTICLE_TITLE --> | California Bitcoin Education Lab</title>
+  <meta name="description" content="<!-- ARTICLE_DESCRIPTION -->" />
+
+  <!-- Tailwind (needed for header.js utility classes) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/article.css" />
+</head>
+
+<body class="cbel-page cbel-article">
+  <header id="site-header"></header>
+
+  <main class="article-page">
+    <!-- Hero -->
+    <section class="article-panel article-hero">
+      <div class="article-hero-inner">
+        <div class="article-eyebrow"><!-- EYEBROW --></div>
+        <h1 class="article-title"><!-- H1_TITLE --></h1>
+        <p class="article-subtitle"><!-- SUBTITLE --></p>
+        <p class="article-support"><!-- SUPPORT_LINE --></p>
+      </div>
+    </section>
+
+    <section class="article-grid">
+      <article class="article-body">
+        <!-- SECTIONS GO HERE -->
+        <section class="article-section" id="section-1">
+          <h2><!-- Section Heading --></h2>
+          <p><!-- Paragraph --></p>
+        </section>
+
+        <section class="article-next" id="next">
+          <h2 class="article-next-title">Where to Go Next</h2>
+          <p class="article-next-subtitle">Explore the original document, then go deeper.</p>
+
+          <div class="article-actions">
+            <a class="article-btn" href="/white-paper/">Read the White Paper</a>
+            <a class="article-btn" href="/vault/">Visit the Bitcoin Library</a>
+            <a class="article-btn article-btn-ghost" href="/about/">About the Lab</a>
+          </div>
+
+          <p class="article-disclaimer">Educational content only. Not financial advice.</p>
+        </section>
+      </article>
+
+      <!-- Right rail -->
+      <aside class="article-rail" aria-label="Page navigation and highlights">
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">On This Page</div>
+          <nav class="article-rail-nav"></nav>
+        </section>
+
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">Key Idea</div>
+          <p class="article-rail-copy"><!-- KEY_IDEA --></p>
+        </section>
+      </aside>
+    </section>
+
+    <!-- Article config (edit per page) -->
+    <script type="application/json" id="article-config">
+    {
+      "slug": "template",
+      "title": "<!-- ARTICLE_TITLE -->",
+      "updated": "2026-03-13",
+      "rail": [
+        { "id": "section-1", "label": "Section 1" },
+        { "id": "next", "label": "Next steps" }
+      ]
+    }
+    </script>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="/js/header.js"></script>
+  <script src="/js/script.js"></script>
+  <script src="/js/article.js"></script>
+</body>
+</html>
