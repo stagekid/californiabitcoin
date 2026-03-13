@@ -387,3 +387,31 @@
   .article-section{ padding: 16px 2px 0; }
   .article-next{ padding: 16px 14px 14px; }
 }
+/* Tip page: suggested support anchors */
+.tip-support-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.tip-support-card{
+  padding: 14px 14px 12px;
+  border-radius: 22px;
+  background: rgba(247,147,26,.08);
+  border: 2px solid rgba(247,147,26,.22);
+}
+
+.tip-support-card .article-bullet-title{
+  color: #fff;
+}
+
+.tip-support-card .article-bullet-body{
+  opacity: .88;
+}
+
+@media (min-width: 760px){
+  .tip-support-grid{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
