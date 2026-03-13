@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bitcoin Foundations | California Bitcoin Education Lab</title>
+  <meta name="description" content="Foundational Bitcoin concepts: why it exists, what problem it solves, and how to think about it clearly (Bitcoin-only, calm, and educational)." />
+
+  <!-- Tailwind (needed for header.js utility classes) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/article.css" />
+</head>
+
+<body class="cbel-page cbel-article">
+  <header id="site-header"></header>
+
+  <main class="article-page">
+    <!-- Hero -->
+    <section class="article-panel article-hero">
+      <div class="article-hero-inner">
+        <div class="article-eyebrow">Lessons • Stage 1</div>
+        <h1 class="article-title">Bitcoin Foundations</h1>
+        <p class="article-subtitle">The mental model before the mechanics.</p>
+        <p class="article-support">
+          This lesson establishes the baseline: what Bitcoin is, why it was created, and how to separate signal from noise.
+        </p>
+      </div>
+    </section>
+
+    <!-- Content + Rail -->
+    <section class="article-grid">
+      <article class="article-body">
+        <section class="article-section" id="overview">
+          <h2>Overview</h2>
+          <p>
+            Bitcoin Foundations is the starting point for the curriculum. The goal is clarity—before technical detail, before tools, and before debates.
+          </p>
+          <p>
+            This page is a placeholder while we build the full lesson. For now, use it as a map of what will live here.
+          </p>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-section" id="what-youll-learn">
+          <h2>What You’ll Learn</h2>
+          <div class="article-bullets">
+            <div class="article-bullet">
+              <div class="article-bullet-title">Why Bitcoin exists</div>
+              <div class="article-bullet-body">The problem it was designed to solve and the context that shaped its design.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">What Bitcoin is (and is not)</div>
+              <div class="article-bullet-body">Clear definitions, with a strict Bitcoin-only taxonomy.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Key properties</div>
+              <div class="article-bullet-body">Scarcity, settlement finality, and why rules matter.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Common misconceptions</div>
+              <div class="article-bullet-body">The most frequent misunderstandings—and the cleanest corrections.</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-next" id="next">
+          <h2 class="article-next-title">Where to Go Next</h2>
+          <p class="article-next-subtitle">
+            If you want the origin narrative first, start with The Genesis Story. Then return here as the curriculum expands.
+          </p>
+
+          <div class="article-actions">
+            <a class="article-btn" href="/genesis/">Read: The Genesis Story</a>
+            <a class="article-btn" href="/vault/">Browse: Bitcoin Library</a>
+            <a class="article-btn article-btn-ghost" href="/#lessons">Back to Lessons</a>
+          </div>
+
+          <p class="article-disclaimer">Educational content only. Not financial advice.</p>
+        </section>
+      </article>
+
+      <!-- Right rail (desktop) -->
+      <aside class="article-rail" aria-label="Page navigation and highlights">
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">On This Page</div>
+          <nav class="article-rail-nav"></nav>
+        </section>
+
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">Key Idea</div>
+          <p class="article-rail-copy" id="article-key-idea"></p>
+        </section>
+      </aside>
+    </section>
+
+    <script type="application/json" id="article-config">
+    {
+      "slug": "lessons-foundations",
+      "title": "Bitcoin Foundations",
+      "updated": "2026-03-13",
+      "keyIdea": "Foundations comes first: clarity about what Bitcoin is and why it exists before tools, tactics, or debates.",
+      "rail": [
+        { "id": "overview", "label": "Overview" },
+        { "id": "what-youll-learn", "label": "What you’ll learn" },
+        { "id": "next", "label": "Where to go next" }
+      ],
+      "cta": [
+        { "label": "Read: The Genesis Story", "href": "/genesis/", "style": "primary" },
+        { "label": "Browse: Bitcoin Library", "href": "/vault/", "style": "primary" },
+        { "label": "Back to Lessons", "href": "/#lessons", "style": "ghost" }
+      ]
+    }
+    </script>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="/js/header.js"></script>
+  <script src="/js/script.js"></script>
+  <script src="/js/article.js"></script>
+</body>
+</html>
