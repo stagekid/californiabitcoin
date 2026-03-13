@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How Bitcoin Works | California Bitcoin Education Lab</title>
+  <meta name="description" content="A calm, Bitcoin-only walkthrough of how Bitcoin actually works: transactions, blocks, mining, nodes, and why the rules hold." />
+
+  <!-- Tailwind (needed for header.js utility classes) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/article.css" />
+</head>
+
+<body class="cbel-page cbel-article">
+  <header id="site-header"></header>
+
+  <main class="article-page">
+    <!-- Hero -->
+    <section class="article-panel article-hero">
+      <div class="article-hero-inner">
+        <div class="article-eyebrow">Lessons • Stage 1</div>
+        <h1 class="article-title">How Bitcoin Works</h1>
+        <p class="article-subtitle">The simplest accurate mental model.</p>
+        <p class="article-support">
+          This lesson explains the core mechanics—transactions, blocks, mining, and nodes—without jargon or hand-waving.
+        </p>
+      </div>
+    </section>
+
+    <!-- Content + Rail -->
+    <section class="article-grid">
+      <article class="article-body">
+        <section class="article-section" id="overview">
+          <h2>Overview</h2>
+          <p>
+            The point of this lesson is not to turn you into an engineer. It’s to give you a clean, correct mental model so the rest of Bitcoin makes sense:
+            what gets recorded, who enforces the rules, and why the system can’t be “changed by vote.”
+          </p>
+          <p>
+            This page is a placeholder while we build the full lesson. For now, use it as a map of what will live here.
+          </p>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-section" id="core-components">
+          <h2>The Core Components</h2>
+          <div class="article-bullets">
+            <div class="article-bullet">
+              <div class="article-bullet-title">Transactions</div>
+              <div class="article-bullet-body">Signed messages that move bitcoin under clear rules—no accounts, just ownership proofs.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Blocks</div>
+              <div class="article-bullet-body">Batches of transactions, ordered in time, anchored to prior history.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Mining</div>
+              <div class="article-bullet-body">Competition to add the next block, making history expensive to rewrite.</div>
+            </div>
+            <div class="article-bullet">
+              <div class="article-bullet-title">Nodes</div>
+              <div class="article-bullet-body">The rule enforcers: independent software that verifies every block and every transaction.</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-section" id="why-rules-hold">
+          <h2>Why the Rules Hold</h2>
+          <p>
+            Bitcoin works because verification is cheap and cheating is obvious. Anyone can run software that checks the rules, and invalid blocks are rejected.
+            Mining adds cost to rewriting history, but nodes decide what counts as valid in the first place.
+          </p>
+          <p>
+            The full version of this lesson will include simple diagrams and a glossary, but the core idea is straightforward:
+            miners propose; nodes verify.
+          </p>
+        </section>
+
+        <div class="article-divider" aria-hidden="true"></div>
+
+        <section class="article-next" id="next">
+          <h2 class="article-next-title">Where to Go Next</h2>
+          <p class="article-next-subtitle">
+            After you understand the mechanics, the next step is learning how to hold bitcoin safely—custody, wallets, and basic security.
+          </p>
+
+          <div class="article-actions">
+            <a class="article-btn" href="/lessons/foundations/">Review: Bitcoin Foundations</a>
+            <a class="article-btn" href="/vault/">Browse: Bitcoin Library</a>
+            <a class="article-btn article-btn-ghost" href="/#lessons">Back to Lessons</a>
+          </div>
+
+          <p class="article-disclaimer">Educational content only. Not financial advice.</p>
+        </section>
+      </article>
+
+      <!-- Right rail (desktop) -->
+      <aside class="article-rail" aria-label="Page navigation and highlights">
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">On This Page</div>
+          <nav class="article-rail-nav"></nav>
+        </section>
+
+        <section class="article-panel article-rail-panel">
+          <div class="article-rail-title">Key Idea</div>
+          <p class="article-rail-copy" id="article-key-idea"></p>
+        </section>
+      </aside>
+    </section>
+
+    <script type="application/json" id="article-config">
+    {
+      "slug": "lessons-how-bitcoin-works",
+      "title": "How Bitcoin Works",
+      "updated": "2026-03-13",
+      "keyIdea": "A simple, accurate model: transactions move value, miners order history, and nodes enforce the rules by verifying everything.",
+      "rail": [
+        { "id": "overview", "label": "Overview" },
+        { "id": "core-components", "label": "The core components" },
+        { "id": "why-rules-hold", "label": "Why the rules hold" },
+        { "id": "next", "label": "Where to go next" }
+      ],
+      "cta": [
+        { "label": "Review: Bitcoin Foundations", "href": "/lessons/foundations/", "style": "primary" },
+        { "label": "Browse: Bitcoin Library", "href": "/vault/", "style": "primary" },
+        { "label": "Back to Lessons", "href": "/#lessons", "style": "ghost" }
+      ]
+    }
+    </script>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="/js/header.js"></script>
+  <script src="/js/script.js"></script>
+  <script src="/js/article.js"></script>
+</body>
+</html>
