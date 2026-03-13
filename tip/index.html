@@ -211,8 +211,15 @@
               </p>
 
               <div class="mt-5 flex justify-center">
-                <div id="qr" class="p-4 rounded-3xl bg-white/[0.03] border border-white/10"></div>
-              </div>
+  <div class="p-4 rounded-3xl bg-white/[0.03] border border-white/10">
+    <img
+      src="/assets/qr/lightning.png"
+      alt="Lightning tip QR code for California Bitcoin Education Lab"
+      class="block w-[220px] max-w-full h-auto rounded-[20px]"
+      loading="lazy"
+    />
+  </div>
+</div>
 
               <div class="mt-6 rounded-3xl bg-white/[0.03] border border-white/10 p-4">
                 <div class="text-xs uppercase tracking-wider text-white/60">Safety</div>
@@ -266,9 +273,16 @@
         Scan this QR code with your phone camera to open the Stripe support page.
       </p>
 
-      <div class="mt-5 flex justify-center">
-        <div id="stripeQr" class="p-4 rounded-3xl bg-white/[0.03] border border-white/10"></div>
-      </div>
+<div class="mt-5 flex justify-center">
+  <div class="p-4 rounded-3xl bg-white/[0.03] border border-white/10">
+    <img
+      src="/assets/qr/strike.png"
+      alt="Support QR code for California Bitcoin Education Lab"
+      class="block w-[220px] max-w-full h-auto rounded-[20px]"
+      loading="lazy"
+    />
+  </div>
+</div>
     </section>
   </div>
 </section>
@@ -312,25 +326,6 @@
   </main>
 
   <footer id="site-footer"></footer>
-
-  <!-- QR library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-  <script>
-  (function () {
-    const stripeUrl = "https://buy.stripe.com/5kQdR16fT3XId4mdGW3gk00";
-    const stripeQr = document.getElementById("stripeQr");
-    if (!stripeQr || typeof QRCode === "undefined") return;
-
-    new QRCode(stripeQr, {
-      text: stripeUrl,
-      width: 220,
-      height: 220,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.M
-    });
-  })();
-</script>
 
   <!-- Shared renderers -->
   <script src="/js/header.js"></script>
