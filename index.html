@@ -16,35 +16,40 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="/assets/favicon.png" />
+
+  <!-- Tailwind first -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-  .glass {
-    background: rgba(255,255,255,.04);
-    border: 2px solid rgba(247,147,26,.22);
-    backdrop-filter: blur(10px);
-  }
-  .shadow-soft { box-shadow: 0 20px 70px rgba(0,0,0,.65); }
-</style>
+  <!-- Then your site styles (this gives the Vault-like deep black background) -->
+  <link rel="stylesheet" href="/css/site.css" />
+
+  <style>
+    .glass {
+      background: rgba(255,255,255,.04);
+      border: 2px solid rgba(247,147,26,.22);
+      backdrop-filter: blur(10px);
+    }
+    .shadow-soft { box-shadow: 0 20px 70px rgba(0,0,0,.65); }
+  </style>
 </head>
 
 <body class="min-h-screen text-slate-100">
   <!-- Top Bar -->
   <header class="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
-  <div class="mx-auto max-w-6xl px-4">
-    <div class="flex items-center justify-between gap-3 py-4">
-      <!-- Brand -->
-      <a href="/" class="flex items-center gap-3">
-        <img src="/assets/logo-circle.png" alt="CBEL logo" class="h-11 w-11 rounded-full shadow" />
-        <div class="leading-tight">
-          <div class="text-lg sm:text-xl font-semibold tracking-tight">
-            California Bitcoin Education Lab
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="flex items-center justify-between gap-3 py-4">
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-3">
+          <img src="/assets/logo-circle.png" alt="CBEL logo" class="h-11 w-11 rounded-full shadow" />
+          <div class="leading-tight">
+            <div class="text-lg sm:text-xl font-semibold tracking-tight">
+              California Bitcoin Education Lab
+            </div>
+            <div class="text-xs sm:text-sm text-slate-300">
+              Bitcoin-only education for the Golden State
+            </div>
           </div>
-          <div class="text-xs sm:text-sm text-slate-300">
-            Bitcoin-only education for the Golden State
-          </div>
-        </div>
-      </a>
+        </a>
 
       <!-- Desktop pill nav -->
       <nav class="hidden lg:flex items-center">
