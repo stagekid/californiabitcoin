@@ -203,28 +203,21 @@
         </section>
       </article>
 
-      <!-- Right rail (desktop) -->
-      <aside class="article-rail" aria-label="Page navigation and highlights">
-        <section class="article-panel article-rail-panel">
-          <div class="article-rail-title">On This Page</div>
-          <nav class="article-rail-nav"></nav>
-            <a href="#world">2008: The world before Bitcoin</a>
-            <a href="#architect">2008: The white paper</a>
-            <a href="#genesis">2009: The Genesis Block</a>
-            <a href="#new">What was new?</a>
-            <a href="#california">Why California?</a>
-            <a href="#next">Next steps</a>
-          </nav>
-        </section>
+<!-- Right rail (desktop) -->
+<aside class="article-rail" aria-label="Page navigation and highlights">
+  <section class="article-panel article-rail-panel">
+    <div class="article-rail-title">On This Page</div>
+    <!-- article.js populates this from #article-config.rail -->
+    <nav class="article-rail-nav"></nav>
+  </section>
 
-        <section class="article-panel article-rail-panel">
-          <div class="article-rail-title">Key Idea</div>
-          <p class="article-rail-copy">
-            Bitcoin’s origin is not just history — it’s a design philosophy: reduce dependence on fragile trust systems.
-          </p>
-        </section>
-      </aside>
-    </section>
+  <section class="article-panel article-rail-panel">
+    <div class="article-rail-title">Key Idea</div>
+    <!-- article.js populates this from #article-config.keyIdea -->
+    <p class="article-rail-copy" id="article-key-idea"></p>
+  </section>
+</aside>
+
 <script type="application/json" id="article-config">
 {
   "slug": "genesis",
