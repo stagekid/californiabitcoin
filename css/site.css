@@ -715,3 +715,10 @@ body{
   body{ font-size: 16px; }
   .article-section p{ font-size: 16px; }
 }
+/* Guardrails: keep navigation + controls feeling tight */
+.tab{ font-size: 13px; }
+.search input{ font-size: 14px; }
+.clear-btn{ font-size: 14px; }
+
+/* Card titles should stay crisp */
+.card-title{ font-size: 16px; }
