@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-   <title>The Bitcoin Content Library | Podcasts, Books, Articles and Research • California Bitcoin Education Lab</title>
+  <title>The Bitcoin Content Library | Podcasts, Books, Articles and Research • California Bitcoin Education Lab</title>
   <meta name="description" content="Explore the Bitcoin Content Library — a curated Bitcoin-only library of podcasts, books, and articles built for learners in California and beyond. Search and filter by topic, difficulty, and tags." />
 
   <link rel="canonical" href="https://californiabitcoin.org/vault/" />
@@ -43,7 +43,7 @@
 <body data-source="/content/content-vault.json">
 
   <!-- HEADER -->
-<header id="site-header"></header>
+  <header id="site-header"></header>
 
   <!-- MAIN -->
   <main class="section">
@@ -51,17 +51,16 @@
       <div class="block pad">
 
         <!-- HERO -->
-<div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-6 sm:p-8 mb-6"
-     style="box-shadow: 0 0 0 1px rgba(247,147,26,0.12) inset;">
-     style="box-shadow: 0 0 0 1px rgba(247,147,26,0.12) inset;">
-<h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight mb-5">
-  Bitcoin Content Library
+        <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-8 sm:p-10 lg:p-12 mb-8"
+             style="box-shadow: 0 0 0 1px rgba(247,147,26,0.12) inset;">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight mb-5">
+            Bitcoin Content Library
           </h1>
 
-          <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-4">
+          <p class="text-slate-300 text-lg sm:text-xl max-w-4xl leading-relaxed">
             A curated Bitcoin-only library of podcasts, books, articles and research papers —
-organized by topic and depth so you can move from first principles to serious study.
-Built for learners in California and beyond.
+            organized by topic and depth so you can move from first principles to serious study.
+            Built for learners in California and beyond.
           </p>
         </div>
 
@@ -74,28 +73,28 @@ Built for learners in California and beyond.
         <!-- CONTROLS -->
         <div id="controls" class="controls">
 
-<!-- SEARCH + TYPE -->
-<div class="filter-stack">
+          <!-- SEARCH + TYPE -->
+          <div class="filter-stack">
 
-  <!-- Search ABOVE Type (full width) -->
-  <div class="search-row search-row--wide">
-    <div class="search" role="search" style="width:100%;">
-      <span style="opacity:.75;">Search</span>
-      <input id="searchInput" type="search" placeholder="Titles, topics, tags…" autocomplete="off" />
-    </div>
+            <!-- Search ABOVE Type (full width) -->
+            <div class="search-row search-row--wide">
+              <div class="search" role="search" style="width:100%;">
+                <span style="opacity:.75;">Search</span>
+                <input id="searchInput" type="search" placeholder="Titles, topics, tags…" autocomplete="off" />
+              </div>
 
-    <button id="clearBtn" class="clear-btn" type="button">Clear</button>
-  </div>
+              <button id="clearBtn" class="clear-btn" type="button">Clear</button>
+            </div>
 
-  <!-- Type BELOW Search -->
-  <div class="filter-group">
-    <div class="filter-label">Type</div>
-    <div id="typeTabs"></div>
-  </div>
+            <!-- Type BELOW Search -->
+            <div class="filter-group">
+              <div class="filter-label">Type</div>
+              <div id="typeTabs"></div>
+            </div>
 
-  <!-- Mode removed (kept hidden for future flexibility) -->
-  <div id="modeTabs" style="display:none;"></div>
-</div>
+            <!-- Mode removed (kept hidden for future flexibility) -->
+            <div id="modeTabs" style="display:none;"></div>
+          </div>
 
         </div>
 
@@ -137,7 +136,7 @@ Built for learners in California and beyond.
   <!-- VAULT LOGIC -->
   <script src="/js/library.js"></script>
 
-  <!-- Shared footer renderer (your actual file) -->
+  <!-- Shared footer renderer -->
   <script src="/js/header.js"></script>
   <script src="/js/script.js"></script>
 
