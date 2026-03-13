@@ -63,19 +63,19 @@
       <!-- Desktop pill nav -->
       <nav class="hidden lg:flex items-center">
         <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2">
-          <a href="/about" class="${navClass("/about/")}">About</a>
+          <a href="/about/" class="${navClass("/about/")}">About</a>
+
+          <a href="/genesis/" class="${navClass("/genesis/")}">Genesis Story</a>
 
           <a href="/vault/" class="${navClass("/vault/")}">
             Bitcoin Library
           </a>
 
-          <a href="/contact" class="${navClass("/contact/")}">Contact</a>
+          <a href="/contact/" class="${navClass("/contact/")}">Contact</a>
 
           <!-- Tip button -->
-          <a href="/tip"
-             class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full ${
-               isActive("/tip/") ? "bg-[#f7931a] text-black" : "bg-[#f7931a] text-black"
-             } text-xl font-semibold hover:brightness-105"
+          <a href="/tip/"
+             class="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f7931a] text-black text-xl font-semibold hover:brightness-105"
              aria-label="Tip">
             ₿
           </a>
@@ -93,13 +93,14 @@
 
     <!-- Mobile nav -->
     <div id="mobileNav" class="lg:hidden hidden pb-4">
-<div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
-<div class="grid gap-2 text-base text-slate-200">
-          <a href="/about" class="${mobileLinkClass("/about/")}">About</a>
+      <div class="rounded-3xl p-4 border border-white/10 bg-white/5 backdrop-blur">
+        <div class="grid gap-2 text-base text-slate-200">
+          <a href="/about/" class="${mobileLinkClass("/about/")}">About</a>
+          <a href="/genesis/" class="${mobileLinkClass("/genesis/")}">Genesis Story</a>
           <a href="/vault/" class="${mobileLinkClass("/vault/")}">Bitcoin Library</a>
-          <a href="/contact" class="${mobileLinkClass("/contact/")}">Contact</a>
+          <a href="/contact/" class="${mobileLinkClass("/contact/")}">Contact</a>
 
-          <a href="/tip" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
+          <a href="/tip/" class="rounded-2xl px-4 py-3 bg-[#f7931a] text-black">
             <span class="font-normal text-[0.95em] align-[0.02em]">₿</span>
             <span class="font-semibold"> Tip</span>
           </a>
