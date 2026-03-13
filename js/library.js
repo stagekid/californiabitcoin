@@ -1,12 +1,14 @@
-// /js/library.js — Content Vault only (NO big CTA badges; whole card is clickable)
-// Mode toggle removed entirely. Disabled items render as non-clickable cards.
-// Option A: For podcasts/watch placeholders, fall back to href/url instead of disabling.
-//
-// Added: "Built in California" footer badge helper (safe + no duplicates).
+// /js/library.js — Content Vault only
+// - No big CTA badges; whole card is clickable
+// - Mode toggle removed entirely
+// - Disabled items render as non-clickable cards
+// - For podcast/watch placeholders, falls back to href/url instead of disabling
+// - Includes "Built in California" footer badge helper (safe + no duplicates)
+
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
-  // Placeholder images (WebP + @2x)
+  // Placeholder images
   const FALLBACK_PLACEHOLDER = "/assets/covers/placeholder-512.jpg";
   const PODCAST_PLACEHOLDER = "/assets/covers/placeholder/podcast.webp";
   const ARTICLE_PLACEHOLDER = "/assets/covers/placeholder/article.webp";
@@ -22,8 +24,6 @@
   // ---------- Shared Footer Helper (Built in California) ----------
   function injectBuiltInCaliforniaBadge(intoEl) {
     if (!intoEl) return;
-
-    // Prevent duplicates
     if (intoEl.querySelector('[data-built-ca-badge="true"]')) return;
 
     const badge = document.createElement("div");
@@ -39,13 +39,10 @@
   }
 
   function renderSiteFooterIfPresent() {
-    // 1) Preferred future-proof approach: a placeholder footer mount
     const mount = document.getElementById("site-footer");
     if (mount) {
-      // If it's already been rendered, skip
       if (mount.getAttribute("data-rendered") === "true") return;
 
-      // Minimal, premium footer markup (matches your vibe)
       mount.innerHTML = `
         <div class="container">
           <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-start;">
@@ -61,33 +58,25 @@
       mount.classList.add("footer");
       mount.setAttribute("data-rendered", "true");
 
-      // Year
       const yearEl = mount.querySelector("#year");
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-      // Badge
       injectBuiltInCaliforniaBadge(mount.querySelector("#builtCaMount"));
       return;
     }
 
-    // 2) Back-compat: existing vault footer (.footer). Add badge only if missing.
     const existingFooter = document.querySelector("footer.footer");
     if (existingFooter) {
-      // Find a reasonable place to insert the badge.
-      // Prefer: a left column container if present; else, just append to footer content.
       const leftCol =
         existingFooter.querySelector('div[style*="flex-direction:column"]') ||
         existingFooter.querySelector(".container") ||
         existingFooter;
 
-      // If the leftCol is the footer itself, we’ll still append safely.
       injectBuiltInCaliforniaBadge(leftCol);
     }
   }
   // ---------------------------------------------------------------
 
-  // If we're not on the vault page (no cards), we still might want the footer helper.
-  // So we do NOT early-return until after footer runs.
   renderSiteFooterIfPresent();
 
   if (!cardsEl) return;
@@ -101,7 +90,7 @@
 
   const THOUGHT_LEADERS_TAG = "thought leaders";
 
-  // Tags we never want to show as "content tags" inside cards or the tag bar
+  // Tags we never want to show as visible content tags
   const BANNED_TAGS = new Set([
     "podcast", "podcasts",
     "book", "books",
@@ -128,9 +117,14 @@
       .replaceAll(">", "&gt;");
   }
 
-  function norm(s) { return String(s ?? "").toLowerCase().trim(); }
+  function norm(s) {
+    return String(s ?? "").toLowerCase().trim();
+  }
 
-  // helper: first non-empty string
+  function uniq(arr) {
+    return Array.from(new Set(arr));
+  }
+
   function pickUrl(...vals) {
     for (const v of vals) {
       const s = String(v ?? "").trim();
@@ -151,27 +145,25 @@
     return [];
   }
 
-  function uniq(arr) { return Array.from(new Set(arr)); }
-
   function getAllTags(item) {
     const foundations = Array.isArray(item.foundations) ? item.foundations : [];
     const using = Array.isArray(item.using) ? item.using : [];
     const level = item.level ? [item.level] : [];
+    const legacy = Array.isArray(item.tags) ? item.tags : [];
 
-    const tags = [...foundations, ...using, ...level];
+    const tags = [...foundations, ...using, ...level, ...legacy];
 
-    const isThoughtLeader = Boolean(item.thoughtLeaderBookId) || item.thoughtLeader === true;
+    const isThoughtLeader =
+      Boolean(item.thoughtLeaderBookId) || item.thoughtLeader === true;
+
     if (isThoughtLeader) tags.push(THOUGHT_LEADERS_TAG);
 
-    const legacy = Array.isArray(item.tags) ? item.tags : [];
-    tags.push(...legacy);
-
-    return uniq(tags.map(t => String(t).trim()).filter(Boolean))
-      .filter(t => !BANNED_TAGS.has(norm(t)));
+    return uniq(
+      tags.map((t) => String(t).trim()).filter(Boolean)
+    ).filter((t) => !BANNED_TAGS.has(norm(t)));
   }
 
   function computeLink(item) {
-    // Returns { url, disabled }
     if (item.type === "podcast") {
       if (item.mode === "listen") {
         const url = pickUrl(item.href, item.url);
@@ -183,17 +175,17 @@
           Boolean(item.youtubeId) &&
           item.youtubeId !== "REPLACE_WITH_VIDEO_ID";
 
-        // If we have a real YouTube ID, link directly to the video
         if (youtubeOk) {
-          return { url: `https://www.youtube.com/watch?v=${item.youtubeId}`, disabled: false };
+          return {
+            url: `https://www.youtube.com/watch?v=${item.youtubeId}`,
+            disabled: false
+          };
         }
 
-        // Option A: If it's a placeholder, fall back to any available link
         const url = pickUrl(item.href, item.url);
         return { url, disabled: !url };
       }
 
-      // Unknown mode: still try to make it clickable
       const url = pickUrl(item.href, item.url);
       return { url, disabled: !url };
     }
@@ -223,12 +215,13 @@
       return t;
     };
 
-    const ordered = ["all", "podcast", "book", "article"]
-      .filter(t => t === "all" || types.includes(t));
+    const ordered = ["all", "podcast", "book", "article"].filter(
+      (t) => t === "all" || types.includes(t)
+    );
 
     typeTabsEl.innerHTML = `
       <div class="tabs">
-        ${ordered.map(t => `
+        ${ordered.map((t) => `
           <button class="tab ${selectedType === t ? "active" : ""}" type="button" data-type="${escapeAttr(t)}">
             ${escapeHtml(pretty(t))}
           </button>
@@ -236,7 +229,7 @@
       </div>
     `;
 
-    typeTabsEl.querySelectorAll("button[data-type]").forEach(btn => {
+    typeTabsEl.querySelectorAll("button[data-type]").forEach((btn) => {
       btn.addEventListener("click", () => {
         selectedType = btn.getAttribute("data-type") || "all";
         renderAll();
@@ -249,14 +242,14 @@
 
     tagBarEl.innerHTML = `
       <button class="pill ${selectedTag ? "" : "active"}" type="button" data-tag="">All</button>
-      ${tags.map(t => `
+      ${tags.map((t) => `
         <button class="pill ${selectedTag === t ? "active" : ""}" type="button" data-tag="${escapeAttr(t)}">
           ${escapeHtml(t)}
         </button>
       `).join("")}
     `;
 
-    tagBarEl.querySelectorAll("button[data-tag]").forEach(btn => {
+    tagBarEl.querySelectorAll("button[data-tag]").forEach((btn) => {
       btn.addEventListener("click", () => {
         selectedTag = btn.getAttribute("data-tag") || "";
         renderAll();
@@ -265,7 +258,7 @@
   }
 
   function resolveThumb(item) {
-    const explicit = (item.thumb || item.image || "").toString().trim();
+    const explicit = String(item.thumb || item.image || "").trim();
     if (explicit) return explicit;
 
     if (item.type === "podcast") return PODCAST_PLACEHOLDER;
@@ -275,7 +268,6 @@
     return FALLBACK_PLACEHOLDER;
   }
 
-  // Only build srcset for known placeholders (prevents missing @2x on custom thumbs)
   function buildSrcset(url) {
     const u = String(url || "");
     const isKnown =
@@ -299,11 +291,17 @@
     const tags = getAllTags(item);
     const { url, disabled } = computeLink(item);
 
-    const tagsHtml = tags.length ? `
-      <div class="pills" aria-label="tags">
-        ${tags.map(t => `<button class="pill" type="button" data-inline-tag="${escapeAttr(t)}">${escapeHtml(t)}</button>`).join("")}
-      </div>
-    ` : "";
+    const tagsHtml = tags.length
+      ? `
+        <div class="pills" aria-label="tags">
+          ${tags.map((t) => `
+            <button class="pill" type="button" data-inline-tag="${escapeAttr(t)}">
+              ${escapeHtml(t)}
+            </button>
+          `).join("")}
+        </div>
+      `
+      : "";
 
     const imgTag = `
       <img
@@ -351,11 +349,11 @@
     const q = norm(query);
     const tag = norm(selectedTag);
 
-    const matchesType = (selectedType === "all") || (item.type === selectedType);
+    const matchesType =
+      selectedType === "all" || item.type === selectedType;
 
     const allTags = getAllTags(item);
 
-    // Keep type/mode searchable even though mode isn't a UI filter anymore
     const hay = norm([
       item.title,
       item.subtitle || item.description,
@@ -365,39 +363,50 @@
     ].join(" "));
 
     const matchesQuery = !q || hay.includes(q);
-    const matchesTag = !tag || allTags.some(t => norm(t) === tag);
+    const matchesTag = !tag || allTags.some((t) => norm(t) === tag);
 
     return matchesType && matchesQuery && matchesTag;
   }
 
   function renderAll() {
-    const types = uniq(allItems.map(i => i.type).filter(Boolean));
+    const types = uniq(allItems.map((i) => i.type).filter(Boolean));
     renderTypeTabs(types);
 
-    const tags = uniq(allItems.flatMap(i => getAllTags(i)).filter(Boolean))
-      .map(t => String(t).trim())
+    const tags = uniq(
+      allItems.flatMap((i) => getAllTags(i)).filter(Boolean)
+    )
+      .map((t) => String(t).trim())
       .filter(Boolean)
       .sort((a, b) => a.localeCompare(b));
+
     renderTagBar(tags);
 
     const filtered = allItems.filter(matchesFilters);
 
-    filtered.sort((a, b) => String(a.title || "").localeCompare(String(b.title || "")));
+    filtered.sort((a, b) =>
+      String(a.title || "").localeCompare(String(b.title || ""))
+    );
 
-    cardsEl.innerHTML = filtered.map(cardHtml).join("") || `
-      <div class="block pad" style="grid-column: 1 / -1;">
-        <div style="color: rgba(255,255,255,.75); font-weight:650; margin-bottom:8px;">No results</div>
-        <div style="color: rgba(255,255,255,.62);">Try clearing filters or searching for something else.</div>
-      </div>
-    `;
+    cardsEl.innerHTML =
+      filtered.map(cardHtml).join("") ||
+      `
+        <div class="block pad" style="grid-column: 1 / -1;">
+          <div style="color: rgba(255,255,255,.75); font-weight:650; margin-bottom:8px;">No results</div>
+          <div style="color: rgba(255,255,255,.62);">Try clearing filters or searching for something else.</div>
+        </div>
+      `;
 
     if (resultCountEl) resultCountEl.textContent = String(filtered.length);
 
-    cardsEl.querySelectorAll("button[data-inline-tag]").forEach(btn => {
+    cardsEl.querySelectorAll("button[data-inline-tag]").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
+        e.stopPropagation();
         selectedTag = btn.getAttribute("data-inline-tag") || "";
-        document.getElementById("controls")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.getElementById("controls")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
         renderAll();
       });
     });
@@ -407,12 +416,12 @@
     const json = await loadJson(DATA_PATH);
     allItems = unwrapItems(json);
 
-    allItems = allItems.map(it => ({
+    allItems = allItems.map((it) => ({
       id: it.id,
       type: it.type || "other",
       title: it.title || "Untitled",
       subtitle: it.subtitle ?? it.description ?? "",
-      description: it.description,
+      description: it.description ?? "",
 
       foundations: Array.isArray(it.foundations) ? it.foundations : [],
       using: Array.isArray(it.using) ? it.using : [],
@@ -420,16 +429,15 @@
       thoughtLeaderBookId: it.thoughtLeaderBookId || "",
       thoughtLeader: it.thoughtLeader === true,
 
-      // legacy tags (keep until fully migrated; remove later)
       tags: Array.isArray(it.tags) ? it.tags : [],
 
       thumb: it.thumb || it.image || "",
-      image: it.image,
-      href: it.href,
-      url: it.url,
-      buy: it.buy,
-      mode: it.mode,
-      youtubeId: it.youtubeId
+      image: it.image || "",
+      href: it.href || "",
+      url: it.url || "",
+      buy: it.buy || "",
+      mode: it.mode || "",
+      youtubeId: it.youtubeId || ""
     }));
 
     renderAll();
@@ -453,17 +461,22 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    // Run footer helper again once DOM is fully ready (safe/no-dup).
     renderSiteFooterIfPresent();
 
-    init().catch(err => {
+    init().catch((err) => {
       console.error(err);
-      cardsEl.innerHTML = `
-        <div class="block pad" style="grid-column: 1 / -1;">
-          <div style="font-weight:700; margin-bottom:8px;">Couldn’t load content</div>
-          <div style="color: rgba(255,255,255,.62);">Check that <code>${escapeHtml(DATA_PATH)}</code> exists and returns valid JSON.</div>
-        </div>
-      `;
+
+      if (cardsEl) {
+        cardsEl.innerHTML = `
+          <div class="block pad" style="grid-column: 1 / -1;">
+            <div style="font-weight:700; margin-bottom:8px;">Couldn’t load content</div>
+            <div style="color: rgba(255,255,255,.62);">
+              Check that <code>${escapeHtml(DATA_PATH)}</code> exists and returns valid JSON.
+            </div>
+          </div>
+        `;
+      }
+
       if (resultCountEl) resultCountEl.textContent = "0";
     });
   });
