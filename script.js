@@ -12,13 +12,20 @@ window.CABTLab = {
   }
 };
 
-(function init(){
-  // ----- Footer renderer -----
-  const mount = document.getElementById("site-footer");
-  if (mount) {
+(function init() {
+  renderFooter();
+  initThemeToggle();
+
+  function renderFooter() {
+    const mount = document.getElementById("site-footer");
+    if (!mount) return;
+
+    mount.className = "py-10 text-sm text-slate-400"; // standardize the mount itself
+
     mount.innerHTML = `
-      <footer class="py-10 text-sm text-slate-400">
+      <div class="mx-auto max-w-6xl px-4">
         <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+
           <!-- LEFT -->
           <div class="flex flex-col gap-2">
             <div>
@@ -29,59 +36,25 @@ window.CABTLab = {
               <span class="h-1.5 w-1.5 rounded-full bg-[#f7931a]"></span>
               Built in California
             </div>
-
-            <div class="text-xs sm:text-sm">
-              Educational only — not financial, legal, or tax advice.
-            </div>
           </div>
 
           <!-- RIGHT -->
           <div class="flex items-center gap-2">
-            ${socialBtn({
-              href: "https://x.com/CABitcoinLab",
-              label: "X",
-              svg: iconX()
-            })}
-            ${socialBtn({
-              href: "https://instagram.com/CABitcoinLab",
-              label: "Instagram",
-              svg: iconInstagram()
-            })}
-            ${socialBtn({
-              href: "https://tiktok.com/@CABitcoinLab",
-              label: "TikTok",
-              svg: iconTikTok()
-            })}
-            ${socialBtn({
-              href: "https://youtube.com/@CABitcoinLab",
-              label: "YouTube",
-              svg: iconYouTube()
-            })}
+            ${socialBtn("https://x.com/CABitcoinLab", "X", iconX())}
+            ${socialBtn("https://instagram.com/CABitcoinLab", "Instagram", iconInstagram())}
+            ${socialBtn("https://tiktok.com/@CABitcoinLab", "TikTok", iconTikTok())}
+            ${socialBtn("https://youtube.com/@CABitcoinLab", "YouTube", iconYouTube())}
           </div>
+
         </div>
-      </footer>
+      </div>
     `;
 
-    // Year (after injection)
-    const year = mount.querySelector("#year");
-    if (year) year.textContent = String(new Date().getFullYear());
+    const yearEl = mount.querySelector("#year");
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
   }
 
-  // Optional: theme toggle (only if the button exists on a page)
-  const modeBtn = document.getElementById('modeBtn');
-  const saved = localStorage.getItem('cablab_theme');
-  if (saved === 'light') document.body.classList.add('light');
-
-  modeBtn?.addEventListener('click', () => {
-    document.body.classList.toggle('light');
-    localStorage.setItem(
-      'cablab_theme',
-      document.body.classList.contains('light') ? 'light' : 'dark'
-    );
-  });
-
-  // ----- Helpers -----
-  function socialBtn({ href, label, svg }) {
+  function socialBtn(href, label, svg) {
     return `
       <a
         href="${href}"
@@ -129,5 +102,19 @@ window.CABTLab = {
         <path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5A2.7 2.7 0 0 0 2.4 7.2 28.2 28.2 0 0 0 2 12a28.2 28.2 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28.2 28.2 0 0 0 22 12a28.2 28.2 0 0 0-.4-4.8zM10.2 15.2V8.8l5.5 3.2-5.5 3.2z"/>
       </svg>
     `;
+  }
+
+  function initThemeToggle() {
+    const modeBtn = document.getElementById('modeBtn');
+    const saved = localStorage.getItem('cablab_theme');
+    if (saved === 'light') document.body.classList.add('light');
+
+    modeBtn?.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem(
+        'cablab_theme',
+        document.body.classList.contains('light') ? 'light' : 'dark'
+      );
+    });
   }
 })();
