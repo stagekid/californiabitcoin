@@ -214,6 +214,7 @@
       "url": "https://www.youtube.com/watch?v=4rvTppy1qLI&list=PL2jAZ0x9H0bQFY6wIbQfnrnIlqMcSHd6X",
       "thumb": "/assets/covers/placeholder/article.webp",
       "foundations": ["basics", "economics"],
+      "thoughtLeader": "Robert Breedlove",
       "tags": ["article"],
       "level": "beginner"
     },
