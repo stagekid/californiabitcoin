@@ -330,6 +330,52 @@ a:hover{opacity:.92}
   border-top: 2px solid rgba(247,147,26,.18);
 }
 
+/* ===== Featured section ===== */
+.featured-section{
+  margin: 10px 0 28px;
+}
+
+.featured-grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+.featured-card{
+  grid-column: span 4;
+  position: relative;
+  border-color: rgba(247,147,26,.34);
+  background:
+    linear-gradient(180deg, rgba(247,147,26,.08), rgba(255,255,255,.02)),
+    rgba(14,14,14,.82);
+  box-shadow:
+    0 14px 36px rgba(0,0,0,.28),
+    0 0 0 1px rgba(247,147,26,.10) inset;
+}
+
+.featured-card:hover{
+  border-color: rgba(247,147,26,.55);
+  background:
+    linear-gradient(180deg, rgba(247,147,26,.10), rgba(255,255,255,.03)),
+    rgba(18,18,18,.88);
+}
+
+.featured-badge{
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 2px solid rgba(247,147,26,.28);
+  background: rgba(247,147,26,.12);
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
 /* ==============================
    Genesis Story Page
    ============================== */
