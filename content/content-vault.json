@@ -193,7 +193,6 @@
       "thoughtLeader": "Natalie Brunell",
       "thoughtLeaderBookId": "bitcoin-is-for-everyone"
     },
-
     {
       "id": "satoshi-nakamoto-institute",
       "type": "article",
@@ -205,8 +204,7 @@
       "foundations": ["basics", "economics"],
       "using": [],
       "level": "beginner"
-    }
-
+    },
     {
       "id": "saylor-series",
       "type": "article",
@@ -218,12 +216,11 @@
       "foundations": ["basics", "economics"],
       "using": [],
       "level": "beginner"
-    }
-
+    },
     {
-      "id": "aquired-bitcoin",
+      "id": "acquired-bitcoin",
       "type": "podcast",
-      "title": "Aquired: The Complete History and Analysis of Bitcoin",
+      "title": "Acquired: The Complete History and Analysis of Bitcoin",
       "subtitle": "The definitive history of Bitcoin, a technical explanation of how it works, and how it changed the world.",
       "source": "CBEL Explained",
       "url": "https://www.acquired.fm/episodes/bitcoin",
@@ -232,6 +229,5 @@
       "using": [],
       "level": "beginner"
     }
-    
   ]
 }
