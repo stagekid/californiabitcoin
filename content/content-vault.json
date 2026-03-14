@@ -131,4 +131,79 @@
       "subtitle": "The inside story of the scaling conflict and what it revealed about Bitcoin governance.",
       "author": "Jonathan Bier",
       "url": "/books/the-blocksize-war/",
-      "thumb
+      "thumb": "/assets/covers/placeholder/book.webp",
+      "focus": "governance",
+      "level": "advanced"
+    },
+    {
+      "id": "the-creature-from-jekyll-island",
+      "type": "book",
+      "title": "The Creature from Jekyll Island",
+      "subtitle": "A critical history of central banking and the origins of the Federal Reserve.",
+      "author": "G. Edward Griffin",
+      "year": 1994,
+      "url": "https://www.amazon.com/Creature-Jekyll-Island-Federal-Reserve/dp/091298645X",
+      "thumb": "/assets/covers/placeholder/book.webp",
+      "focus": "money",
+      "level": "intermediate"
+    },
+    {
+      "id": "broken-money",
+      "type": "book",
+      "title": "Broken Money",
+      "subtitle": "A framework for understanding money as technology and why it fails—and how it can improve.",
+      "author": "Lyn Alden",
+      "year": 2024,
+      "url": "https://www.lynalden.com/broken-money/",
+      "thumb": "/assets/covers/placeholder/book.webp",
+      "focus": "money",
+      "level": "advanced"
+    },
+    {
+      "id": "bitcoin-is-for-everyone",
+      "type": "book",
+      "title": "Bitcoin Is for Everyone",
+      "subtitle": "An accessible introduction designed for new learners.",
+      "author": "Natalie Brunell",
+      "url": "https://talkingbitcoin.com/book",
+      "thumb": "/assets/covers/placeholder/book.webp",
+      "focus": "education",
+      "level": "beginner",
+      "featured": true
+    },
+    {
+      "id": "satoshi-nakamoto-institute",
+      "type": "article",
+      "title": "Satoshi Nakamoto Institute",
+      "subtitle": "A curated archive of Bitcoin’s early history, cryptographic roots, and Satoshi’s writings.",
+      "source": "CBEL Explained",
+      "url": "https://nakamotoinstitute.org/",
+      "thumb": "/assets/covers/placeholder/article.webp",
+      "focus": "history",
+      "level": "beginner"
+    },
+    {
+      "id": "saylor-series",
+      "type": "article",
+      "title": "What Is Money? — The Saylor Series",
+      "subtitle": "A deep exploration of the history of money, energy, and Bitcoin.",
+      "source": "CBEL Explained",
+      "url": "https://www.youtube.com/watch?v=4rvTppy1qLI&list=PL2jAZ0x9H0bQFY6wIbQfnrnIlqMcSHd6X",
+      "thumb": "/assets/covers/placeholder/article.webp",
+      "focus": "money",
+      "level": "beginner"
+    },
+    {
+      "id": "acquired-bitcoin",
+      "type": "podcast",
+      "title": "Acquired — The Complete History of Bitcoin",
+      "subtitle": "A deep dive into the origins, technology, and global impact of Bitcoin.",
+      "source": "CBEL Explained",
+      "url": "https://www.acquired.fm/episodes/bitcoin",
+      "thumb": "/assets/covers/placeholder/podcast.webp",
+      "focus": "history",
+      "level": "beginner",
+      "featured": true
+    }
+  ]
+}
