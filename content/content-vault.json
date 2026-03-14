@@ -11,7 +11,7 @@
       "url": "https://www.whatbitcoindid.com/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["basics", "economics", "macro"],
-      "using": [],
+      "tags": ["podcast"],
       "level": "intermediate"
     },
     {
@@ -23,7 +23,7 @@
       "url": "https://www.youtube.com/@OneChairPod",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["bitcoin treasuries", "macro"],
-      "using": ["lightning", "nodes", "security"],
+      "tags": ["podcast"],
       "level": "intermediate"
     },
     {
@@ -35,7 +35,7 @@
       "url": "https://thebitcoinlayer.com/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["basics", "economics", "money"],
-      "using": [],
+      "tags": ["podcast"],
       "level": "intermediate"
     },
     {
@@ -47,7 +47,7 @@
       "url": "https://www.tftc.io/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["macro", "economics"],
-      "using": ["mining", "security"],
+      "tags": ["podcast"],
       "level": "intermediate"
     },
     {
@@ -59,7 +59,7 @@
       "url": "https://talkingbitcoin.com/podcast",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["basics", "economics", "macro"],
-      "using": [],
+      "tags": ["podcast"],
       "level": "beginner"
     },
     {
@@ -71,7 +71,7 @@
       "url": "https://www.youtube.com/playlist?list=PLn7gNaAnMoUgZ2tTsjJFEQ3I1NUSHwTHP",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["economics", "macro"],
-      "using": [],
+      "tags": ["podcast"],
       "level": "intermediate"
     },
     {
@@ -83,7 +83,7 @@
       "url": "https://www.btcsessions.ca/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["basics"],
-      "using": ["wallets", "self-custody", "security"],
+      "tags": ["podcast"],
       "level": "beginner"
     },
     {
@@ -95,7 +95,7 @@
       "url": "https://www.youtube.com/user/aantonop",
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["basics", "money", "economics"],
-      "using": ["security", "privacy"],
+      "tags": ["podcast"],
       "level": "intermediate",
       "thoughtLeader": "Andreas M. Antonopoulos"
     },
@@ -108,7 +108,7 @@
       "url": "https://saifedean.com",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["history", "money", "economics"],
-      "using": [],
+      "tags": ["book"],
       "level": "intermediate",
       "thoughtLeader": "Saifedean Ammous",
       "thoughtLeaderBookId": "the-bitcoin-standard"
@@ -122,7 +122,7 @@
       "url": "https://jeffreybooth.com/books",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["macro", "economics", "money"],
-      "using": [],
+      "tags": ["book"],
       "level": "intermediate",
       "thoughtLeader": "Jeff Booth",
       "thoughtLeaderBookId": "the-price-of-tomorrow"
@@ -136,7 +136,7 @@
       "url": "https://www.harpercollins.com/products/digital-gold-nathaniel-popper?variant=32123091451938",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["history", "basics"],
-      "using": [],
+      "tags": ["book"],
       "level": "beginner"
     },
     {
@@ -148,7 +148,7 @@
       "url": "/books/the-blocksize-war/",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["history", "economics"],
-      "using": ["nodes", "scaling"],
+      "tags": ["book"],
       "level": "advanced"
     },
     {
@@ -161,7 +161,7 @@
       "url": "https://www.amazon.com/Creature-Jekyll-Island-Federal-Reserve/dp/091298645X",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["history", "macro", "money"],
-      "using": [],
+      "tags": ["book"],
       "level": "intermediate"
     },
     {
@@ -174,7 +174,7 @@
       "url": "https://www.lynalden.com/broken-money/",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["money", "macro", "economics"],
-      "using": [],
+      "tags": ["book"],
       "level": "advanced",
       "thoughtLeader": "Lyn Alden",
       "thoughtLeaderBookId": "broken-money"
@@ -188,7 +188,7 @@
       "url": "https://talkingbitcoin.com/book",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["basics", "money"],
-      "using": [],
+      "tags": ["book"],
       "level": "beginner",
       "thoughtLeader": "Natalie Brunell",
       "thoughtLeaderBookId": "bitcoin-is-for-everyone"
@@ -202,7 +202,7 @@
       "url": "https://nakamotoinstitute.org/",
       "thumb": "/assets/covers/placeholder/article.webp",
       "foundations": ["basics", "economics"],
-      "using": [],
+      "tags": ["article"],
       "level": "beginner"
     },
     {
@@ -214,7 +214,7 @@
       "url": "https://www.youtube.com/watch?v=4rvTppy1qLI&list=PL2jAZ0x9H0bQFY6wIbQfnrnIlqMcSHd6X",
       "thumb": "/assets/covers/placeholder/article.webp",
       "foundations": ["basics", "economics"],
-      "using": [],
+      "tags": ["article"],
       "level": "beginner"
     },
     {
@@ -224,9 +224,9 @@
       "subtitle": "The definitive history of Bitcoin, a technical explanation of how it works, and how it changed the world.",
       "source": "CBEL Explained",
       "url": "https://www.acquired.fm/episodes/bitcoin",
-      "thumb": "/assets/covers/placeholder/article.webp",
+      "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["basics", "economics"],
-      "using": [],
+      "tags": ["podcast"],
       "level": "beginner"
     }
   ]
