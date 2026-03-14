@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>California Bitcoin Education Lab — Launching April ’26</title>
-  <meta name="description" content="Bitcoin-only education for the Golden State. Clear, focused, practical. Launching April 2026." />
+  <title>California Bitcoin Education Lab</title>
+  <meta name="description" content="Bitcoin-only education for the Golden State. Clear, focused, practical. No crypto confusion." />
 
   <!-- Keep dev-only hidden from indexing until you're ready -->
   <meta name="robots" content="noindex,nofollow" />
@@ -20,99 +20,103 @@
   <!-- Tailwind first -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Then your site styles (this gives the Vault-like deep black background) -->
+  <style>
+    html, body { height: 100%; }
 
-<style>
-  html, body { height: 100%; }
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 500px at 20% -10%, rgba(247,147,26,.08), transparent 60%),
+        radial-gradient(700px 500px at 90% 0%, rgba(247,147,26,.06), transparent 55%),
+        #050505;
+    }
 
-  body{
-    margin:0;
-    background:
-      radial-gradient(900px 500px at 20% -10%, rgba(247,147,26,.08), transparent 60%),
-      radial-gradient(700px 500px at 90% 0%, rgba(247,147,26,.06), transparent 55%),
-      #050505;
-  }
+    .glass {
+      background: rgba(255,255,255,.04);
+      border: 2px solid rgba(247,147,26,.22);
+      backdrop-filter: blur(10px);
+    }
 
-  .glass {
-    background: rgba(255,255,255,.04);
-    border: 2px solid rgba(247,147,26,.22);
-    backdrop-filter: blur(10px);
-  }
+    .shadow-soft { box-shadow: 0 20px 70px rgba(0,0,0,.65); }
 
-  .shadow-soft { box-shadow: 0 20px 70px rgba(0,0,0,.65); }
-</style>
+    .lesson-step{
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin: 0 0 6px;
+    }
+  </style>
 </head>
 
 <body class="min-h-screen text-slate-100">
-  <!-- Top Bar -->
-<header id="site-header"></header>
+  <header id="site-header"></header>
 
   <main class="mx-auto max-w-6xl px-4">
-    <!-- HERO / OVERVIEW (hero + california block) -->
+    <!-- HERO / OVERVIEW -->
     <section id="overview" class="pt-10 pb-8">
       <div class="grid gap-6 lg:grid-cols-12">
 
         <!-- HERO -->
         <div class="lg:col-span-8">
           <div class="glass rounded-[28px] overflow-hidden shadow-soft">
-            <!-- Hero image (background only) -->
+            <!-- Hero image -->
             <div class="relative h-56 sm:h-72 lg:h-80 bg-cover bg-[position:center_62%]"
                  style="background-image:url('/assets/hero-clean.png');">
 
-              <!-- readability overlay -->
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/25 to-transparent"></div>
 
-              <!-- logo overlay (won't crop) -->
               <div class="absolute left-5 sm:left-7 top-5 sm:top-7">
-                <img src="/assets/logo-circle.png"
-                     alt="California Bitcoin Education Lab"
-                     class="h-40 w-40 sm:h-48 sm:w-48 lg:h-56 lg:w-56 rounded-full shadow-2xl" />
+                <img
+                  src="/assets/logo-circle.png"
+                  alt="California Bitcoin Education Lab"
+                  class="h-40 w-40 sm:h-48 sm:w-48 lg:h-56 lg:w-56 rounded-full shadow-2xl"
+                />
               </div>
             </div>
 
             <!-- Hero content -->
             <div class="p-7 sm:p-9">
-  <div class="flex flex-wrap items-center gap-2">
-    <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
-      <span class="h-2 w-2 rounded-full bg-[#f7931a]"></span>
-      Independent education
-    </span>
-    <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
-      Bitcoin-only
-    </span>
-    <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
-      Safety-first
-    </span>
-    <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
-      California focus
-    </span>
-  </div>
-</div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
+                  <span class="h-2 w-2 rounded-full bg-[#f7931a]"></span>
+                  Independent education
+                </span>
+                <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
+                  Bitcoin-only
+                </span>
+                <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
+                  Safety-first
+                </span>
+                <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">
+                  California focus
+                </span>
+              </div>
 
-              <!-- Big title -->
               <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05]">
                 California Bitcoin Education Lab
               </h1>
 
-              <!-- Tagline -->
               <p class="mt-3 text-lg sm:text-xl text-slate-200">
                 Bitcoin-only education for the Golden State — clear, focused, practical. No “crypto” confusion.
               </p>
 
-              <!-- Overview -->
               <p class="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl">
                 A modern learning hub for everyday Californians. We focus on fundamentals, common misconceptions,
                 scams to avoid, self-custody concepts, and best-practice resources — focused, practical, and Bitcoin-only.
               </p>
 
-              <!-- Buttons -->
               <div class="mt-7 flex flex-col sm:flex-row gap-3">
-                <a href="#lessons"
-                   class="rounded-2xl bg-[#f7931a] px-6 py-4 text-slate-950 font-semibold text-center hover:brightness-105">
+                <a
+                  href="#lessons"
+                  class="rounded-2xl bg-[#f7931a] px-6 py-4 text-slate-950 font-semibold text-center hover:brightness-105"
+                >
                   Explore Lessons
                 </a>
-                <a href="#updates"
-                   class="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-semibold text-center hover:bg-white/10">
+                <a
+                  href="#updates"
+                  class="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-semibold text-center hover:bg-white/10"
+                >
                   Get Updates
                 </a>
               </div>
@@ -124,190 +128,179 @@
           </div>
         </div>
 
-<!-- RIGHT COLUMN (₿uilt for California + Start Here) -->
-<aside class="lg:col-span-4">
-  <div class="grid gap-4">
+        <!-- RIGHT COLUMN -->
+        <aside class="lg:col-span-4">
+          <div class="grid gap-4">
 
-    <!-- Block 1: ₿uilt for California + Principles -->
-    <div class="glass rounded-[28px] p-6 sm:p-7 shadow-soft">
-      <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] tracking-[0.14em] uppercase text-slate-300/90">
-        <span class="h-1.5 w-1.5 rounded-full bg-[#f7931a]"></span>
-        ₿uilt for California
-      </div>
+            <!-- Block 1 -->
+            <div class="glass rounded-[28px] p-6 sm:p-7 shadow-soft">
+              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] tracking-[0.14em] uppercase text-slate-300/90">
+                <span class="h-1.5 w-1.5 rounded-full bg-[#f7931a]"></span>
+                Built for California
+              </div>
 
-      <h3 class="mt-4 text-lg sm:text-xl font-semibold tracking-tight text-slate-100">
-        Our Principles
-      </h3>
+              <h3 class="mt-4 text-lg sm:text-xl font-semibold tracking-tight text-slate-100">
+                Our Principles
+              </h3>
 
-      <ul class="mt-4 space-y-2.5 text-[14px] sm:text-[15px] text-slate-300 leading-relaxed">
-        <li class="flex items-start gap-2.5">
-          <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
-          <span><span class="text-slate-200 font-medium">Bitcoin-only</span></span>
-        </li>
-        <li class="flex items-start gap-2.5">
-          <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
-          <span><span class="text-slate-200 font-medium">Safety-first</span></span>
-        </li>
-        <li class="flex items-start gap-2.5">
-          <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
-          <span><span class="text-slate-200 font-medium">No financial advice</span></span>
-        </li>
-        <li class="flex items-start gap-2.5">
-          <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
-          <span><span class="text-slate-200 font-medium">Clear language</span></span>
-        </li>
-        <li class="flex items-start gap-2.5">
-          <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
-          <span><span class="text-slate-200 font-medium">Golden State focused</span></span>
-        </li>
-      </ul>
+              <ul class="mt-4 space-y-2.5 text-[14px] sm:text-[15px] text-slate-300 leading-relaxed">
+                <li class="flex items-start gap-2.5">
+                  <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
+                  <span><span class="text-slate-200 font-medium">Bitcoin-only</span></span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
+                  <span><span class="text-slate-200 font-medium">Safety-first</span></span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
+                  <span><span class="text-slate-200 font-medium">No financial advice</span></span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
+                  <span><span class="text-slate-200 font-medium">Clear language</span></span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#f7931a]/90 flex-none"></span>
+                  <span><span class="text-slate-200 font-medium">Golden State focused</span></span>
+                </li>
+              </ul>
 
-      <div class="mt-6 pt-5 border-t border-white/10">
-        <a href="/why-california"
-           class="inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-semibold text-slate-200 hover:bg-white/10 hover:text-white">
-          Why California?
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
-    </div>
+              <div class="mt-6 pt-5 border-t border-white/10">
+                <a
+                  href="/why-california/"
+                  class="inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-semibold text-slate-200 hover:bg-white/10 hover:text-white"
+                >
+                  Why California?
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
 
-    <!-- Block 2: Start Here -->
-    <div class="glass rounded-[28px] p-6 sm:p-7 shadow-soft">
-      <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] tracking-[0.14em] uppercase text-slate-300/90">
-        <span class="h-1.5 w-1.5 rounded-full bg-[#f7931a]"></span>
-        Start Here
-      </div>
+            <!-- Block 2 -->
+            <div class="glass rounded-[28px] p-6 sm:p-7 shadow-soft">
+              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] tracking-[0.14em] uppercase text-slate-300/90">
+                <span class="h-1.5 w-1.5 rounded-full bg-[#f7931a]"></span>
+                Start Here
+              </div>
 
-      <h3 class="mt-4 text-lg sm:text-xl font-semibold tracking-tight text-slate-100">
-        Three fast on-ramps
-      </h3>
+              <h3 class="mt-4 text-lg sm:text-xl font-semibold tracking-tight text-slate-100">
+                Three fast on-ramps
+              </h3>
 
-      <p class="mt-2 text-[13px] sm:text-[14px] leading-relaxed text-slate-400">
-        Short, focused starting points — then deeper dives when you’re ready.
-      </p>
+              <p class="mt-2 text-[13px] sm:text-[14px] leading-relaxed text-slate-400">
+                Short, focused starting points — then deeper dives when you’re ready.
+              </p>
 
-      <div class="mt-5 grid gap-3">
-        <a href="/genesis"
-           class="inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-semibold text-slate-200 hover:bg-white/10 hover:text-white">
-          The Genesis Story
-          <span aria-hidden="true">→</span>
-        </a>
+              <div class="mt-5 grid gap-3">
+                <a
+                  href="/genesis/"
+                  class="inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-semibold text-slate-200 hover:bg-white/10 hover:text-white"
+                >
+                  The Genesis Story
+                  <span aria-hidden="true">→</span>
+                </a>
 
-        <a href="/bitcoin-white-paper"
-           class="inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-semibold text-slate-200 hover:bg-white/10 hover:text-white">
-          Bitcoin White Paper
-          <span aria-hidden="true">→</span>
-        </a>
+                <a
+                  href="/bitcoin-white-paper/"
+                  class="inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-semibold text-slate-200 hover:bg-white/10 hover:text-white"
+                >
+                  Bitcoin White Paper
+                  <span aria-hidden="true">→</span>
+                </a>
 
-        <a href="/vault/"
-           class="inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-semibold text-slate-200 hover:bg-white/10 hover:text-white">
-          Bitcoin Content Library
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
-    </div>
+                <a
+                  href="/vault/"
+                  class="inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-semibold text-slate-200 hover:bg-white/10 hover:text-white"
+                >
+                  Bitcoin Content Library
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
 
-  </div>
-</aside>
+          </div>
+        </aside>
       </div>
     </section>
 
-<!-- LESSONS / MODULE GRID -->
-<section id="lessons" class="py-8">
-  <div class="flex items-end justify-between gap-4">
-    <div>
-      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Lessons</h2>
-      <p class="mt-2 text-slate-300 text-base sm:text-lg">
-        Start with the available lessons below. Additional lessons will be added as they are completed.
-      </p>
-    </div>
-  </div>
-
-  <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-    <!-- 01 — Bitcoin Foundations -->
-    <a href="/lessons/foundations/" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
-      <div class="lesson-step">01</div>
-      <div class="mt-1 text-xl font-semibold">Bitcoin Foundations</div>
-      <div class="mt-2 text-sm text-slate-300">
-        Why Bitcoin exists and the problem it was designed to solve.
+    <!-- LESSONS -->
+    <section id="lessons" class="py-8">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Lessons</h2>
+          <p class="mt-2 text-slate-300 text-base sm:text-lg">
+            Start with the available lessons below. Additional lessons will be added as they are completed.
+          </p>
+        </div>
       </div>
-      <div class="mt-4 text-sm text-[#f7931a] font-semibold">Open →</div>
-    </a>
 
-    <!-- 02 — How Bitcoin Works -->
-    <a href="/lessons/how-bitcoin-works/" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
-      <div class="lesson-step">02</div>
-      <div class="mt-1 text-xl font-semibold">How Bitcoin Works</div>
-      <div class="mt-2 text-sm text-slate-300">
-        A clear explanation of Bitcoin’s structure and network mechanics.
+      <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <a href="/lessons/foundations/" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
+          <div class="lesson-step">01</div>
+          <div class="mt-1 text-xl font-semibold">Bitcoin Foundations</div>
+          <div class="mt-2 text-sm text-slate-300">
+            Why Bitcoin exists and the problem it was designed to solve.
+          </div>
+          <div class="mt-4 text-sm text-[#f7931a] font-semibold">Open →</div>
+        </a>
+
+        <a href="/lessons/how-bitcoin-works/" class="glass rounded-[28px] p-6 hover:bg-white/10 transition">
+          <div class="lesson-step">02</div>
+          <div class="mt-1 text-xl font-semibold">How Bitcoin Works</div>
+          <div class="mt-2 text-sm text-slate-300">
+            A clear explanation of Bitcoin’s structure and network mechanics.
+          </div>
+          <div class="mt-4 text-sm text-[#f7931a] font-semibold">Open →</div>
+        </a>
+
+        <div class="rounded-[28px] p-6 bg-white/[0.04] border border-white/8 opacity-60 cursor-not-allowed select-none" aria-disabled="true">
+          <div class="lesson-step">03</div>
+          <div class="mt-1 text-xl font-semibold text-slate-200">Using Bitcoin</div>
+          <div class="mt-2 text-sm text-slate-400">
+            Wallets, custody, and responsible participation.
+          </div>
+          <div class="mt-4 inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+            Coming Soon
+          </div>
+        </div>
+
+        <div class="rounded-[28px] p-6 bg-white/[0.04] border border-white/8 opacity-60 cursor-not-allowed select-none" aria-disabled="true">
+          <div class="lesson-step">04</div>
+          <div class="mt-1 text-xl font-semibold text-slate-200">Bitcoin Safety</div>
+          <div class="mt-2 text-sm text-slate-400">
+            Scam patterns, risk awareness, and security fundamentals.
+          </div>
+          <div class="mt-4 inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+            Coming Soon
+          </div>
+        </div>
+
+        <div class="rounded-[28px] p-6 bg-white/[0.04] border border-white/8 opacity-60 cursor-not-allowed select-none" aria-disabled="true">
+          <div class="lesson-step">05</div>
+          <div class="mt-1 text-xl font-semibold text-slate-200">Economic Context</div>
+          <div class="mt-2 text-sm text-slate-400">
+            Scarcity, volatility, energy, regulation, and policy debates.
+          </div>
+          <div class="mt-4 inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+            Coming Soon
+          </div>
+        </div>
+
+        <div class="rounded-[28px] p-6 bg-white/[0.04] border border-white/8 opacity-60 cursor-not-allowed select-none" aria-disabled="true">
+          <div class="lesson-step">06</div>
+          <div class="mt-1 text-xl font-semibold text-slate-200">Stewardship</div>
+          <div class="mt-2 text-sm text-slate-400">
+            Governance, long-term thinking, and responsible engagement.
+          </div>
+          <div class="mt-4 inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+            Coming Soon
+          </div>
+        </div>
       </div>
-      <div class="mt-4 text-sm text-[#f7931a] font-semibold">Open →</div>
-    </a>
+    </section>
 
-<!-- 03 — Using Bitcoin -->
-<div
-  class="rounded-[28px] p-6 bg-white/[0.04] border border-white/8 opacity-60 cursor-not-allowed select-none"
-  aria-disabled="true"
->
-  <div class="lesson-step">03</div>
-  <div class="mt-1 text-xl font-semibold text-slate-200">Using Bitcoin</div>
-  <div class="mt-2 text-sm text-slate-400">
-    Wallets, custody, and responsible participation.
-  </div>
-  <div class="mt-4 inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
-    Coming Soon
-  </div>
-</div>
-
-<!-- 04 — Bitcoin Safety -->
-<div
-  class="rounded-[28px] p-6 bg-white/[0.04] border border-white/8 opacity-60 cursor-not-allowed select-none"
-  aria-disabled="true"
->
-  <div class="lesson-step">04</div>
-  <div class="mt-1 text-xl font-semibold text-slate-200">Bitcoin Safety</div>
-  <div class="mt-2 text-sm text-slate-400">
-    Scam patterns, risk awareness, and security fundamentals.
-  </div>
-  <div class="mt-4 inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
-    Coming Soon
-  </div>
-</div>
-
-<!-- 05 — Economic Context -->
-<div
-  class="rounded-[28px] p-6 bg-white/[0.04] border border-white/8 opacity-60 cursor-not-allowed select-none"
-  aria-disabled="true"
->
-  <div class="lesson-step">05</div>
-  <div class="mt-1 text-xl font-semibold text-slate-200">Economic Context</div>
-  <div class="mt-2 text-sm text-slate-400">
-    Scarcity, volatility, energy, regulation, and policy debates.
-  </div>
-  <div class="mt-4 inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
-    Coming Soon
-  </div>
-</div>
-
-<!-- 06 — Stewardship -->
-<div
-  class="rounded-[28px] p-6 bg-white/[0.04] border border-white/8 opacity-60 cursor-not-allowed select-none"
-  aria-disabled="true"
->
-  <div class="lesson-step">06</div>
-  <div class="mt-1 text-xl font-semibold text-slate-200">Stewardship</div>
-  <div class="mt-2 text-sm text-slate-400">
-    Governance, long-term thinking, and responsible engagement.
-  </div>
-  <div class="mt-4 inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
-    Coming Soon
-  </div>
-</div>
-  </div>
-  
-</section>
-    
-    <!-- FAQ ACCORDION -->
+    <!-- FAQ -->
     <section id="faq" class="py-8">
       <div class="glass rounded-[28px] p-6 sm:p-8 shadow-soft">
         <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">FAQ</h2>
@@ -316,7 +309,6 @@
         </p>
 
         <div class="mt-6 grid gap-3">
-          <!-- Use <details> for an accessible accordion with zero JS -->
           <details class="group glass rounded-2xl p-5">
             <summary class="cursor-pointer list-none flex items-center justify-between gap-4">
               <span class="font-semibold text-lg">What’s the difference between Bitcoin and “crypto”?</span>
@@ -428,45 +420,45 @@
       </div>
     </section>
 
-<!-- UPDATES / EMAIL CAPTURE -->
-<section id="updates" class="py-10">
-  <div class="glass rounded-[28px] p-6 sm:p-8 shadow-soft">
-    <div class="grid lg:grid-cols-12 gap-6 items-center">
-      <div class="lg:col-span-7">
-        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Get updates</h2>
-        <p class="mt-2 text-slate-300 text-base sm:text-lg">
-          A modern education hub for everyday Californians interested in learning Bitcoin.
-        </p>
-        <p class="mt-3 text-slate-300 text-sm sm:text-base">
-          Subscribe to the California Bitcoin Education Lab newsletter for updates and early access to new lessons and Bitcoin education resources.
-        </p>
-        <p class="mt-3 text-sm text-slate-400">
-          Occasional updates. No hype. Bitcoin-only.
-        </p>
+    <!-- UPDATES -->
+    <section id="updates" class="py-10">
+      <div class="glass rounded-[28px] p-6 sm:p-8 shadow-soft">
+        <div class="grid lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-7">
+            <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Get updates</h2>
+            <p class="mt-2 text-slate-300 text-base sm:text-lg">
+              A modern education hub for everyday Californians interested in learning Bitcoin.
+            </p>
+            <p class="mt-3 text-slate-300 text-sm sm:text-base">
+              Subscribe to the California Bitcoin Education Lab newsletter for updates and early access to new lessons and Bitcoin education resources.
+            </p>
+            <p class="mt-3 text-sm text-slate-400">
+              Occasional updates. No hype. Bitcoin-only.
+            </p>
+          </div>
+
+          <div class="lg:col-span-5">
+            <a
+              href="https://cabitcoinlab.kit.com/28405cd01f"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex w-full items-center justify-center rounded-2xl bg-[#f7931a] px-6 py-4 font-semibold text-slate-950 hover:brightness-105"
+            >
+              Subscribe to the Newsletter
+            </a>
+
+            <p class="mt-2 text-xs sm:text-sm text-slate-400">
+              Educational only — not financial, legal, or tax advice.
+            </p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="lg:col-span-5">
-        <a href="https://cabitcoinlab.kit.com/28405cd01f"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="inline-flex w-full items-center justify-center rounded-2xl bg-[#f7931a] px-6 py-4 font-semibold text-slate-950 hover:brightness-105">
-          Subscribe to the Newsletter
-        </a>
-
-        <p class="mt-2 text-xs sm:text-sm text-slate-400">
-          Educational only — not financial, legal, or tax advice.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <!-- Footer mount (script.js will replace/standardize) -->
     <footer id="site-footer"></footer>
   </main>
 
   <script>
-    // Mobile menu toggle
     const menuBtn = document.getElementById('menuBtn');
     const mobileNav = document.getElementById('mobileNav');
     if (menuBtn && mobileNav) {
@@ -476,21 +468,8 @@
         menuBtn.setAttribute('aria-expanded', String(!isOpen));
       });
     }
-
-    // Placeholder email capture (swap later)
-    const form = document.getElementById('emailForm');
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email')?.value?.trim();
-        if (!email) return;
-        alert("Thanks! We'll email you when we launch. ✅");
-        form.reset();
-      });
-    }
   </script>
 
-  <!-- Shared footer renderer (your actual file) -->
   <script src="/js/script.js"></script>
   <script src="/js/header.js"></script>
 </body>
