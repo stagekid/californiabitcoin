@@ -110,6 +110,7 @@
       "foundations": ["history", "money", "economics"],
       "tags": ["book"],
       "level": "intermediate",
+      "featured": true,
       "thoughtLeader": "Saifedean Ammous",
       "thoughtLeaderBookId": "the-bitcoin-standard"
     },
@@ -190,6 +191,7 @@
       "foundations": ["basics", "money"],
       "tags": ["book"],
       "level": "beginner",
+      "featured": true,
       "thoughtLeader": "Natalie Brunell",
       "thoughtLeaderBookId": "bitcoin-is-for-everyone"
     },
@@ -229,6 +231,7 @@
       "foundations": ["basics", "economics"],
       "tags": ["podcast"],
       "level": "beginner"
+      "featured": true,
     }
   ]
 }
