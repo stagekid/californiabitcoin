@@ -29,7 +29,7 @@
   function escapeAttr(str) {
     return String(str ?? "")
       .replaceAll("&", "&amp;")
-      .replaceAll('"', "&quot;')
+      .replaceAll('"', "&quot;")
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;");
   }
@@ -62,7 +62,7 @@
     return [];
   }
 
-  // LEVEL normalizer: map a few synonyms to your desired tags
+  // LEVEL normalizer: use beginner / intermediate / advanced
   function normalizeLevel(l) {
     const s = norm(l || "");
     if (!s) return "";
@@ -76,28 +76,26 @@
   function getVisiblePills(item) {
     const pills = [];
 
-    // 1) Type (podcast / book / article)
+    // 1) Type
     const t = String(item.type || "").trim();
-    if (t) pills.push(norm(t)); // keep lowercase like you asked
+    if (t) pills.push(norm(t));
 
-    // 2) Level (normalized)
+    // 2) Level
     const lvl = normalizeLevel(item.level || "");
     if (lvl) pills.push(lvl);
 
-    // 3) Focus (explicit 'focus' field preferred; else first foundation)
+    // 3) Focus
     let focus = "";
     if (item.focus && String(item.focus).trim()) {
       focus = String(item.focus).trim();
     } else if (Array.isArray(item.foundations) && item.foundations.length > 0) {
       focus = String(item.foundations[0] || "").trim();
     } else if (Array.isArray(item.tags) && item.tags.length > 0) {
-      // last-resort fallback (not preferred) — but keep it quiet
       focus = String(item.tags[0] || "").trim();
     }
 
     if (focus) pills.push(focus);
 
-    // Ensure uniqueness and trim empties — but keep order [type, level, focus]
     return pills.map((p) => String(p).trim()).filter(Boolean);
   }
 
@@ -220,9 +218,6 @@
     const { url, disabled } = computeLink(item);
     const creatorMeta = getCreatorMeta(item);
 
-    // NOTE: FEATURED BADGE REMOVED (user requested no 'Featured' label on cards)
-    const featuredBadge = "";
-
     const creatorHtml = creatorMeta
       ? `
         <div class="card-meta">
@@ -265,7 +260,6 @@
         <div class="${cardClass} disabled" aria-disabled="true">
           <div class="cover">${imgTag}</div>
           <div class="card-body">
-            ${featuredBadge}
             <div class="card-title">${title}</div>
             ${creatorHtml}
             ${desc ? `<div class="card-desc">${desc}</div>` : ""}
@@ -282,7 +276,6 @@
       <a class="${cardClass}" href="${escapeAttr(url)}" ${linkAttrs}>
         <div class="cover">${imgTag}</div>
         <div class="card-body">
-          ${featuredBadge}
           <div class="card-title">${title}</div>
           ${creatorHtml}
           ${desc ? `<div class="card-desc">${desc}</div>` : ""}
@@ -345,7 +338,17 @@
       <div class="tabs">
         ${ordered.map((t) => `
           <button class="tab ${selectedType === t ? "active" : ""}" type="button" data-type="${escapeAttr(t)}">
-            ${escapeHtml(t === "all" ? "All" : (t === "podcast" ? "Podcasts" : (t === "book" ? "Books" : (t === "article" ? "Articles" : t))))}
+            ${escapeHtml(
+              t === "all"
+                ? "All"
+                : t === "podcast"
+                  ? "Podcasts"
+                  : t === "book"
+                    ? "Books"
+                    : t === "article"
+                      ? "Articles"
+                      : t
+            )}
           </button>
         `).join("")}
       </div>
@@ -383,7 +386,6 @@
     const types = uniq(allItems.map((i) => i.type).filter(Boolean));
     renderTypeTabs(types);
 
-    // collect visible pills across items and use them as filterable tags
     const tags = uniq(
       allItems.flatMap((i) => getVisiblePills(i)).filter(Boolean)
     )
@@ -408,8 +410,9 @@
     if (featuredSectionEl && featuredCardsEl) {
       if (featuredItems.length > 0) {
         featuredSectionEl.classList.remove("hidden");
-        // render only the cards in the featured grid (no "Featured" badge text)
-        featuredCardsEl.innerHTML = featuredItems.map((item) => cardHtml(item, { featured: true })).join("");
+        featuredCardsEl.innerHTML = featuredItems
+          .map((item) => cardHtml(item, { featured: true }))
+          .join("");
         wireInlineTagButtons(featuredCardsEl);
       } else {
         featuredSectionEl.classList.add("hidden");
@@ -431,7 +434,6 @@
     wireInlineTagButtons(cardsEl);
   }
 
-  // ---- init and wiring ----
   let allItems = [];
   let selectedType = "all";
   let selectedTag = "";
@@ -441,7 +443,6 @@
     const json = await loadJson(DATA_PATH);
     allItems = unwrapItems(json);
 
-    // Normalize items and preserve creator meta etc.
     allItems = allItems.map((it) => ({
       id: it.id,
       type: it.type || "other",
@@ -449,7 +450,6 @@
       subtitle: it.subtitle ?? it.description ?? "",
       description: it.description ?? "",
 
-      // creator fields
       author: it.author || "",
       host: it.host || "",
       creator: it.creator || "",
