@@ -1,0 +1,56 @@
+/* css/vault.css — Vault-only appearance & layout tuning */
+
+/* Make the vault a slightly wider, contained layout while staying centered.
+   This avoids edge-to-edge full width while allowing 3 cards per row comfortably.
+   Apply by adding a class (e.g., <body class="vault-root">) or a wrapper
+   with class .vault-root on the vault page markup. */
+
+.vault-root {
+  /* Slightly wider than default site max (1120px) but not full width */
+  --max: 1320px;
+}
+
+/* Card creator meta (quiet, single-line) */
+.card-meta {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.62);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+}
+
+.card-meta-label {
+  opacity: 0.75;
+  margin-right: 0.3rem;
+  font-weight: 700;
+  text-transform: none;
+  font-size: 0.78rem;
+}
+
+.card-meta-name {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+}
+
+/* Slight spacing tweak so creator doesn't crowd subtitle on small screens */
+@media (max-width: 640px) {
+  .card-desc { margin-top: 6px; }
+  .card-meta { margin-top: 0.25rem; font-size: 0.80rem; }
+}
+
+/* Optional: small visual hierarchy tweak for the cover when cards are featured */
+.featured-card .card-meta-name {
+  font-weight: 700;
+}
+
+/* Optional: increase card padding slightly on large screens for breathability */
+@media (min-width: 1200px) {
+  .card { padding: 24px; gap: 20px; min-height: 230px; }
+  .cover { flex-basis: 120px; width: 120px; }
+  .cover img { width: 120px; height: 180px; border-radius: 18px; }
+}
