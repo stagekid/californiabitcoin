@@ -230,7 +230,7 @@
       "thumb": "/assets/covers/placeholder/podcast.webp",
       "foundations": ["basics", "economics"],
       "tags": ["podcast"],
-      "level": "beginner"
+      "level": "beginner",
       "featured": true,
     }
   ]
