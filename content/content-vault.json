@@ -66,7 +66,7 @@
       "id": "mustard",
       "type": "podcast",
       "mode": "listen",
-      "title": "The Mustard Seed Bitcoin Podcast",
+      "title": "The Mustard Seed Bitcoin Podcast by Joe Burnett",
       "subtitle": "Bitcoin podcast exploring treasury strategies, digital credit, and institutional adoption.",
       "href": "https://www.youtube.com/playlist?list=PLn7gNaAnMoUgZ2tTsjJFEQ3I1NUSHwTHP",
       "thumb": "/assets/covers/placeholder/podcast.webp",
@@ -90,8 +90,7 @@
       "id": "aantonop-yt",
       "type": "podcast",
       "mode": "watch",
-      "title": "Andreas M. Antonopoulos (YouTube)",
-      "youtubeId": "REPLACE_WITH_VIDEO_ID",
+      "title": "Andreas Antonopoulos Video Series",
       "subtitle": "Reserved for YouTube embeds later.",
       "href": "https://www.youtube.com/user/aantonop",
       "thumb": "/assets/covers/placeholder/podcast.webp",
@@ -103,7 +102,7 @@
     {
       "id": "the-bitcoin-standard",
       "type": "book",
-      "title": "The Bitcoin Standard",
+      "title": "The Bitcoin Standard by Saifedean Ammous",
       "subtitle": "A history of money and the economic case for Bitcoin.",
       "author": "Saifedean Ammous",
       "year": 2018,
@@ -119,7 +118,7 @@
     {
       "id": "the-price-of-tomorrow",
       "type": "book",
-      "title": "The Price of Tomorrow",
+      "title": "The Price of Tomorrow by Jeff Booth",
       "subtitle": "Deflation, technology, and why monetary systems shape society.",
       "author": "Jeff Booth",
       "year": 2020,
@@ -135,7 +134,7 @@
     {
       "id": "digital-gold",
       "type": "book",
-      "title": "Digital Gold",
+      "title": "Digital Gold by Nathaniel Popper",
       "subtitle": "The story of Bitcoin’s early days and the people who built it.",
       "author": "Nathaniel Popper",
       "year": 2015,
@@ -149,7 +148,7 @@
     {
       "id": "the-blocksize-war",
       "type": "book",
-      "title": "The Blocksize War",
+      "title": "The Blocksize War by Jonathan Bier",
       "subtitle": "The inside story of the scaling conflict and what it revealed about Bitcoin governance.",
       "author": "Jonathan Bier",
       "year": 2021,
@@ -163,7 +162,7 @@
     {
       "id": "the-creature-from-jekyll-island",
       "type": "book",
-      "title": "The Creature from Jekyll Island",
+      "title": "The Creature from Jekyll Island by G. Edward Griffin",
       "subtitle": "A critical history of central banking and the origins of the Federal Reserve.",
       "author": "G. Edward Griffin",
       "year": 1994,
@@ -177,7 +176,7 @@
     {
       "id": "broken-money",
       "type": "book",
-      "title": "Broken Money",
+      "title": "Broken Money by Lyn Alden",
       "subtitle": "A framework for understanding money as technology and why it fails—and how it can improve.",
       "author": "Lyn Alden",
       "year": 2024,
@@ -193,7 +192,7 @@
     {
       "id": "bitcoin-is-for-everyone",
       "type": "book",
-      "title": "Bitcoin Is for Everyone",
+      "title": "Bitcoin Is for Everyone by Natalie Brunell",
       "subtitle": "An accessible introduction designed for new learners.",
       "author": "Natalie Brunell",
       "year": 2024,
@@ -208,16 +207,16 @@
     },
 
     {
-      "id": "how-bitcoin-mining-works",
+      "id": "satoshi-nakamoto-institute",
       "type": "article",
-      "title": "How Bitcoin Mining Works",
-      "subtitle": "An explainer on mining, energy and decentralization.",
+      "title": "Satoshi Nakamoto Institute",
+      "subtitle": "Independent repository archiving Bitcoin's early history, cryptographic origins, and Satoshi’s writings.",
       "source": "CBEL Explained",
-      "url": "/articles/how-bitcoin-mining-works.html",
+      "url": "https://nakamotoinstitute.org/",
       "date": "2025-08-20",
       "thumb": "/assets/covers/placeholder/article.webp",
       "foundations": ["basics", "economics"],
-      "using": ["mining"],
+      "using": [],
       "level": "beginner"
     }
   ]
