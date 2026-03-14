@@ -9,10 +9,13 @@
 
   <link rel="canonical" href="https://californiabitcoin.org/vault/" />
 
+  <!-- Tailwind (keep in head for header.js dependency) -->
   <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="/css/site.css">
-<link rel="stylesheet" href="/css/vault.css">
-  
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/vault.css">
+
   <style>
     /* Vault: make Search row full-width + ~10% taller */
     .search-row.search-row--wide {
@@ -41,7 +44,7 @@
   </style>
 </head>
 
-<body data-source="/content/content-vault.json">
+<body class="vault-root" data-source="/content/content-vault.json">
 
   <!-- HEADER -->
   <header id="site-header"></header>
@@ -123,7 +126,7 @@
     </div>
   </main>
 
-  <!-- Footer mount (script.js will replace/standardize) -->
+  <!-- Footer mount (script.js/header.js will replace/standardize) -->
   <footer id="site-footer"></footer>
 
   <!-- MOBILE NAV TOGGLE -->
@@ -141,12 +144,14 @@
     })();
   </script>
 
-  <!-- VAULT LOGIC -->
-  <script src="/js/library.js"></script>
+  <!-- Shared header renderer (deferred so it runs before library.js) -->
+  <script src="/js/header.js" defer></script>
 
-  <!-- Shared footer renderer -->
-  <script src="/js/header.js"></script>
-  <script src="/js/script.js"></script>
+  <!-- VAULT LOGIC (deferred) -->
+  <script src="/js/library.js" defer></script>
+
+  <!-- Shared site scripts -->
+  <script src="/js/script.js" defer></script>
 
 </body>
 </html>
