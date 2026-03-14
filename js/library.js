@@ -1,4 +1,10 @@
-// /js/library.js — Content Vault only (updated: show only Type/Level/Focus tags; remove Featured badge text)
+// /js/library.js — Content Vault only
+// - Shows only Type / Level / Focus pills
+// - No thought leader logic
+// - No foundations logic
+// - No legacy tags logic
+// - Featured items stay at the top with no visible featured label
+
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
@@ -62,7 +68,6 @@
     return [];
   }
 
-  // LEVEL normalizer: use beginner / intermediate / advanced
   function normalizeLevel(l) {
     const s = norm(l || "");
     if (!s) return "";
@@ -72,31 +77,19 @@
     return s;
   }
 
-  // build the three visible tag pills for a card: [type, level, focus]
   function getVisiblePills(item) {
     const pills = [];
 
-    // 1) Type
-    const t = String(item.type || "").trim();
-    if (t) pills.push(norm(t));
+    const type = String(item.type || "").trim();
+    if (type) pills.push(norm(type));
 
-    // 2) Level
-    const lvl = normalizeLevel(item.level || "");
-    if (lvl) pills.push(lvl);
+    const level = normalizeLevel(item.level || "");
+    if (level) pills.push(level);
 
-    // 3) Focus
-    let focus = "";
-    if (item.focus && String(item.focus).trim()) {
-      focus = String(item.focus).trim();
-    } else if (Array.isArray(item.foundations) && item.foundations.length > 0) {
-      focus = String(item.foundations[0] || "").trim();
-    } else if (Array.isArray(item.tags) && item.tags.length > 0) {
-      focus = String(item.tags[0] || "").trim();
-    }
-
+    const focus = String(item.focus || "").trim();
     if (focus) pills.push(focus);
 
-    return pills.map((p) => String(p).trim()).filter(Boolean);
+    return pills;
   }
 
   function computeLink(item) {
@@ -191,13 +184,6 @@
       return {
         label: "Hosted by",
         name: String(item.host).trim()
-      };
-    }
-
-    if (item.thoughtLeader && typeof item.thoughtLeader === "string") {
-      return {
-        label: item.type === "podcast" ? "With" : "By",
-        name: String(item.thoughtLeader).trim()
       };
     }
 
@@ -301,7 +287,8 @@
       creatorMeta?.name || "",
       allPills.join(" "),
       item.type,
-      item.mode
+      item.mode,
+      item.focus
     ].join(" "));
 
     const matchesQuery = !q || hay.includes(q);
@@ -455,13 +442,8 @@
       creator: it.creator || "",
       creatorLabel: it.creatorLabel || "",
 
-      foundations: Array.isArray(it.foundations) ? it.foundations : [],
       focus: it.focus || "",
       level: it.level || "",
-      thoughtLeaderBookId: it.thoughtLeaderBookId || "",
-      thoughtLeader: it.thoughtLeader || "",
-
-      tags: Array.isArray(it.tags) ? it.tags : [],
       featured: it.featured === true,
 
       thumb: it.thumb || it.image || "",
