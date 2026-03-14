@@ -1,12 +1,4 @@
-// /js/library.js — Content Vault only
-// - Featured row support via "featured": true
-// - No big CTA badges; whole card is clickable
-// - Mode toggle removed entirely
-// - Disabled items render as non-clickable cards
-// - For podcast/watch placeholders, falls back to href/url instead of disabling
-// - Includes "Built in California" footer badge helper (safe + no duplicates)
-// - Supports creator metadata on cards: author / host / creator / creatorLabel / thoughtLeader
-
+// /js/library.js — Content Vault only (updated: show only Type/Level/Focus tags; remove Featured badge text)
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
 
@@ -25,81 +17,6 @@
   const resultCountEl = document.getElementById("resultCount");
   const typeTabsEl = document.getElementById("typeTabs");
 
-  function injectBuiltInCaliforniaBadge(intoEl) {
-    if (!intoEl) return;
-    if (intoEl.querySelector('[data-built-ca-badge="true"]')) return;
-
-    const badge = document.createElement("div");
-    badge.setAttribute("data-built-ca-badge", "true");
-    badge.className =
-      "inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] tracking-[0.14em] uppercase text-slate-400/90";
-    badge.innerHTML = `
-      <span class="h-1.5 w-1.5 rounded-full bg-[#f7931a]"></span>
-      Built in California
-    `.trim();
-
-    intoEl.appendChild(badge);
-  }
-
-  function renderSiteFooterIfPresent() {
-    const mount = document.getElementById("site-footer");
-    if (mount) {
-      if (mount.getAttribute("data-rendered") === "true") return;
-
-      mount.innerHTML = `
-        <div class="container">
-          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-start;">
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <div>© <span id="year"></span> California Bitcoin Education Lab</div>
-              <div id="builtCaMount"></div>
-            </div>
-            <div style="opacity:.8;">Deep black • Bitcoin orange</div>
-          </div>
-        </div>
-      `.trim();
-
-      mount.classList.add("footer");
-      mount.setAttribute("data-rendered", "true");
-
-      const yearEl = mount.querySelector("#year");
-      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
-
-      injectBuiltInCaliforniaBadge(mount.querySelector("#builtCaMount"));
-      return;
-    }
-
-    const existingFooter = document.querySelector("footer.footer");
-    if (existingFooter) {
-      const leftCol =
-        existingFooter.querySelector('div[style*="flex-direction:column"]') ||
-        existingFooter.querySelector(".container") ||
-        existingFooter;
-
-      injectBuiltInCaliforniaBadge(leftCol);
-    }
-  }
-
-  renderSiteFooterIfPresent();
-
-  if (!cardsEl) return;
-
-  let allItems = [];
-
-  let selectedType = "all";
-  let selectedTag = "";
-  let query = "";
-
-  const THOUGHT_LEADERS_TAG = "thought leaders";
-
-  const BANNED_TAGS = new Set([
-    "podcast", "podcasts",
-    "book", "books",
-    "article", "articles",
-    "listen", "watch",
-    "open", "read",
-    "video", "audio"
-  ]);
-
   function escapeHtml(str) {
     return String(str ?? "")
       .replaceAll("&", "&amp;")
@@ -112,7 +29,7 @@
   function escapeAttr(str) {
     return String(str ?? "")
       .replaceAll("&", "&amp;")
-      .replaceAll('"', "&quot;")
+      .replaceAll('"', "&quot;')
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;");
   }
@@ -145,21 +62,44 @@
     return [];
   }
 
-  function getAllTags(item) {
-    const foundations = Array.isArray(item.foundations) ? item.foundations : [];
-    const level = item.level ? [item.level] : [];
-    const legacy = Array.isArray(item.tags) ? item.tags : [];
+  // LEVEL normalizer: map a few synonyms to your desired tags
+  function normalizeLevel(l) {
+    const s = norm(l || "");
+    if (!s) return "";
+    if (s === "beginner") return "basic";
+    if (s === "basic" || s === "intermediate" || s === "advanced") return s;
+    // fallback: try to detect beginner-like words
+    if (s.includes("begin") || s.includes("intro") || s.includes("starter")) return "basic";
+    return s;
+  }
 
-    const tags = [...foundations, ...level, ...legacy];
+  // build the three visible tag pills for a card: [type, level, focus]
+  function getVisiblePills(item) {
+    const pills = [];
 
-    const isThoughtLeader =
-      Boolean(item.thoughtLeaderBookId) || Boolean(item.thoughtLeader);
+    // 1) Type (podcast / book / article)
+    const t = String(item.type || "").trim();
+    if (t) pills.push(norm(t)); // keep lowercase like you asked
 
-    if (isThoughtLeader) tags.push(THOUGHT_LEADERS_TAG);
+    // 2) Level (normalized)
+    const lvl = normalizeLevel(item.level || "");
+    if (lvl) pills.push(lvl);
 
-    return uniq(
-      tags.map((t) => String(t).trim()).filter(Boolean)
-    ).filter((t) => !BANNED_TAGS.has(norm(t)));
+    // 3) Focus (explicit 'focus' field preferred; else first foundation)
+    let focus = "";
+    if (item.focus && String(item.focus).trim()) {
+      focus = String(item.focus).trim();
+    } else if (Array.isArray(item.foundations) && item.foundations.length > 0) {
+      focus = String(item.foundations[0] || "").trim();
+    } else if (Array.isArray(item.tags) && item.tags.length > 0) {
+      // last-resort fallback (not preferred) — but keep it quiet
+      focus = String(item.tags[0] || "").trim();
+    }
+
+    if (focus) pills.push(focus);
+
+    // Ensure uniqueness and trim empties — but keep order [type, level, focus]
+    return pills.map((p) => String(p).trim()).filter(Boolean);
   }
 
   function computeLink(item) {
@@ -201,6 +141,28 @@
 
     const url = pickUrl(item.href, item.url);
     return { url, disabled: !url };
+  }
+
+  function resolveThumb(item) {
+    const explicit = String(item.thumb || item.image || "").trim();
+    if (explicit) return explicit;
+
+    if (item.type === "podcast") return PODCAST_PLACEHOLDER;
+    if (item.type === "article") return ARTICLE_PLACEHOLDER;
+    if (item.type === "book") return BOOK_PLACEHOLDER;
+
+    return FALLBACK_PLACEHOLDER;
+  }
+
+  function buildSrcset(url) {
+    const u = String(url || "");
+    const isKnown =
+      u.endsWith("/assets/covers/placeholder/podcast.webp") ||
+      u.endsWith("/assets/covers/placeholder/book.webp") ||
+      u.endsWith("/assets/covers/placeholder/article.webp");
+
+    if (!isKnown) return "";
+    return `${u} 1x, ${u.replace(".webp", "@2x.webp")} 2x`;
   }
 
   function getCreatorMeta(item) {
@@ -245,81 +207,6 @@
     return null;
   }
 
-  function renderTypeTabs(types) {
-    if (!typeTabsEl) return;
-
-    const pretty = (t) => {
-      if (t === "all") return "All";
-      if (t === "podcast") return "Podcasts";
-      if (t === "book") return "Books";
-      if (t === "article") return "Articles";
-      return t;
-    };
-
-    const ordered = ["all", "podcast", "book", "article"].filter(
-      (t) => t === "all" || types.includes(t)
-    );
-
-    typeTabsEl.innerHTML = `
-      <div class="tabs">
-        ${ordered.map((t) => `
-          <button class="tab ${selectedType === t ? "active" : ""}" type="button" data-type="${escapeAttr(t)}">
-            ${escapeHtml(pretty(t))}
-          </button>
-        `).join("")}
-      </div>
-    `;
-
-    typeTabsEl.querySelectorAll("button[data-type]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        selectedType = btn.getAttribute("data-type") || "all";
-        renderAll();
-      });
-    });
-  }
-
-  function renderTagBar(tags) {
-    if (!tagBarEl) return;
-
-    tagBarEl.innerHTML = `
-      <button class="pill ${selectedTag ? "" : "active"}" type="button" data-tag="">All</button>
-      ${tags.map((t) => `
-        <button class="pill ${selectedTag === t ? "active" : ""}" type="button" data-tag="${escapeAttr(t)}">
-          ${escapeHtml(t)}
-        </button>
-      `).join("")}
-    `;
-
-    tagBarEl.querySelectorAll("button[data-tag]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        selectedTag = btn.getAttribute("data-tag") || "";
-        renderAll();
-      });
-    });
-  }
-
-  function resolveThumb(item) {
-    const explicit = String(item.thumb || item.image || "").trim();
-    if (explicit) return explicit;
-
-    if (item.type === "podcast") return PODCAST_PLACEHOLDER;
-    if (item.type === "article") return ARTICLE_PLACEHOLDER;
-    if (item.type === "book") return BOOK_PLACEHOLDER;
-
-    return FALLBACK_PLACEHOLDER;
-  }
-
-  function buildSrcset(url) {
-    const u = String(url || "");
-    const isKnown =
-      u.endsWith("/assets/covers/placeholder/podcast.webp") ||
-      u.endsWith("/assets/covers/placeholder/book.webp") ||
-      u.endsWith("/assets/covers/placeholder/article.webp");
-
-    if (!isKnown) return "";
-    return `${u} 1x, ${u.replace(".webp", "@2x.webp")} 2x`;
-  }
-
   function cardHtml(item, options = {}) {
     const featured = options.featured === true;
     const titleText = item.title || "Untitled";
@@ -330,13 +217,12 @@
     const thumb = escapeAttr(thumbRaw);
     const srcset = escapeAttr(buildSrcset(thumbRaw));
 
-    const tags = getAllTags(item);
+    const pills = getVisiblePills(item);
     const { url, disabled } = computeLink(item);
     const creatorMeta = getCreatorMeta(item);
 
-    const featuredBadge = featured
-      ? `<div class="featured-badge">Featured</div>`
-      : "";
+    // NOTE: FEATURED BADGE REMOVED (user requested no 'Featured' label on cards)
+    const featuredBadge = "";
 
     const creatorHtml = creatorMeta
       ? `
@@ -347,10 +233,10 @@
       `
       : "";
 
-    const tagsHtml = tags.length
+    const tagsHtml = pills.length
       ? `
         <div class="pills" aria-label="tags">
-          ${tags.map((t) => `
+          ${pills.map((t) => `
             <button class="pill" type="button" data-inline-tag="${escapeAttr(t)}">
               ${escapeHtml(t)}
             </button>
@@ -414,20 +300,20 @@
     const matchesType =
       selectedType === "all" || item.type === selectedType;
 
-    const allTags = getAllTags(item);
+    const allPills = getVisiblePills(item);
     const creatorMeta = getCreatorMeta(item);
 
     const hay = norm([
       item.title,
       item.subtitle || item.description,
       creatorMeta?.name || "",
-      allTags.join(" "),
+      allPills.join(" "),
       item.type,
       item.mode
     ].join(" "));
 
     const matchesQuery = !q || hay.includes(q);
-    const matchesTag = !tag || allTags.some((t) => norm(t) === tag);
+    const matchesTag = !tag || allPills.some((t) => norm(t) === tag);
 
     return matchesType && matchesQuery && matchesTag;
   }
@@ -449,12 +335,58 @@
     });
   }
 
+  function renderTypeTabs(types) {
+    if (!typeTabsEl) return;
+
+    const ordered = ["all", "podcast", "book", "article"].filter(
+      (t) => t === "all" || types.includes(t)
+    );
+
+    typeTabsEl.innerHTML = `
+      <div class="tabs">
+        ${ordered.map((t) => `
+          <button class="tab ${selectedType === t ? "active" : ""}" type="button" data-type="${escapeAttr(t)}">
+            ${escapeHtml(t === "all" ? "All" : (t === "podcast" ? "Podcasts" : (t === "book" ? "Books" : (t === "article" ? "Articles" : t))))}
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    typeTabsEl.querySelectorAll("button[data-type]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectedType = btn.getAttribute("data-type") || "all";
+        renderAll();
+      });
+    });
+  }
+
+  function renderTagBar(tags) {
+    if (!tagBarEl) return;
+
+    tagBarEl.innerHTML = `
+      <button class="pill ${selectedTag ? "" : "active"}" type="button" data-tag="">All</button>
+      ${tags.map((t) => `
+        <button class="pill ${selectedTag === t ? "active" : ""}" type="button" data-tag="${escapeAttr(t)}">
+          ${escapeHtml(t)}
+        </button>
+      `).join("")}
+    `;
+
+    tagBarEl.querySelectorAll("button[data-tag]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectedTag = btn.getAttribute("data-tag") || "";
+        renderAll();
+      });
+    });
+  }
+
   function renderAll() {
     const types = uniq(allItems.map((i) => i.type).filter(Boolean));
     renderTypeTabs(types);
 
+    // collect visible pills across items and use them as filterable tags
     const tags = uniq(
-      allItems.flatMap((i) => getAllTags(i)).filter(Boolean)
+      allItems.flatMap((i) => getVisiblePills(i)).filter(Boolean)
     )
       .map((t) => String(t).trim())
       .filter(Boolean)
@@ -477,6 +409,7 @@
     if (featuredSectionEl && featuredCardsEl) {
       if (featuredItems.length > 0) {
         featuredSectionEl.classList.remove("hidden");
+        // render only the cards in the featured grid (no "Featured" badge text)
         featuredCardsEl.innerHTML = featuredItems.map((item) => cardHtml(item, { featured: true })).join("");
         wireInlineTagButtons(featuredCardsEl);
       } else {
@@ -499,10 +432,17 @@
     wireInlineTagButtons(cardsEl);
   }
 
+  // ---- init and wiring ----
+  let allItems = [];
+  let selectedType = "all";
+  let selectedTag = "";
+  let query = "";
+
   async function init() {
     const json = await loadJson(DATA_PATH);
     allItems = unwrapItems(json);
 
+    // Normalize items and preserve creator meta etc.
     allItems = allItems.map((it) => ({
       id: it.id,
       type: it.type || "other",
@@ -510,12 +450,14 @@
       subtitle: it.subtitle ?? it.description ?? "",
       description: it.description ?? "",
 
+      // creator fields
       author: it.author || "",
       host: it.host || "",
       creator: it.creator || "",
       creatorLabel: it.creatorLabel || "",
 
       foundations: Array.isArray(it.foundations) ? it.foundations : [],
+      focus: it.focus || "",
       level: it.level || "",
       thoughtLeaderBookId: it.thoughtLeaderBookId || "",
       thoughtLeader: it.thoughtLeader || "",
@@ -553,8 +495,6 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    renderSiteFooterIfPresent();
-
     init().catch((err) => {
       console.error(err);
 
