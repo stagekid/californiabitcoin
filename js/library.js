@@ -66,10 +66,9 @@
   function normalizeLevel(l) {
     const s = norm(l || "");
     if (!s) return "";
-    if (s === "beginner") return "basic";
-    if (s === "basic" || s === "intermediate" || s === "advanced") return s;
-    // fallback: try to detect beginner-like words
-    if (s.includes("begin") || s.includes("intro") || s.includes("starter")) return "basic";
+    if (s === "basic") return "beginner";
+    if (s === "beginner" || s === "intermediate" || s === "advanced") return s;
+    if (s.includes("begin") || s.includes("intro") || s.includes("starter")) return "beginner";
     return s;
   }
 
