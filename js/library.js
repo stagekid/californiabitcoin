@@ -5,6 +5,7 @@
 // - Disabled items render as non-clickable cards
 // - For podcast/watch placeholders, falls back to href/url instead of disabling
 // - Includes "Built in California" footer badge helper (safe + no duplicates)
+// - Supports creator metadata on cards: author / host / creator / creatorLabel / thoughtLeader
 
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
@@ -152,7 +153,7 @@
     const tags = [...foundations, ...level, ...legacy];
 
     const isThoughtLeader =
-      Boolean(item.thoughtLeaderBookId) || item.thoughtLeader === true;
+      Boolean(item.thoughtLeaderBookId) || Boolean(item.thoughtLeader);
 
     if (isThoughtLeader) tags.push(THOUGHT_LEADERS_TAG);
 
@@ -200,6 +201,48 @@
 
     const url = pickUrl(item.href, item.url);
     return { url, disabled: !url };
+  }
+
+  function getCreatorMeta(item) {
+    const explicitCreator = String(item.creator || "").trim();
+    const explicitLabel = String(item.creatorLabel || "").trim();
+
+    if (explicitCreator) {
+      return {
+        label: explicitLabel || "By",
+        name: explicitCreator
+      };
+    }
+
+    if (item.type === "book" && item.author) {
+      return {
+        label: "By",
+        name: String(item.author).trim()
+      };
+    }
+
+    if (item.type === "article" && item.author) {
+      return {
+        label: "By",
+        name: String(item.author).trim()
+      };
+    }
+
+    if (item.type === "podcast" && item.host) {
+      return {
+        label: "Hosted by",
+        name: String(item.host).trim()
+      };
+    }
+
+    if (item.thoughtLeader && typeof item.thoughtLeader === "string") {
+      return {
+        label: item.type === "podcast" ? "With" : "By",
+        name: String(item.thoughtLeader).trim()
+      };
+    }
+
+    return null;
   }
 
   function renderTypeTabs(types) {
@@ -289,9 +332,19 @@
 
     const tags = getAllTags(item);
     const { url, disabled } = computeLink(item);
+    const creatorMeta = getCreatorMeta(item);
 
     const featuredBadge = featured
       ? `<div class="featured-badge">Featured</div>`
+      : "";
+
+    const creatorHtml = creatorMeta
+      ? `
+        <div class="card-meta">
+          <span class="card-meta-label">${escapeHtml(creatorMeta.label)}</span>
+          <span class="card-meta-name">${escapeHtml(creatorMeta.name)}</span>
+        </div>
+      `
       : "";
 
     const tagsHtml = tags.length
@@ -329,6 +382,7 @@
           <div class="card-body">
             ${featuredBadge}
             <div class="card-title">${title}</div>
+            ${creatorHtml}
             ${desc ? `<div class="card-desc">${desc}</div>` : ""}
             ${tagsHtml}
           </div>
@@ -345,6 +399,7 @@
         <div class="card-body">
           ${featuredBadge}
           <div class="card-title">${title}</div>
+          ${creatorHtml}
           ${desc ? `<div class="card-desc">${desc}</div>` : ""}
           ${tagsHtml}
         </div>
@@ -360,10 +415,12 @@
       selectedType === "all" || item.type === selectedType;
 
     const allTags = getAllTags(item);
+    const creatorMeta = getCreatorMeta(item);
 
     const hay = norm([
       item.title,
       item.subtitle || item.description,
+      creatorMeta?.name || "",
       allTags.join(" "),
       item.type,
       item.mode
@@ -453,10 +510,15 @@
       subtitle: it.subtitle ?? it.description ?? "",
       description: it.description ?? "",
 
+      author: it.author || "",
+      host: it.host || "",
+      creator: it.creator || "",
+      creatorLabel: it.creatorLabel || "",
+
       foundations: Array.isArray(it.foundations) ? it.foundations : [],
       level: it.level || "",
       thoughtLeaderBookId: it.thoughtLeaderBookId || "",
-      thoughtLeader: it.thoughtLeader === true,
+      thoughtLeader: it.thoughtLeader || "",
 
       tags: Array.isArray(it.tags) ? it.tags : [],
       featured: it.featured === true,
