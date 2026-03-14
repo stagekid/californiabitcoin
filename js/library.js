@@ -3,7 +3,7 @@
 // - No thought leader logic
 // - No foundations logic
 // - No legacy tags logic
-// - Featured items stay at the top with no visible featured label
+// - Featured items stay at the top and show a Featured badge
 
 (function () {
   const DATA_PATH = document.body?.dataset?.source || "/content/content-vault.json";
@@ -213,6 +213,10 @@
       `
       : "";
 
+    const featuredBadge = featured
+      ? `<div class="featured-badge">Featured</div>`
+      : "";
+
     const tagsHtml = pills.length
       ? `
         <div class="pills" aria-label="tags">
@@ -246,6 +250,7 @@
         <div class="${cardClass} disabled" aria-disabled="true">
           <div class="cover">${imgTag}</div>
           <div class="card-body">
+            ${featuredBadge}
             <div class="card-title">${title}</div>
             ${creatorHtml}
             ${desc ? `<div class="card-desc">${desc}</div>` : ""}
@@ -262,6 +267,7 @@
       <a class="${cardClass}" href="${escapeAttr(url)}" ${linkAttrs}>
         <div class="cover">${imgTag}</div>
         <div class="card-body">
+          ${featuredBadge}
           <div class="card-title">${title}</div>
           ${creatorHtml}
           ${desc ? `<div class="card-desc">${desc}</div>` : ""}
