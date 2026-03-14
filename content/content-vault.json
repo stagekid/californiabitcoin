@@ -10,8 +10,7 @@
       "subtitle": "Interviews and stories exploring Bitcoin and the people building it.",
       "url": "https://www.whatbitcoindid.com/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["basics", "economics", "macro"],
-      "tags": ["podcast"],
+      "focus": "adoption",
       "level": "intermediate"
     },
     {
@@ -22,8 +21,7 @@
       "subtitle": "Conversations focused on Bitcoin treasury companies and corporate adoption.",
       "url": "https://www.youtube.com/@OneChairPod",
       "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["macro", "bitcoin treasuries"],
-      "tags": ["podcast"],
+      "focus": "treasuries",
       "level": "intermediate"
     },
     {
@@ -34,8 +32,7 @@
       "subtitle": "Bitcoin-focused research, education, and macroeconomic analysis.",
       "url": "https://thebitcoinlayer.com/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["basics", "economics", "money"],
-      "tags": ["podcast"],
+      "focus": "macro",
       "level": "intermediate"
     },
     {
@@ -46,8 +43,7 @@
       "subtitle": "Bitcoin, freedom tech, and macro conversations with builders and thinkers.",
       "url": "https://www.tftc.io/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["macro", "economics"],
-      "tags": ["podcast"],
+      "focus": "macro",
       "level": "intermediate"
     },
     {
@@ -58,8 +54,7 @@
       "subtitle": "Bitcoin-focused interviews exploring economics, policy, and global adoption.",
       "url": "https://talkingbitcoin.com/podcast",
       "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["basics", "economics", "macro"],
-      "tags": ["podcast"],
+      "focus": "adoption",
       "level": "beginner"
     },
     {
@@ -70,8 +65,7 @@
       "subtitle": "Exploring Bitcoin treasury strategies, digital credit, and institutional adoption.",
       "url": "https://www.youtube.com/playlist?list=PLn7gNaAnMoUgZ2tTsjJFEQ3I1NUSHwTHP",
       "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["economics", "macro"],
-      "tags": ["podcast"],
+      "focus": "treasuries",
       "level": "intermediate"
     },
     {
@@ -82,8 +76,7 @@
       "subtitle": "Beginner-friendly Bitcoin tutorials and practical guides.",
       "url": "https://www.btcsessions.ca/",
       "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["basics"],
-      "tags": ["podcast"],
+      "focus": "education",
       "level": "beginner"
     },
     {
@@ -94,10 +87,8 @@
       "subtitle": "Educational talks and explanations from one of Bitcoin’s most respected educators.",
       "url": "https://www.youtube.com/user/aantonop",
       "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["basics", "money", "economics"],
-      "tags": ["podcast"],
-      "level": "intermediate",
-      "thoughtLeader": "Andreas M. Antonopoulos"
+      "focus": "education",
+      "level": "intermediate"
     },
     {
       "id": "the-bitcoin-standard",
@@ -107,12 +98,9 @@
       "author": "Saifedean Ammous",
       "url": "https://saifedean.com",
       "thumb": "/assets/covers/placeholder/book.webp",
-      "foundations": ["history", "money", "economics"],
-      "tags": ["book"],
+      "focus": "money",
       "level": "intermediate",
-      "featured": true,
-      "thoughtLeader": "Saifedean Ammous",
-      "thoughtLeaderBookId": "the-bitcoin-standard"
+      "featured": true
     },
     {
       "id": "the-price-of-tomorrow",
@@ -122,11 +110,8 @@
       "author": "Jeff Booth",
       "url": "https://jeffreybooth.com/books",
       "thumb": "/assets/covers/placeholder/book.webp",
-      "foundations": ["macro", "economics", "money"],
-      "tags": ["book"],
-      "level": "intermediate",
-      "thoughtLeader": "Jeff Booth",
-      "thoughtLeaderBookId": "the-price-of-tomorrow"
+      "focus": "macro",
+      "level": "intermediate"
     },
     {
       "id": "digital-gold",
@@ -136,8 +121,7 @@
       "author": "Nathaniel Popper",
       "url": "https://www.harpercollins.com/products/digital-gold-nathaniel-popper?variant=32123091451938",
       "thumb": "/assets/covers/placeholder/book.webp",
-      "foundations": ["history", "basics"],
-      "tags": ["book"],
+      "focus": "history",
       "level": "beginner"
     },
     {
@@ -147,91 +131,4 @@
       "subtitle": "The inside story of the scaling conflict and what it revealed about Bitcoin governance.",
       "author": "Jonathan Bier",
       "url": "/books/the-blocksize-war/",
-      "thumb": "/assets/covers/placeholder/book.webp",
-      "foundations": ["history", "economics"],
-      "tags": ["book"],
-      "level": "advanced"
-    },
-    {
-      "id": "the-creature-from-jekyll-island",
-      "type": "book",
-      "title": "The Creature from Jekyll Island",
-      "subtitle": "A critical history of central banking and the origins of the Federal Reserve.",
-      "author": "G. Edward Griffin",
-      "year": 1994,
-      "url": "https://www.amazon.com/Creature-Jekyll-Island-Federal-Reserve/dp/091298645X",
-      "thumb": "/assets/covers/placeholder/book.webp",
-      "foundations": ["history", "macro", "money"],
-      "tags": ["book"],
-      "level": "intermediate"
-    },
-    {
-      "id": "broken-money",
-      "type": "book",
-      "title": "Broken Money",
-      "subtitle": "A framework for understanding money as technology and why it fails—and how it can improve.",
-      "author": "Lyn Alden",
-      "year": 2024,
-      "url": "https://www.lynalden.com/broken-money/",
-      "thumb": "/assets/covers/placeholder/book.webp",
-      "foundations": ["money", "macro", "economics"],
-      "tags": ["book"],
-      "level": "advanced",
-      "thoughtLeader": "Lyn Alden",
-      "thoughtLeaderBookId": "broken-money"
-    },
-    {
-      "id": "bitcoin-is-for-everyone",
-      "type": "book",
-      "title": "Bitcoin Is for Everyone",
-      "subtitle": "An accessible introduction designed for new learners.",
-      "author": "Natalie Brunell",
-      "url": "https://talkingbitcoin.com/book",
-      "thumb": "/assets/covers/placeholder/book.webp",
-      "foundations": ["basics", "money"],
-      "tags": ["book"],
-      "level": "beginner",
-      "featured": true,
-      "thoughtLeader": "Natalie Brunell",
-      "thoughtLeaderBookId": "bitcoin-is-for-everyone"
-    },
-    {
-      "id": "satoshi-nakamoto-institute",
-      "type": "article",
-      "title": "Satoshi Nakamoto Institute",
-      "subtitle": "A curated archive of Bitcoin’s early history, cryptographic roots, and Satoshi’s writings.",
-      "source": "CBEL Explained",
-      "url": "https://nakamotoinstitute.org/",
-      "thumb": "/assets/covers/placeholder/article.webp",
-      "foundations": ["basics", "economics"],
-      "tags": ["article"],
-      "level": "beginner"
-    },
-    {
-      "id": "saylor-series",
-      "type": "article",
-      "title": "What Is Money? — The Saylor Series",
-      "subtitle": "A deep exploration of the history of money, energy, and Bitcoin.",
-      "source": "CBEL Explained",
-      "url": "https://www.youtube.com/watch?v=4rvTppy1qLI&list=PL2jAZ0x9H0bQFY6wIbQfnrnIlqMcSHd6X",
-      "thumb": "/assets/covers/placeholder/article.webp",
-      "foundations": ["basics", "economics"],
-      "thoughtLeader": "Robert Breedlove",
-      "tags": ["article"],
-      "level": "beginner"
-    },
-    {
-      "id": "acquired-bitcoin",
-      "type": "podcast",
-      "title": "Acquired — The Complete History of Bitcoin",
-      "subtitle": "A deep dive into the origins, technology, and global impact of Bitcoin.",
-      "source": "CBEL Explained",
-      "url": "https://www.acquired.fm/episodes/bitcoin",
-      "thumb": "/assets/covers/placeholder/podcast.webp",
-      "foundations": ["basics", "economics"],
-      "tags": ["podcast"],
-      "level": "beginner",
-      "featured": true
-    }
-  ]
-}
+      "thumb
