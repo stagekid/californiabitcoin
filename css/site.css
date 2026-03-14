@@ -15,8 +15,8 @@
   --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 
   /* Vault control sizing */
-  --control-h: 48px;
-  --control-pad-x: 14px;
+  --control-h: 56px;
+  --control-pad-x: 18px;
 }
 
 /* Base */
@@ -30,6 +30,8 @@ body{
     radial-gradient(700px 500px at 90% 0%, rgba(247,147,26,.06), transparent 55%),
     var(--bg);
   color:var(--text);
+  font-size: 17px;
+  line-height: 1.6;
 }
 a{color:inherit; text-decoration:none}
 a:hover{opacity:.92}
@@ -55,45 +57,45 @@ a:hover{opacity:.92}
   align-items:flex-end;
   justify-content:space-between;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .section-title h2{
   margin:0;
-  font-size: 20px;
+  font-size: 26px;
   letter-spacing: .2px;
+  line-height: 1.15;
 }
 .section-title .hint{
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
 }
 
+/* Vault grid */
 .grid{
   display:grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 
-/* ===== Vault Controls (Type / Search / Clear) =====
-   Use a 3-column grid for perfect alignment. */
+/* ===== Vault Controls ===== */
 .controls{
   display:grid;
-  grid-template-columns: max-content 1fr max-content; /* Type | Search | Clear */
-  align-items:end; /* label above Type aligns nicely */
-  gap: 12px;
-  margin-bottom: 14px;
+  grid-template-columns: max-content 1fr max-content;
+  align-items:end;
+  gap: 14px;
+  margin-bottom: 18px;
 }
 
-/* Left stack (Type label + tabs) */
 .filter-stack{
   display:flex;
   flex-direction:column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .filter-group{
   display:flex;
   flex-direction:column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .filter-label{
@@ -116,7 +118,7 @@ a:hover{opacity:.92}
   vertical-align: -1px;
 }
 
-/* Segmented tabs (true equal-height segments) */
+/* Segmented tabs */
 .tabs{
   height: var(--control-h);
   display:inline-flex;
@@ -137,9 +139,9 @@ a:hover{opacity:.92}
   justify-content:center;
   border: 0;
   background: transparent;
-  color: rgba(255,255,255,.7);
-  font-weight: 650;
-  font-size: 13px;
+  color: rgba(255,255,255,.76);
+  font-weight: 700;
+  font-size: 15px;
   letter-spacing: .2px;
   cursor: pointer;
   transition: all .12s ease;
@@ -158,22 +160,25 @@ a:hover{opacity:.92}
   box-shadow: 0 0 0 2px rgba(247,147,26,.08) inset;
 }
 
-/* Optional: make Type tabs equal width (All/Podcasts/Books/Articles) */
 #typeTabs .tabs{ display:flex; }
-#typeTabs .tab{ flex: 1 1 0; min-width: 92px; }
+#typeTabs .tab{ flex: 1 1 0; min-width: 108px; }
 
 /* Search pill */
 .search{
   height: var(--control-h);
   display:flex;
   align-items:center;
-  gap: 10px;
+  gap: 12px;
   padding: 0 var(--control-pad-x);
   border-radius: var(--pill);
   border: 2px solid rgba(247,147,26,.22);
   background: rgba(14,14,14,.65);
 }
-.search span{ opacity:.75; font-size: 13px; line-height: 1; }
+.search span{
+  opacity:.75;
+  font-size: 14px;
+  line-height: 1;
+}
 .search input{
   width: 100%;
   height: calc(var(--control-h) - 16px);
@@ -181,7 +186,7 @@ a:hover{opacity:.92}
   outline: none;
   background: transparent;
   color: var(--text);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
 }
 .search input::placeholder{ color: rgba(255,255,255,.45); }
@@ -189,12 +194,13 @@ a:hover{opacity:.92}
 /* Clear button */
 .clear-btn{
   height: var(--control-h);
-  padding: 0 calc(var(--control-pad-x) + 2px);
+  padding: 0 calc(var(--control-pad-x) + 4px);
   border-radius: var(--pill);
   border: 2px solid rgba(247,147,26,.22);
   background: rgba(14,14,14,.65);
   color: var(--text);
-  font-weight: 650;
+  font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
   display:inline-flex;
   align-items:center;
@@ -203,33 +209,48 @@ a:hover{opacity:.92}
 }
 .clear-btn:hover{ border-color: rgba(247,147,26,.4); }
 
+/* Search row helper */
+.search-row{
+  display:flex;
+  gap: 12px;
+  align-items:center;
+}
+.search-row .search{
+  flex: 1 1 auto;
+}
+.search-row .clear-btn{
+  flex: 0 0 auto;
+}
+
 /* ===== Tag pills ===== */
 .pills{
   display:flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 10px;
+  margin-top: 14px;
 }
 
 .pill{
   display:inline-flex;
   align-items:center;
   gap: 6px;
-  padding: 6px 10px;
+  padding: 9px 14px;
   border-radius: var(--pill);
   border: 2px solid rgba(247,147,26,.38);
   background: rgba(247,147,26,.10);
   color: var(--orange);
-  font-size: 12px;
-  font-weight: 650;
+  font-size: 14px;
+  font-weight: 700;
   letter-spacing: .15px;
   cursor: pointer;
   user-select:none;
+  line-height: 1.1;
 }
 .pill:hover{
   background: rgba(247,147,26,.14);
   border-color: rgba(247,147,26,.55);
 }
+.pill.active,
 .pill.selected{
   background: rgba(247,147,26,.22);
   border-color: rgba(247,147,26,.85);
@@ -244,19 +265,21 @@ a:hover{opacity:.92}
 /* ===== Cards ===== */
 .card{
   display:flex;
-  gap: 14px;
+  gap: 18px;
   align-items:flex-start;
   grid-column: span 4;
   background: rgba(14,14,14,.7);
   border: 2px solid rgba(247,147,26,.18);
-  border-radius: var(--radius);
-  padding: 16px;
-  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+  border-radius: calc(var(--radius) + 2px);
+  padding: 20px;
+  min-height: 220px;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease, box-shadow .12s ease;
 }
 .card:hover{
   transform: translateY(-2px);
   border-color: rgba(247,147,26,.35);
   background: rgba(18,18,18,.78);
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
 }
 .card.disabled{
   opacity: .72;
@@ -266,17 +289,18 @@ a:hover{opacity:.92}
   transform: none;
   border-color: rgba(247,147,26,.18);
   background: rgba(14,14,14,.7);
+  box-shadow: none;
 }
 
 .cover{
-  flex: 0 0 84px;
-  width: 84px;
+  flex: 0 0 104px;
+  width: 104px;
 }
 .cover img{
-  width: 84px;
-  height: 126px;
+  width: 104px;
+  height: 156px;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 16px;
   border: 2px solid rgba(247,147,26,.18);
   background: rgba(255,255,255,.04);
 }
@@ -286,15 +310,17 @@ a:hover{opacity:.92}
   min-width: 0;
 }
 .card-title{
-  font-weight: 680;
-  margin: 0 0 8px;
-  letter-spacing: .15px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.25;
+  margin: 0 0 10px;
+  letter-spacing: .1px;
 }
 .card-desc{
-  margin: 0 0 12px;
+  margin: 0 0 14px;
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.45;
+  font-size: 16px;
+  line-height: 1.58;
 }
 
 /* Footer */
@@ -304,46 +330,6 @@ a:hover{opacity:.92}
   border-top: 2px solid rgba(247,147,26,.18);
 }
 
-/* Responsive */
-@media (max-width: 980px){
-  .card{ grid-column: span 6; }
-  #typeTabs .tab{ min-width: 0; }
-}
-@media (max-width: 640px){
-  .card{ grid-column: span 12; }
-
-  /* Stack controls cleanly on mobile */
-  .controls{
-    grid-template-columns: 1fr;
-    align-items: stretch;
-  }
-  .search, .clear-btn{
-    width: 100%;
-  }
-}
-.search-row{
-  display:flex;
-  gap: 12px;
-  align-items:center;
-}
-
-.search-row .search{
-  flex: 1 1 auto;
-}
-
-.search-row .clear-btn{
-  flex: 0 0 auto;
-}
-
-@media (max-width: 640px){
-  .search-row{
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .search-row .clear-btn{
-    width: 100%;
-  }
-}
 /* ==============================
    Genesis Story Page
    ============================== */
@@ -521,7 +507,6 @@ a:hover{opacity:.92}
   border: 2px solid rgba(247,147,26,.14);
 }
 
-/* optional: hover parity with cards */
 .g-bullet:hover{
   border-color: rgba(247,147,26,.24);
   background: rgba(18,18,18,.78);
@@ -664,7 +649,88 @@ a:hover{opacity:.92}
   opacity:.84;
 }
 
-/* Responsive upgrades */
+/* Typography tuning */
+.article-section p{
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+/* Lessons progression numbering */
+.lesson-step{
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin: 0 0 6px;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .card{ grid-column: span 6; }
+  #typeTabs .tab{ min-width: 0; }
+}
+
+@media (max-width: 640px){
+  body{ font-size: 16px; }
+  .article-section p{ font-size: 16px; }
+
+  .card{
+    grid-column: span 12;
+    padding: 18px;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  .cover{
+    flex: 0 0 92px;
+    width: 92px;
+  }
+  .cover img{
+    width: 92px;
+    height: 138px;
+  }
+
+  .card-title{
+    font-size: 18px;
+  }
+
+  .card-desc{
+    font-size: 15px;
+  }
+
+  .controls{
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .search-row{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search,
+  .clear-btn{
+    width: 100%;
+  }
+
+  .pill{
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .tab{
+    font-size: 14px;
+  }
+
+  .section-title h2{
+    font-size: 23px;
+  }
+
+  .section-title .hint{
+    font-size: 14px;
+  }
+}
+
 @media (min-width: 760px){
   .g-bullets-grid{ grid-template-columns: 1fr 1fr; }
   .g-next-actions{ grid-template-columns: 1fr 1fr 1fr; }
@@ -683,53 +749,4 @@ a:hover{opacity:.92}
     padding-left:10px;
     padding-right:10px;
   }
-}
-/* ==============================
-   Typography tuning (readability)
-   ============================== */
-
-/* Global base size */
-body{
-  font-size: 17px; /* calm + readable */
-  line-height: 1.6;
-}
-
-/* Keep UI labels tight */
-.filter-label{ font-size: 12px; }
-.section-title .hint{ font-size: 13px; }
-
-/* Card descriptions: slightly larger + looser */
-.card-desc{
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-/* Article paragraphs: tuned for reading */
-.article-section p{
-  font-size: 18px;
-  line-height: 1.75;
-}
-
-/* Mobile: slightly smaller paragraphs */
-@media (max-width: 640px){
-  body{ font-size: 16px; }
-  .article-section p{ font-size: 16px; }
-}
-/* Guardrails: keep navigation + controls feeling tight */
-.tab{ font-size: 13px; }
-.search input{ font-size: 14px; }
-.clear-btn{ font-size: 14px; }
-
-/* Card titles should stay crisp */
-.card-title{ font-size: 16px; }
-/* ==============================
-   Lessons progression numbering
-   ============================== */
-
-.lesson-step{
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.55;
-  margin: 0 0 6px;
 }
