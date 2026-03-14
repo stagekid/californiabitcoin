@@ -1,4 +1,5 @@
 // /js/library.js — Content Vault only
+// - Featured row support via "featured": true
 // - No big CTA badges; whole card is clickable
 // - Mode toggle removed entirely
 // - Disabled items render as non-clickable cards
@@ -15,13 +16,14 @@
   const BOOK_PLACEHOLDER = "/assets/covers/placeholder/book.webp";
 
   const cardsEl = document.getElementById("cards");
+  const featuredSectionEl = document.getElementById("featuredSection");
+  const featuredCardsEl = document.getElementById("featuredCards");
   const searchEl = document.getElementById("searchInput");
   const clearBtn = document.getElementById("clearBtn");
   const tagBarEl = document.getElementById("tagBar");
   const resultCountEl = document.getElementById("resultCount");
   const typeTabsEl = document.getElementById("typeTabs");
 
-  // ---------- Shared Footer Helper (Built in California) ----------
   function injectBuiltInCaliforniaBadge(intoEl) {
     if (!intoEl) return;
     if (intoEl.querySelector('[data-built-ca-badge="true"]')) return;
@@ -75,7 +77,6 @@
       injectBuiltInCaliforniaBadge(leftCol);
     }
   }
-  // ---------------------------------------------------------------
 
   renderSiteFooterIfPresent();
 
@@ -83,14 +84,12 @@
 
   let allItems = [];
 
-  // Filters
-  let selectedType = "all"; // all | podcast | book | article
+  let selectedType = "all";
   let selectedTag = "";
   let query = "";
 
   const THOUGHT_LEADERS_TAG = "thought leaders";
 
-  // Tags we never want to show as visible content tags
   const BANNED_TAGS = new Set([
     "podcast", "podcasts",
     "book", "books",
@@ -147,11 +146,10 @@
 
   function getAllTags(item) {
     const foundations = Array.isArray(item.foundations) ? item.foundations : [];
-    const using = Array.isArray(item.using) ? item.using : [];
     const level = item.level ? [item.level] : [];
     const legacy = Array.isArray(item.tags) ? item.tags : [];
 
-    const tags = [...foundations, ...using, ...level, ...legacy];
+    const tags = [...foundations, ...level, ...legacy];
 
     const isThoughtLeader =
       Boolean(item.thoughtLeaderBookId) || item.thoughtLeader === true;
@@ -279,7 +277,8 @@
     return `${u} 1x, ${u.replace(".webp", "@2x.webp")} 2x`;
   }
 
-  function cardHtml(item) {
+  function cardHtml(item, options = {}) {
+    const featured = options.featured === true;
     const titleText = item.title || "Untitled";
     const title = escapeHtml(titleText);
     const desc = escapeHtml(item.subtitle || item.description || "");
@@ -290,6 +289,10 @@
 
     const tags = getAllTags(item);
     const { url, disabled } = computeLink(item);
+
+    const featuredBadge = featured
+      ? `<div class="featured-badge">Featured</div>`
+      : "";
 
     const tagsHtml = tags.length
       ? `
@@ -317,11 +320,14 @@
       />
     `;
 
+    const cardClass = featured ? "card featured-card" : "card";
+
     if (disabled) {
       return `
-        <div class="card disabled" aria-disabled="true">
+        <div class="${cardClass} disabled" aria-disabled="true">
           <div class="cover">${imgTag}</div>
           <div class="card-body">
+            ${featuredBadge}
             <div class="card-title">${title}</div>
             ${desc ? `<div class="card-desc">${desc}</div>` : ""}
             ${tagsHtml}
@@ -334,9 +340,10 @@
     const linkAttrs = isExternal ? `target="_blank" rel="noopener noreferrer"` : "";
 
     return `
-      <a class="card" href="${escapeAttr(url)}" ${linkAttrs}>
+      <a class="${cardClass}" href="${escapeAttr(url)}" ${linkAttrs}>
         <div class="cover">${imgTag}</div>
         <div class="card-body">
+          ${featuredBadge}
           <div class="card-title">${title}</div>
           ${desc ? `<div class="card-desc">${desc}</div>` : ""}
           ${tagsHtml}
@@ -368,6 +375,23 @@
     return matchesType && matchesQuery && matchesTag;
   }
 
+  function wireInlineTagButtons(scopeEl) {
+    if (!scopeEl) return;
+
+    scopeEl.querySelectorAll("button[data-inline-tag]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        selectedTag = btn.getAttribute("data-inline-tag") || "";
+        document.getElementById("controls")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+        renderAll();
+      });
+    });
+  }
+
   function renderAll() {
     const types = uniq(allItems.map((i) => i.type).filter(Boolean));
     renderTypeTabs(types);
@@ -383,12 +407,29 @@
 
     const filtered = allItems.filter(matchesFilters);
 
-    filtered.sort((a, b) =>
-      String(a.title || "").localeCompare(String(b.title || ""))
-    );
+    const featuredItems = filtered
+      .filter((item) => item.featured === true)
+      .slice(0, 3);
+
+    const regularItems = filtered
+      .filter((item) => item.featured !== true)
+      .sort((a, b) =>
+        String(a.title || "").localeCompare(String(b.title || ""))
+      );
+
+    if (featuredSectionEl && featuredCardsEl) {
+      if (featuredItems.length > 0) {
+        featuredSectionEl.classList.remove("hidden");
+        featuredCardsEl.innerHTML = featuredItems.map((item) => cardHtml(item, { featured: true })).join("");
+        wireInlineTagButtons(featuredCardsEl);
+      } else {
+        featuredSectionEl.classList.add("hidden");
+        featuredCardsEl.innerHTML = "";
+      }
+    }
 
     cardsEl.innerHTML =
-      filtered.map(cardHtml).join("") ||
+      regularItems.map((item) => cardHtml(item)).join("") ||
       `
         <div class="block pad" style="grid-column: 1 / -1;">
           <div style="color: rgba(255,255,255,.75); font-weight:650; margin-bottom:8px;">No results</div>
@@ -398,18 +439,7 @@
 
     if (resultCountEl) resultCountEl.textContent = String(filtered.length);
 
-    cardsEl.querySelectorAll("button[data-inline-tag]").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        selectedTag = btn.getAttribute("data-inline-tag") || "";
-        document.getElementById("controls")?.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-        renderAll();
-      });
-    });
+    wireInlineTagButtons(cardsEl);
   }
 
   async function init() {
@@ -424,12 +454,12 @@
       description: it.description ?? "",
 
       foundations: Array.isArray(it.foundations) ? it.foundations : [],
-      using: Array.isArray(it.using) ? it.using : [],
       level: it.level || "",
       thoughtLeaderBookId: it.thoughtLeaderBookId || "",
       thoughtLeader: it.thoughtLeader === true,
 
       tags: Array.isArray(it.tags) ? it.tags : [],
+      featured: it.featured === true,
 
       thumb: it.thumb || it.image || "",
       image: it.image || "",
