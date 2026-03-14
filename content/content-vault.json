@@ -105,8 +105,6 @@
       "title": "The Bitcoin Standard by Saifedean Ammous",
       "subtitle": "A history of money and the economic case for Bitcoin.",
       "author": "Saifedean Ammous",
-      "year": 2018,
-      "date": "2018-01-01",
       "url": "https://saifedean.com",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["history", "money", "economics"],
@@ -121,8 +119,6 @@
       "title": "The Price of Tomorrow by Jeff Booth",
       "subtitle": "Deflation, technology, and why monetary systems shape society.",
       "author": "Jeff Booth",
-      "year": 2020,
-      "date": "2020-01-01",
       "url": "https://jeffreybooth.com/books",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["macro", "economics", "money"],
@@ -137,8 +133,6 @@
       "title": "Digital Gold by Nathaniel Popper",
       "subtitle": "The story of Bitcoin’s early days and the people who built it.",
       "author": "Nathaniel Popper",
-      "year": 2015,
-      "date": "2015-01-01",
       "url": "https://www.harpercollins.com/products/digital-gold-nathaniel-popper?variant=32123091451938",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["history", "basics"],
@@ -151,8 +145,6 @@
       "title": "The Blocksize War by Jonathan Bier",
       "subtitle": "The inside story of the scaling conflict and what it revealed about Bitcoin governance.",
       "author": "Jonathan Bier",
-      "year": 2021,
-      "date": "2021-01-01",
       "url": "/books/the-blocksize-war/",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["history", "economics"],
@@ -166,7 +158,6 @@
       "subtitle": "A critical history of central banking and the origins of the Federal Reserve.",
       "author": "G. Edward Griffin",
       "year": 1994,
-      "date": "1994-01-01",
       "url": "https://www.amazon.com/Creature-Jekyll-Island-Federal-Reserve/dp/091298645X",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["history", "macro", "money"],
@@ -180,7 +171,6 @@
       "subtitle": "A framework for understanding money as technology and why it fails—and how it can improve.",
       "author": "Lyn Alden",
       "year": 2024,
-      "date": "2024-01-01",
       "url": "https://www.lynalden.com/broken-money/",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["money", "macro", "economics"],
@@ -195,8 +185,6 @@
       "title": "Bitcoin Is for Everyone by Natalie Brunell",
       "subtitle": "An accessible introduction designed for new learners.",
       "author": "Natalie Brunell",
-      "year": 2024,
-      "date": "2024-01-01",
       "url": "https://talkingbitcoin.com/book",
       "thumb": "/assets/covers/placeholder/book.webp",
       "foundations": ["basics", "money"],
@@ -213,11 +201,37 @@
       "subtitle": "Independent repository archiving Bitcoin's early history, cryptographic origins, and Satoshi’s writings.",
       "source": "CBEL Explained",
       "url": "https://nakamotoinstitute.org/",
-      "date": "2025-08-20",
       "thumb": "/assets/covers/placeholder/article.webp",
       "foundations": ["basics", "economics"],
       "using": [],
       "level": "beginner"
     }
+
+    {
+      "id": "saylor-series",
+      "type": "article",
+      "title": "What is Money? The Saylor Series by Robert Breedlove",
+      "subtitle": "History of money, energy, and Bitcoin's superior evolution.",
+      "source": "CBEL Explained",
+      "url": "https://www.youtube.com/watch?v=4rvTppy1qLI&list=PL2jAZ0x9H0bQFY6wIbQfnrnIlqMcSHd6X",
+      "thumb": "/assets/covers/placeholder/article.webp",
+      "foundations": ["basics", "economics"],
+      "using": [],
+      "level": "beginner"
+    }
+
+    {
+      "id": "aquired-bitcoin",
+      "type": "podcast",
+      "title": "Aquired: The Complete History and Analysis of Bitcoin",
+      "subtitle": "The definitive history of Bitcoin, a technical explanation of how it works, and how it changed the world.",
+      "source": "CBEL Explained",
+      "url": "https://www.acquired.fm/episodes/bitcoin",
+      "thumb": "/assets/covers/placeholder/article.webp",
+      "foundations": ["basics", "economics"],
+      "using": [],
+      "level": "beginner"
+    }
+    
   ]
 }
